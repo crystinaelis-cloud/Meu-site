@@ -1,0 +1,1630 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Acompanhamento Laís · Ferreiros</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+
+
+:root{
+  --bg:#f3f5f8; --surface:#ffffff; --surface-2:#e9edf3; --ink:#152033; --ink-2:#4a5568; --line:#d3d9e3;
+  --navy:#173a6b; --navy-ink:#ffffff; --star:#e8b10f; --star-ink:#3a2a00;
+  --ok:#1d7a46; --ok-bg:#e3f3e9; --bad:#b3261e; --bad-bg:#fbe7e5; --warn-bg:#fff4d6; --tip-bg:#e6eef9;
+  --f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --f-body:"Source Sans 3","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --f-mono:"JetBrains Mono",Consolas,"Courier New",monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1522; --surface:#162133; --surface-2:#1e2c42; --ink:#e6ebf3; --ink-2:#a6b2c4; --line:#2c3c55;
+  --navy:#6f9be0; --navy-ink:#0b1424; --star:#f2c233; --star-ink:#2a1f00;
+  --ok:#5cc98a; --ok-bg:#163527; --bad:#f08a80; --bad-bg:#3a1d1b; --warn-bg:#3a3014; --tip-bg:#182a45; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1522; --surface:#162133; --surface-2:#1e2c42; --ink:#e6ebf3; --ink-2:#a6b2c4; --line:#2c3c55;
+  --navy:#6f9be0; --navy-ink:#0b1424; --star:#f2c233; --star-ink:#2a1f00;
+  --ok:#5cc98a; --ok-bg:#163527; --bad:#f08a80; --bad-bg:#3a1d1b; --warn-bg:#3a3014; --tip-bg:#182a45; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;margin:0}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+a{color:var(--navy)}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--star);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:16px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--ink-2)}
+
+/* header */
+.top{background:var(--navy);color:var(--navy-ink)}
+:root .top{background:#173a6b;color:#fff}
+.top .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between;padding-block:20px 16px}
+.brand{display:flex;gap:14px;align-items:center}
+.brandstar{width:34px;height:34px;flex:none}
+.brand h1{font-size:2rem;font-weight:700;letter-spacing:.01em}
+.brand p{margin:0;font-size:.92rem;opacity:.85}
+.count{text-align:right}
+.count b{font-family:var(--f-display);font-size:2.2rem;line-height:1;color:#f2c233}
+.count span{display:block;font-size:.85rem;opacity:.85}
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.tabs button{background:none;border:0;border-bottom:3px solid transparent;padding:12px 14px;color:var(--ink-2);font-family:var(--f-display);font-size:1.15rem;font-weight:600;letter-spacing:.02em;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--star)}
+main{padding-block:24px 64px}
+section[role="tabpanel"]{display:grid;gap:20px;grid-template-columns:minmax(0,1fr)}
+.subjsel select{flex:1 1 100%;min-width:0;max-width:100%}
+select{max-width:100%}
+
+/* generic */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.eyebrow{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.12em;font-size:.82rem;color:var(--ink-2);font-weight:600}
+h2{font-size:1.75rem}
+.grid{display:grid;gap:16px}
+.g4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.stat{display:grid;gap:2px}
+.stat b{font-family:var(--f-display);font-size:2rem;line-height:1.05}
+.stat span{color:var(--ink-2);font-size:.92rem}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--navy);background:var(--navy);color:var(--navy-ink);border-radius:8px;padding:9px 16px;font-weight:600}
+:root .btn{color:var(--navy-ink)}
+.btn.ghost{background:transparent;color:var(--navy)}
+.btn.star{background:var(--star);border-color:var(--star);color:var(--star-ink)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.pill{display:inline-block;border-radius:999px;padding:2px 10px;font-size:.8rem;font-weight:600;background:var(--surface-2);color:var(--ink-2)}
+.pill.ok{background:var(--ok-bg);color:var(--ok)} .pill.bad{background:var(--bad-bg);color:var(--bad)}
+.tblwrap{overflow-x:auto}
+table.tbl{border-collapse:collapse;width:100%;font-size:.95rem;margin:10px 0}
+.tbl th,.tbl td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+.tbl th{background:var(--surface-2);font-weight:600}
+.tbl.mono td,.tbl.mono th{font-family:var(--f-mono);font-size:.86rem}
+.callout{border-radius:8px;padding:12px 14px;margin:12px 0;font-size:.97rem}
+.callout.trap{background:var(--warn-bg)}
+.callout.tip{background:var(--tip-bg)}
+.bar{height:10px;border-radius:5px;background:var(--surface-2);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--navy)}
+.bar i.low{background:var(--bad)}
+
+/* teoria */
+.theory{display:grid;grid-template-columns:260px minmax(0,1fr);gap:24px;align-items:start}
+.toc{position:sticky;top:64px;max-height:calc(100vh - 80px);overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px}
+.toc .subj{display:block;width:100%;text-align:left;background:none;border:0;border-radius:6px;padding:7px 10px;font-family:var(--f-display);font-size:1.08rem;font-weight:600;color:var(--ink)}
+.toc .subj[aria-current="true"]{background:var(--navy);color:var(--navy-ink)}
+.toc ol{margin:4px 0 10px;padding-left:22px;font-size:.88rem}
+.toc ol a{color:var(--ink-2);text-decoration:none}
+.toc ol a:hover{color:var(--ink);text-decoration:underline}
+.toc li.done a{color:var(--ok)}
+.subjsel{display:none}
+.topic{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;scroll-margin-top:70px;min-width:0}
+.topic+.topic{margin-top:16px}
+.topic h3{font-size:1.55rem;margin-bottom:10px}
+.topic h4{font-size:1.18rem;margin:18px 0 6px;color:var(--navy)}
+.topic p,.topic li{max-width:75ch}
+.tfoot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px;padding-top:12px;border-top:1px dashed var(--line)}
+.tfoot label{display:flex;gap:6px;align-items:center;font-size:.92rem}
+.essay{border-left:3px solid var(--star);padding:4px 0 4px 16px;font-style:italic}
+.essay p{text-indent:2em;margin:6px 0}
+
+/* simulado */
+.simcards .card{display:grid;gap:10px;align-content:start}
+.simcards h3{font-size:1.5rem}
+.exam{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:20px;align-items:start}
+.qhead{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.qnum{font-family:var(--f-display);font-size:1.6rem;font-weight:700}
+.qtext{font-size:1.06rem;margin:8px 0 14px}
+.ctx{background:var(--surface-2);border-radius:8px;padding:12px 16px;margin-bottom:12px}
+.ctx summary{cursor:pointer;font-weight:600}
+.ctx p{text-indent:1.5em;margin:8px 0;font-size:.98rem}
+.opts{display:grid;gap:8px;list-style:none;padding:0;margin:0}
+.opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--ink)}
+.opt .l{flex:none;width:28px;height:28px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-family:var(--f-mono);font-weight:600;font-size:.9rem}
+.opt[aria-pressed="true"]{border-color:var(--navy)}
+.opt[aria-pressed="true"] .l{background:var(--navy);border-color:var(--navy);color:var(--navy-ink)}
+.opt.right{border-color:var(--ok);background:var(--ok-bg)}
+.opt.right .l{background:var(--ok);border-color:var(--ok);color:#fff}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt.wrong .l{background:var(--bad);border-color:var(--bad);color:#fff}
+.opt:disabled{cursor:default}
+.exp{margin-top:14px;border-radius:8px;padding:14px;background:var(--tip-bg);font-size:.97rem}
+.side{position:sticky;top:64px;display:grid;gap:12px}
+.timer{font-family:var(--f-mono);font-size:1.6rem;font-weight:600;font-variant-numeric:tabular-nums}
+.map{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
+.map button{border:1px solid var(--line);background:var(--surface);color:var(--ink-2);border-radius:5px;padding:4px 0;font-family:var(--f-mono);font-size:.78rem}
+.map button.ans{background:var(--navy);border-color:var(--navy);color:var(--navy-ink)}
+.map button.cur{outline:2px solid var(--star)}
+.map button.r{background:var(--ok);border-color:var(--ok);color:#fff}
+.map button.w{background:var(--bad);border-color:var(--bad);color:#fff}
+.map .sep{grid-column:1/-1;font-size:.72rem;color:var(--ink-2);font-family:var(--f-display);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:16px;flex-wrap:wrap}
+.verdict{display:grid;gap:8px;padding:18px;border-radius:var(--r)}
+.verdict.ok{background:var(--ok-bg)} .verdict.bad{background:var(--bad-bg)}
+.verdict b{font-family:var(--f-display);font-size:1.6rem}
+.res-row{display:grid;grid-template-columns:minmax(0,1fr) 60px;gap:10px;align-items:center}
+.review{display:grid;gap:12px}
+.review details{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 14px}
+.review summary{cursor:pointer;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.confirm{background:var(--warn-bg);border-radius:8px;padding:12px;display:grid;gap:8px}
+textarea{width:100%;min-height:340px;font:inherit;line-height:2;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);background-image:repeating-linear-gradient(transparent 0 calc(2em - 1px),var(--line) calc(2em - 1px) 2em);background-attachment:local}
+select,input[type=number]{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.checklist label{display:flex;gap:8px;align-items:flex-start;padding:4px 0}
+@media (max-width:860px){
+  .theory{grid-template-columns:minmax(0,1fr)}
+  .toc{display:none}
+  .subjsel{display:flex}
+  .exam{grid-template-columns:minmax(0,1fr)}
+  .side{position:static;order:-1}
+  .map{grid-template-columns:repeat(10,1fr)}
+  .brand h1{font-size:1.6rem}
+}
+#vert-list,#plan-list{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+.todaycard h2{font-size:1.6rem}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:10px}
+.filters label{display:grid;gap:4px;font-size:.85rem;font-weight:600;color:var(--ink-2);min-width:0}
+.filters select{width:100%}
+.pill.src{background:var(--warn-bg);color:var(--ink)}
+.tasks{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px}
+.task{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;align-items:start;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.task input{margin-top:5px;width:18px;height:18px;accent-color:var(--navy)}
+.task label{display:grid;gap:4px;cursor:pointer}
+.task .tt{font-size:.98rem}
+.task.done .tt{text-decoration:line-through;color:var(--ink-2)}
+.task .acts{grid-column:2;font-size:.88rem}
+.kind{background:var(--tip-bg);color:var(--navy)}
+.k-sim,.k-pdf{background:var(--star);color:var(--star-ink)}
+.k-marco{background:var(--bad-bg);color:var(--bad)}
+.k-red{background:var(--warn-bg);color:var(--ink)}
+.pill.star{background:var(--star);color:var(--star-ink)}
+.fase{font-size:1.5rem;margin:18px 0 8px}
+.fase .muted{font-family:var(--f-body);font-size:.95rem;font-weight:400}
+.week{margin-bottom:16px}
+.days{display:grid;gap:10px;margin-top:6px}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;scroll-margin-top:70px}
+.day.today{border:2px solid var(--star)}
+.day.past{opacity:.85}
+.day .tasks .task{background:var(--bg)}
+.dhead{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.dhead b{font-family:var(--f-display);font-size:1.2rem}
+.seg{gap:0}
+.seg button{border:1px solid var(--line);background:var(--surface);color:var(--ink-2);padding:7px 12px;font-weight:600}
+.seg button:first-child{border-radius:8px 0 0 8px}.seg button:last-child{border-radius:0 8px 8px 0}
+.seg button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:var(--navy-ink)}
+.vert td.c,.vert th.c{text-align:center;width:72px}
+.vert input{width:18px;height:18px;accent-color:var(--navy)}
+.vert tr.vdone td{background:var(--ok-bg)}
+.vert .dates{white-space:nowrap;font-size:.8rem}
+.vert td a{color:var(--ink);text-decoration:none}
+.vert td a:hover{text-decoration:underline}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.simcards{margin-top:0}
+#p-simulados #sim-home{display:grid;gap:20px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <svg class="brandstar" viewBox="0 0 24 24" aria-hidden="true"><path fill="#f2c233" d="M12 5.2C9.9 3.8 6.9 3.2 3 3.4v14.2c3.9-.2 6.9.4 9 1.8 2.1-1.4 5.1-2 9-1.8V3.4c-3.9-.2-6.9.4-9 1.8z"/><path fill="#173a6b" d="M11.3 6.4v11.2h1.4V6.4z"/></svg>
+      <div><h1>Professor Anos Iniciais · Ferreiros</h1><p>Acompanhamento de Estudos de Laís Santos · Edital nº 001/2026 · Banca IDHTEC</p></div>
+    </div>
+    <div class="count"><b id="days">—</b><span>dias até a prova objetiva (20/12/2026)</span></div>
+  </div>
+</header>
+<nav class="tabs" aria-label="Seções">
+  <div class="wrap" role="tablist">
+    <button role="tab" id="tab-painel" aria-controls="p-painel" aria-selected="true">Painel</button>
+    <button role="tab" id="tab-cronograma" aria-controls="p-cronograma" aria-selected="false">Cronograma</button>
+    <button role="tab" id="tab-edital" aria-controls="p-edital" aria-selected="false">Edital verticalizado</button>
+    <button role="tab" id="tab-teoria" aria-controls="p-teoria" aria-selected="false">Teoria</button>
+    <button role="tab" id="tab-simulados" aria-controls="p-simulados" aria-selected="false">Simulados</button>
+    <button role="tab" id="tab-erros" aria-controls="p-erros" aria-selected="false">Caderno de erros</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- PAINEL -->
+<section role="tabpanel" id="p-painel" aria-labelledby="tab-painel">
+  <div class="card todaycard" id="today-box"></div>
+  <div class="grid g4">
+    <div class="card stat"><span class="eyebrow">Prova objetiva</span><b>40 questões</b><span>12 Português · 8 Raciocínio Lógico/Matemático · 20 Conhecimentos Específicos · 5 alternativas</span></div>
+    <div class="card stat"><span class="eyebrow">Nota</span><b>0 a 8 pontos</b><span>0,20 por acerto · mínimo 4,00 (20 acertos) · títulos somam até 2 pontos</span></div>
+    <div class="card stat"><span class="eyebrow">Vagas · cargo 10</span><b>5 vagas</b><span>4 ampla concorrência + 1 PcD · R$ 4.179,47 · 150 h/a</span></div>
+    <div class="card stat"><span class="eyebrow">Prova</span><b>20/12 · 3h</b><span>Manhã (9h às 12h) ou tarde (14h às 17h), conforme o cartão de inscrição</span></div>
+  </div>
+
+  <div class="card">
+    <span class="eyebrow">Como a nota funciona (itens 4.1.1.3.3, 4.1.4 e 5)</span>
+    <h2>Específicos valem metade da prova</h2>
+    <div class="tblwrap"><table class="tbl">
+      <tr><th>Parte</th><th>Matéria</th><th>Questões</th><th>Pontos</th><th>Peso na prova</th></tr>
+      <tr><td>1ª</td><td>Língua Portuguesa</td><td class="mono">12</td><td class="mono">2,40</td><td class="mono">30%</td></tr>
+      <tr><td>2ª</td><td>Raciocínio Lógico/Matemático</td><td class="mono">8</td><td class="mono">1,60</td><td class="mono">20%</td></tr>
+      <tr><td>3ª</td><td>Conhecimentos Específicos</td><td class="mono">20</td><td class="mono">4,00</td><td class="mono">50%</td></tr>
+      <tr><td colspan="2"><b>Total</b></td><td class="mono">40</td><td class="mono">8,00</td><td class="mono">mín. 4,00</td></tr>
+    </table></div>
+    <p>Quem tira <b>menos de 4,00</b> (menos de 20 acertos) é desclassificado. Os títulos (pós-graduação na área: 0,40 cada; mestrado 0,50; doutorado 0,60; até 2,0 pontos) só são contados para quem tiver 4,00 ou mais e ficar entre os <b>25 primeiros</b> (5 vezes o número de vagas). Desempate: idade de 60 anos ou mais, depois mais acertos em Específicos, depois Português, depois Raciocínio Lógico, depois maior idade.</p>
+    <div class="callout tip"><b>Meta prática:</b> com 5 vagas, mire em <b>30 acertos ou mais</b> (6,0 pontos), com pelo menos 15 dos 20 em Específicos. É por isso que o cronograma coloca um assunto de Específicos em quase todos os dias.</div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card">
+      <span class="eyebrow">Inscrição (capítulo II e Anexo IV)</span>
+      <h2>Datas que não podem passar</h2>
+      <div class="tblwrap"><table class="tbl">
+        <tr><td class="mono">19/10 a 19/11</td><td>Inscrições em <b>www.idhtec.org.br</b></td></tr>
+        <tr><td class="mono">19 a 21/10</td><td>Pedido de isenção da taxa (CadÚnico, com NIS)</td></tr>
+        <tr><td class="mono">04/11</td><td>Resultado da isenção (recurso até 06/11)</td></tr>
+        <tr><td class="mono">20/11</td><td>Último dia para pagar o boleto (R$ 95,00, nível médio)</td></tr>
+        <tr><td class="mono">27/11</td><td>Lista de inscritos (correções até 02/12)</td></tr>
+        <tr><td class="mono">08/12</td><td>Locais de prova; cartão de inscrição online até 19/12</td></tr>
+        <tr><td class="mono">20/12</td><td><b>Prova objetiva</b></td></tr>
+        <tr><td class="mono">21/12</td><td>Gabarito preliminar (recursos de 21 a 23/12)</td></tr>
+      </table></div>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Seu progresso</span>
+      <h2>Teoria e questões por matéria</h2>
+      <div id="perf" class="grid"></div>
+      <p class="muted" id="perfnote">Os acertos aparecem aqui quando o banco de questões estiver pronto e você fizer treinos ou simulados. Tudo fica salvo neste navegador.</p>
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card">
+      <span class="eyebrow">No dia da prova (itens 4.1.5 a 4.3)</span>
+      <h2>Checklist</h2>
+      <ul>
+        <li>Chegue com 1 hora de antecedência. Portões: abrem 8h e <b>fecham 8h50</b> (manhã) ou abrem 13h e fecham 13h50 (tarde).</li>
+        <li>Documento de identidade <b>original com foto</b> (RG, CNH modelo novo, carteira de trabalho, passaporte...). Cópia não vale.</li>
+        <li>Caneta esferográfica <b>azul ou preta</b>, de material transparente.</li>
+        <li>Proibidos: celular, relógio de qualquer tipo, fones, boné, óculos escuros. Alimentos em saco transparente; água em garrafa transparente sem rótulo.</li>
+        <li>Só pode entregar a prova após 45 minutos e levar o caderno de questões após 2h40.</li>
+        <li>Rasura, dupla marcação ou folha sem assinatura zeram a questão.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Como usar esta página</span>
+      <h2>Rotina</h2>
+      <ol>
+        <li>Abra o <b>Painel</b> todo dia e faça as tarefas de “Hoje”. Marque cada uma ao terminar.</li>
+        <li>Clique em <b>Teoria</b> na tarefa para abrir o resumo do assunto. Marque “Estudado” no fim.</li>
+        <li>No <b>Edital verticalizado</b>, acompanhe teoria, questões e as duas revisões de cada assunto.</li>
+        <li>Se atrasar, use o filtro “Só pendentes” no Cronograma e coloque em dia nos domingos.</li>
+      </ol>
+      <p class="muted">Conteúdo baseado no Anexo III do edital nº 001/2026 da Prefeitura de Ferreiros/PE. O banco de questões e os simulados serão incluídos depois da pesquisa das provas da IDHTEC. Confira sempre os comunicados oficiais em idhtec.org.br.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CRONOGRAMA -->
+<section role="tabpanel" id="p-cronograma" aria-labelledby="tab-cronograma" hidden>
+  <div class="card">
+    <span class="eyebrow">Plano diário de 15/10 a 19/12/2026</span>
+    <h2>Cronograma até a prova</h2>
+    <p>Todo o edital é estudado uma vez na Fase 1 e revisado duas vezes nas Fases 2 e 3, com três simulados. Nos dias de semana são cerca de 2 horas de estudo (um assunto de Específicos e um de Português ou Raciocínio Lógico); no sábado, revisão e questões; no domingo, lei seca e descanso. Marque cada tarefa ao concluir: as tarefas de teoria e revisão também marcam o Edital verticalizado automaticamente.</p>
+    <div class="grid g3" id="plan-stats" style="margin:10px 0"></div>
+    <div class="bar"><i id="plan-bar" style="width:0"></i></div>
+    <div class="row" style="margin-top:14px;justify-content:space-between">
+      <div class="row seg" id="plan-filter" role="group" aria-label="Mostrar"><button data-f="semana" aria-pressed="true">Esta semana</button><button data-f="tudo" aria-pressed="false">Todos os dias</button><button data-f="pendentes" aria-pressed="false">Só pendentes</button></div>
+      <button class="btn star" id="plan-today">Ir para hoje</button>
+    </div>
+  </div>
+  <div class="card">
+    <span class="eyebrow">Fases e datas do edital</span>
+    <div class="tblwrap"><table class="tbl"><tr><th>Período</th><th>Fase</th><th>O que fazer</th></tr>
+    <tr><td class="mono">15/10 a 16/11</td><td>1 · Base</td><td>2 assuntos por dia útil: ler a teoria e resolver questões do assunto. Específicos têm prioridade (20 das 40 questões).</td></tr>
+    <tr><td class="mono">17/11 a 05/12</td><td>2 · Revisão 1</td><td>3 assuntos por dia útil + caderno de erros. Simulado 1 (21/11) e Simulado 2 (05/12); bateria de questões em 28/11.</td></tr>
+    <tr><td class="mono">06/12 a 17/12</td><td>3 · Revisão 2</td><td>4 a 5 assuntos por dia útil, só resumo e pegadinhas + 10 questões. Simulado 3 (12/12).</td></tr>
+    <tr><td class="mono">18 e 19/12</td><td>Semana da prova</td><td>Revisão leve e descanso na véspera.</td></tr>
+    <tr><td class="mono">19/10 · 21/10 · 20/11 · 27/11 · 08/12</td><td>Edital</td><td>Abertura das inscrições · fim da isenção · fim do pagamento · lista de inscritos · locais de prova.</td></tr>
+    <tr><td class="mono">20/12/2026</td><td>Prova</td><td>Objetiva, 40 questões, 3 horas.</td></tr></table></div>
+  </div>
+  <div id="plan-list"></div>
+</section>
+
+<!-- EDITAL VERTICALIZADO -->
+<section role="tabpanel" id="p-edital" aria-labelledby="tab-edital" hidden>
+  <div class="card">
+    <span class="eyebrow">Anexo III do edital nº 001/2026 · cargo 10 · Professor Ens. Fundamental Anos Iniciais</span>
+    <h2>Edital verticalizado</h2>
+    <p>Todos os assuntos cobrados, na ordem do edital, com as datas em que o cronograma os coloca. Marque <b>Teoria</b> ao estudar pela primeira vez, <b>Questões</b> quando tiver resolvido questões do assunto e <b>Rev. 1</b> e <b>Rev. 2</b> nas revisões. Clique no nome do assunto para abrir a teoria.</p>
+  </div>
+  <div id="vert-list" class="grid"></div>
+</section>
+
+<!-- TEORIA -->
+<section role="tabpanel" id="p-teoria" aria-labelledby="tab-teoria" hidden>
+  <div class="row subjsel"><label for="subj-select" class="eyebrow">Matéria</label><select id="subj-select"></select><select id="topic-select" aria-label="Assunto"></select></div>
+  <div class="theory">
+    <aside class="toc" id="toc" aria-label="Índice da teoria"></aside>
+    <div id="theory-body">
+      <div data-subj="port" hidden><article class="topic" id="port-1"><h3>Compreensão e interpretação de texto</h3>
+<p><b>Compreender</b> é entender o que o texto diz explicitamente. <b>Interpretar</b> é tirar conclusões a partir do que o texto diz (inferências), sem ultrapassar os limites dele. Em uma prova com 12 questões de Português, é comum que 4 a 6 sejam sobre o texto-base, então este é o assunto que mais rende ponto.</p>
+<h4>Método em 4 passos</h4>
+<ol>
+<li><b>Leia o enunciado antes do texto</b> para saber o que procurar.</li>
+<li>Leia o texto inteiro uma vez, marcando a <b>ideia central</b> (geralmente no 1º ou no último parágrafo) e os conectivos.</li>
+<li>Para cada alternativa, <b>volte ao trecho</b> citado. Não responda de memória.</li>
+<li>Elimine as alternativas com os erros típicos abaixo.</li>
+</ol>
+<h4>Os 4 erros que tornam uma alternativa falsa</h4>
+<table class="tbl"><tr><th>Erro</th><th>Como aparece</th></tr>
+<tr><td><b>Extrapolação</b></td><td>Vai além do texto: o autor não disse aquilo, mesmo que seja “verdade” no mundo real.</td></tr>
+<tr><td><b>Redução</b></td><td>Pega só parte da ideia e a apresenta como se fosse o todo.</td></tr>
+<tr><td><b>Contradição</b></td><td>Afirma o oposto do texto (troca “nem sempre” por “sempre”, “pode” por “deve”).</td></tr>
+<tr><td><b>Generalização</b></td><td>Usa palavras absolutas: <i>sempre, nunca, todos, único, exclusivamente, apenas</i>.</td></tr></table>
+<h4>Pressupostos e subentendidos</h4>
+<p><b>Pressuposto</b> é a informação garantida por uma palavra do próprio texto. Em “Ana <i>deixou de</i> faltar às aulas”, pressupõe-se que antes ela faltava. Palavras que criam pressupostos: <i>ainda, já, deixar de, continuar, voltar a, até</i>. <b>Subentendido</b> é uma insinuação que depende do contexto e de quem lê (“Está frio aqui, não?” pode ser um pedido para fechar a janela). Pressuposto é cobrado como certo; subentendido, só se o enunciado pedir.</p>
+<h4>Coesão: referência e substituição</h4>
+<p>Questões frequentes: “o termo X retoma...”, “a palavra Y poderia ser substituída, sem alterar o sentido, por...”. <b>Anáfora</b> retoma algo já dito; <b>catáfora</b> anuncia algo que ainda virá. Faça a troca no trecho e leia a frase inteira: se o sentido ou a correção gramatical mudarem, a alternativa está errada.</p>
+<div class="callout trap"><b>Pegadinha:</b> a alternativa errada costuma copiar palavras do texto, mas muda uma relação (causa vira consequência, possibilidade vira certeza). Desconfie quando a alternativa “parece o texto” e confira o sentido.</div>
+</article>
+
+<article class="topic" id="port-2"><h3>Tipologia, gêneros e funções da linguagem</h3>
+<p>Complemento da interpretação: muitas questões pedem para identificar o tipo de texto, o gênero ou a função predominante.</p>
+<table class="tbl"><tr><th>Tipo</th><th>Objetivo</th><th>Marcas</th><th>Gêneros típicos</th></tr>
+<tr><td>Narrativo</td><td>Contar fatos em sequência</td><td>Verbos de ação no pretérito, personagens, tempo, espaço</td><td>Conto, fábula, crônica, notícia</td></tr>
+<tr><td>Descritivo</td><td>Caracterizar seres, lugares e objetos</td><td>Adjetivos, verbos de estado</td><td>Retrato, classificado, laudo</td></tr>
+<tr><td>Expositivo</td><td>Informar, explicar</td><td>Linguagem objetiva, definições, dados</td><td>Verbete, texto didático, reportagem</td></tr>
+<tr><td>Argumentativo</td><td>Defender um ponto de vista</td><td>Tese, argumentos, conectivos de causa, oposição e conclusão</td><td>Artigo de opinião, editorial, resenha</td></tr>
+<tr><td>Injuntivo (instrucional)</td><td>Orientar uma ação</td><td>Verbos no imperativo ou infinitivo, passos</td><td>Receita, manual, regulamento</td></tr></table>
+<h4>Funções da linguagem (Jakobson)</h4>
+<table class="tbl"><tr><th>Função</th><th>Foco</th><th>Exemplo</th></tr>
+<tr><td>Referencial</td><td>Assunto (informar)</td><td>Notícia, texto didático</td></tr>
+<tr><td>Emotiva (expressiva)</td><td>Emissor (1ª pessoa, sentimentos)</td><td>Diário, carta pessoal</td></tr>
+<tr><td>Conativa (apelativa)</td><td>Receptor (convencer, imperativo, “você”)</td><td>Propaganda, campanha</td></tr>
+<tr><td>Fática</td><td>Canal (testar o contato)</td><td>“Alô?”, “Entendeu?”</td></tr>
+<tr><td>Metalinguística</td><td>O próprio código</td><td>Dicionário, poema sobre poesia</td></tr>
+<tr><td>Poética</td><td>A forma da mensagem</td><td>Poema, slogan com rima</td></tr></table>
+<div class="callout tip"><b>Dica:</b> um texto pode ter vários tipos ao mesmo tempo; a questão pede o <b>predominante</b>. Gênero é o “formato social” (bilhete, receita, notícia); tipo é a estrutura interna.</div>
+</article>
+
+<article class="topic" id="port-3"><h3>Equivalência de sentido e reescrita de frases</h3>
+<p>O edital pede “equivalência de sentido entre frases” e “reorganização de orações e períodos: transformação de estruturas”. A questão apresenta um trecho e pergunta qual reescrita <b>mantém o sentido e a correção gramatical</b>.</p>
+<h4>Conectivos equivalentes (o mais cobrado)</h4>
+<table class="tbl"><tr><th>Relação</th><th>Conectivos que se trocam entre si</th></tr>
+<tr><td>Oposição (adversativa)</td><td>mas, porém, contudo, todavia, entretanto, no entanto</td></tr>
+<tr><td>Concessão</td><td>embora, ainda que, mesmo que, conquanto, se bem que (+ subjuntivo); apesar de, não obstante (+ infinitivo ou substantivo)</td></tr>
+<tr><td>Causa</td><td>porque, visto que, já que, uma vez que, porquanto, como (no início)</td></tr>
+<tr><td>Conclusão</td><td>logo, portanto, por isso, por conseguinte, assim, pois (depois do verbo)</td></tr>
+<tr><td>Condição</td><td>se, caso, desde que, contanto que</td></tr>
+<tr><td>Finalidade</td><td>para que, a fim de que, a fim de</td></tr>
+<tr><td>Proporção</td><td>à medida que, à proporção que, quanto mais... mais</td></tr>
+<tr><td>Conformidade</td><td>conforme, segundo, consoante, como</td></tr></table>
+<h4>Transformações de estrutura</h4>
+<ul>
+<li><b>Desenvolvida ↔ reduzida:</b> “Quando terminou a aula, saiu” = “<i>Terminada</i> a aula, saiu” = “<i>Ao terminar</i> a aula, saiu”.</li>
+<li><b>Ativa ↔ passiva:</b> ver o tópico de vozes verbais.</li>
+<li><b>Discurso direto → indireto:</b> presente vira pretérito imperfeito; pretérito perfeito vira mais-que-perfeito; futuro vira futuro do pretérito; imperativo vira subjuntivo; <i>este/aqui/hoje</i> viram <i>aquele/ali/naquele dia</i>. Ex.: Ela disse: “Eu <i>vou</i> amanhã.” → Ela disse que <i>iria</i> no dia seguinte.</li>
+</ul>
+<div class="callout trap"><b>Pegadinhas:</b> “embora” exige subjuntivo (“embora <i>estivesse</i>”, nunca “embora estava”). “<i>À medida que</i>” é proporção; “<i>na medida em que</i>” é causa. Ao trocar o conectivo, confira se mudou o modo verbal, a crase, a regência ou a pontuação.</div>
+</article>
+
+<article class="topic" id="port-4"><h3>Sintaxe da oração: termos da oração</h3>
+<h4>Termos essenciais</h4>
+<p><b>Sujeito</b> é o termo com o qual o verbo concorda. Tipos:</p>
+<table class="tbl"><tr><th>Tipo</th><th>Exemplo</th></tr>
+<tr><td>Simples</td><td><i>A professora</i> chegou.</td></tr>
+<tr><td>Composto</td><td><i>Ana e Pedro</i> chegaram.</td></tr>
+<tr><td>Oculto (desinencial)</td><td>Chegamos cedo. (nós)</td></tr>
+<tr><td>Indeterminado</td><td>Roubaram minha bolsa. (3ª pl. sem referente) · <i>Precisa-se</i> de professores. (VTI + se)</td></tr>
+<tr><td>Oração sem sujeito</td><td><i>Há</i> alunos na sala (haver = existir) · <i>Faz</i> dois anos · <i>Choveu</i> muito.</td></tr></table>
+<p><b>Predicado:</b> <b>verbal</b> (núcleo é verbo de ação: “O aluno <i>leu</i> o livro”), <b>nominal</b> (verbo de ligação + predicativo: “O aluno <i>está</i> cansado”), <b>verbo-nominal</b> (ação + estado: “O aluno chegou <i>cansado</i>”).</p>
+<h4>Termos integrantes</h4>
+<ul>
+<li><b>Objeto direto:</b> completa verbo sem preposição obrigatória (“Li <i>o livro</i>”).</li>
+<li><b>Objeto indireto:</b> completa verbo com preposição (“Gosto <i>de música</i>”).</li>
+<li><b>Complemento nominal:</b> completa nome (substantivo abstrato, adjetivo, advérbio) com preposição; tem sentido passivo: “a construção <i>da escola</i>” (a escola é construída).</li>
+<li><b>Agente da passiva:</b> quem pratica a ação na voz passiva (“foi feito <i>pelos alunos</i>”).</li>
+</ul>
+<h4>Termos acessórios</h4>
+<ul>
+<li><b>Adjunto adnominal:</b> caracteriza o nome; sentido ativo: “a chegada <i>dos alunos</i>” (os alunos chegam).</li>
+<li><b>Adjunto adverbial:</b> circunstância (tempo, lugar, modo, causa...).</li>
+<li><b>Aposto:</b> explica outro termo, geralmente entre vírgulas (“Paulo Freire, <i>o patrono da educação</i>, ...”).</li>
+<li><b>Vocativo:</b> chamamento, sempre isolado por vírgula; não faz parte da oração (“<i>Laís</i>, estude!”).</li>
+</ul>
+<div class="callout trap"><b>Pegadinha clássica:</b> complemento nominal × adjunto adnominal. Se o termo <b>sofre</b> a ação → complemento nominal (“a leitura <i>do livro</i>”). Se <b>pratica</b> ou possui → adjunto adnominal (“a leitura <i>do aluno</i>”, “o livro <i>de Ana</i>”). Com adjetivo ou advérbio, é sempre complemento nominal.</div>
+</article>
+
+<article class="topic" id="port-5"><h3>Sintaxe do período: coordenação e subordinação</h3>
+<p><b>Período simples</b> tem uma oração; <b>composto</b> tem duas ou mais. As orações se ligam por <b>coordenação</b> (independentes sintaticamente) ou <b>subordinação</b> (uma exerce função na outra).</p>
+<h4>Coordenadas sindéticas</h4>
+<table class="tbl"><tr><th>Tipo</th><th>Conjunções</th></tr>
+<tr><td>Aditiva</td><td>e, nem, não só... mas também</td></tr>
+<tr><td>Adversativa</td><td>mas, porém, contudo, todavia, entretanto, no entanto</td></tr>
+<tr><td>Alternativa</td><td>ou... ou, ora... ora, quer... quer</td></tr>
+<tr><td>Conclusiva</td><td>logo, portanto, por isso, pois (depois do verbo)</td></tr>
+<tr><td>Explicativa</td><td>porque, que, pois (antes do verbo)</td></tr></table>
+<h4>Subordinadas</h4>
+<ul>
+<li><b>Substantivas</b> (equivalem a um substantivo; geralmente com “que” ou “se” integrante): subjetiva (“É importante <i>que você estude</i>”), objetiva direta, objetiva indireta, completiva nominal, predicativa, apositiva.</li>
+<li><b>Adjetivas</b> (introduzidas por pronome relativo: que, quem, o qual, cujo, onde): <b>restritiva</b>, sem vírgula, limita o sentido (“Os alunos <i>que estudaram</i> passaram” — só alguns); <b>explicativa</b>, com vírgula, generaliza (“Os alunos, <i>que estudaram</i>, passaram” — todos).</li>
+<li><b>Adverbiais:</b> causal, consecutiva (“tão... que”), condicional, concessiva, comparativa, conformativa, final, proporcional, temporal.</li>
+</ul>
+<h4>Funções do “que” mais cobradas</h4>
+<p><b>Pronome relativo</b> quando dá para trocar por “o qual/a qual” (“O livro <i>que</i> li” = o qual). <b>Conjunção integrante</b> quando a oração pode ser trocada por “isso” (“Sei <i>que</i> ela veio” = sei isso).</p>
+<div class="callout trap"><b>Pegadinha:</b> tirar ou colocar vírgulas numa oração adjetiva muda o sentido (restritiva ↔ explicativa). Em questões de reescrita, isso torna a alternativa incorreta.</div>
+</article>
+
+<article class="topic" id="port-6"><h3>Concordância verbal e nominal</h3>
+<h4>Concordância verbal: casos mais cobrados</h4>
+<table class="tbl"><tr><th>Caso</th><th>Regra</th><th>Exemplo</th></tr>
+<tr><td>Sujeito posposto</td><td>Concorda normalmente (atenção, o sujeito vem depois)</td><td>Faltaram dois alunos.</td></tr>
+<tr><td>Haver = existir/acontecer</td><td>Impessoal: sempre singular, inclusive o auxiliar</td><td>Havia muitas dúvidas. Deve haver soluções.</td></tr>
+<tr><td>Fazer (tempo)</td><td>Impessoal: singular</td><td>Faz dez anos que leciono.</td></tr>
+<tr><td>VTD + se (passiva sintética)</td><td>Concorda com o sujeito</td><td>Vendem-se livros. Alugam-se salas.</td></tr>
+<tr><td>VTI/VI + se (índice de indeterminação)</td><td>Singular</td><td>Precisa-se de professores. Trata-se de casos graves.</td></tr>
+<tr><td>Coletivo + especificador</td><td>Singular ou plural</td><td>A maioria dos alunos fez / fizeram a prova.</td></tr>
+<tr><td>Sujeito composto antes do verbo</td><td>Plural</td><td>Ana e Pedro saíram.</td></tr>
+<tr><td>Sujeito composto depois do verbo</td><td>Plural ou com o mais próximo</td><td>Saiu / Saíram Ana e Pedro.</td></tr>
+<tr><td>Pronome relativo “que”</td><td>Concorda com o antecedente</td><td>Fui eu que fiz. Fomos nós que fizemos.</td></tr>
+<tr><td>“Quem”</td><td>3ª pessoa do singular (ou com o antecedente)</td><td>Fui eu quem fez.</td></tr>
+<tr><td>“Um dos que”</td><td>Plural (preferível)</td><td>Ela é uma das que mais estudam.</td></tr></table>
+<h4>Concordância nominal</h4>
+<ul>
+<li>Adjetivo <b>depois</b> de dois substantivos: plural ou com o mais próximo (“língua e literatura <i>brasileiras/brasileira</i>”). <b>Antes</b>: com o mais próximo (“<i>belas</i> casas e jardins”).</li>
+<li><b>Variam:</b> anexo, incluso, obrigado, mesmo, próprio, quite, leso (“Seguem <i>anexas</i> as fichas”; “Elas <i>mesmas</i> disseram”; “<i>Obrigada</i>”, diz a mulher).</li>
+<li><b>Não variam:</b> menos, alerta, pseudo (“<i>menos</i> pessoas”).</li>
+<li><b>Meio:</b> advérbio (= um pouco) não varia: “Ela está <i>meio</i> cansada”. Numeral (= metade) varia: “<i>meia</i> hora”.</li>
+<li><b>Bastante:</b> adjetivo (= muitos) varia: “<i>bastantes</i> livros”; advérbio não: “estudaram <i>bastante</i>”.</li>
+<li><b>É proibido / é necessário:</b> sem artigo, invariável (“É proibido entrada”); com artigo, concorda (“É proibida <i>a</i> entrada”).</li>
+</ul>
+<div class="callout trap"><b>Pegadinha:</b> o erro mais cobrado é “<i>Haviam</i> muitos alunos” (errado) e “<i>Devem haver</i> vagas” (errado). Com haver = existir, tudo fica no singular.</div>
+</article>
+
+<article class="topic" id="port-7"><h3>Regência verbal e nominal</h3>
+<p>Regência é a relação entre um termo e seu complemento, com ou sem preposição.</p>
+<h4>Verbos que mais caem</h4>
+<table class="tbl"><tr><th>Verbo</th><th>Sentido → regência</th></tr>
+<tr><td>Assistir</td><td>ver = VTI (a): “assisti <i>ao</i> filme” · ajudar = VTD: “o médico assistiu o paciente” · morar = VI (em)</td></tr>
+<tr><td>Aspirar</td><td>respirar = VTD · desejar = VTI (a): “aspiro <i>ao</i> cargo”</td></tr>
+<tr><td>Visar</td><td>mirar, dar visto = VTD · pretender = VTI (a): “visa <i>ao</i> aprendizado”</td></tr>
+<tr><td>Obedecer / desobedecer</td><td>VTI (a): “obedecer <i>às</i> regras”</td></tr>
+<tr><td>Preferir</td><td>preferir algo <i>a</i> algo (nunca “mais... do que”)</td></tr>
+<tr><td>Chegar, ir, voltar</td><td>preposição “a”: “cheguei <i>à</i> escola” (não “na escola”)</td></tr>
+<tr><td>Implicar</td><td>acarretar = VTD: “isso implica mudanças” (sem “em”)</td></tr>
+<tr><td>Namorar</td><td>VTD: “namorar alguém” (sem “com”)</td></tr>
+<tr><td>Pagar / perdoar</td><td>coisa = OD; pessoa = OI: “paguei a conta <i>ao</i> vendedor”</td></tr>
+<tr><td>Esquecer / lembrar</td><td>sem pronome = VTD (“esqueci o livro”); com pronome = VTI de (“esqueci-me <i>do</i> livro”)</td></tr>
+<tr><td>Simpatizar / antipatizar</td><td>VTI (com), não são pronominais: “simpatizo com ela” (nunca “simpatizo-me”)</td></tr>
+<tr><td>Informar, avisar, comunicar</td><td>informar alguém <i>de</i> algo ou algo <i>a</i> alguém</td></tr>
+<tr><td>Proceder</td><td>realizar = VTI (a): “proceder <i>à</i> leitura”</td></tr></table>
+<h4>Regência nominal (exemplos)</h4>
+<p>acessível <i>a</i>; apto <i>a/para</i>; compatível <i>com</i>; contrário <i>a</i>; preferível <i>a</i>; residente <i>em</i>; situado <i>em</i>; obediência <i>a</i>; respeito <i>a/por</i>; dúvida <i>sobre/em/acerca de</i>.</p>
+<div class="callout trap"><b>Pegadinha:</b> com pronome relativo, a preposição do verbo vai para antes do relativo: “O filme <i>a que</i> assisti” (assistir a), “A escola <i>em que</i> estudo”, “O cargo <i>a que</i> aspiro”. “O filme que assisti” está errado na norma-padrão.</div>
+</article>
+
+<article class="topic" id="port-8"><h3>Correlação de tempos e modos verbais</h3>
+<p>Em períodos compostos, o tempo de um verbo “pede” um tempo específico no outro. As bancas apresentam frases com a correlação quebrada.</p>
+<table class="tbl"><tr><th>Estrutura</th><th>Correlação correta</th><th>Exemplo</th></tr>
+<tr><td>Condição possível no futuro</td><td>futuro do subjuntivo + futuro do presente</td><td>Se você <i>estudar</i>, <i>passará</i>.</td></tr>
+<tr><td>Condição hipotética</td><td>pretérito imperfeito do subjuntivo + futuro do pretérito</td><td>Se você <i>estudasse</i>, <i>passaria</i>.</td></tr>
+<tr><td>Hipótese no passado</td><td>mais-que-perfeito do subjuntivo + futuro do pretérito composto</td><td>Se você <i>tivesse estudado</i>, <i>teria passado</i>.</td></tr>
+<tr><td>Tempo futuro</td><td>futuro do subjuntivo + futuro do presente</td><td>Quando ela <i>chegar</i>, <i>começaremos</i>.</td></tr>
+<tr><td>Desejo/ordem no presente</td><td>presente do indicativo + presente do subjuntivo</td><td>Peço que você <i>estude</i>.</td></tr>
+<tr><td>Desejo/ordem no passado</td><td>pretérito do indicativo + imperfeito do subjuntivo</td><td>Pedi que você <i>estudasse</i>.</td></tr></table>
+<h4>Revisão rápida dos modos</h4>
+<ul>
+<li><b>Indicativo:</b> certeza (estudo, estudei, estudava, estudarei, estudaria).</li>
+<li><b>Subjuntivo:</b> dúvida, hipótese, desejo (que eu estude, se eu estudasse, quando eu estudar).</li>
+<li><b>Imperativo:</b> ordem, pedido (estude, não estude).</li>
+</ul>
+<div class="callout trap"><b>Erros clássicos:</b> “Se eu <i>ver</i>” → correto “Se eu <i>vir</i>” (futuro do subjuntivo de <i>ver</i>). “Quando eu <i>propor</i>” → “quando eu <i>propuser</i>”. “Se ele <i>manter</i>” → “se ele <i>mantiver</i>”. Derivados de ter, vir, ver, pôr e fazer seguem o verbo primitivo.</div>
+</article>
+
+<article class="topic" id="port-9"><h3>Vozes verbais e sua transposição</h3>
+<table class="tbl"><tr><th>Voz</th><th>Característica</th><th>Exemplo</th></tr>
+<tr><td>Ativa</td><td>Sujeito pratica a ação</td><td><i>A professora</i> corrigiu as provas.</td></tr>
+<tr><td>Passiva analítica</td><td>ser + particípio; sujeito sofre a ação; agente da passiva com “por”</td><td>As provas <i>foram corrigidas</i> pela professora.</td></tr>
+<tr><td>Passiva sintética</td><td>VTD + se (pronome apassivador); concorda com o sujeito</td><td><i>Corrigiram-se</i> as provas.</td></tr>
+<tr><td>Reflexiva</td><td>Sujeito pratica e sofre a ação</td><td>A criança <i>se machucou</i>.</td></tr></table>
+<h4>Como transpor ativa → passiva</h4>
+<ol>
+<li>O <b>objeto direto</b> da ativa vira <b>sujeito</b> da passiva. Só verbos transitivos diretos (ou diretos e indiretos) aceitam passiva.</li>
+<li>O verbo <b>ser</b> fica no <b>mesmo tempo e modo</b> do verbo da ativa; o verbo principal vai para o particípio, concordando com o novo sujeito.</li>
+<li>O sujeito da ativa vira <b>agente da passiva</b>.</li>
+</ol>
+<p>Ex.: “Os alunos <i>terão lido</i> os livros” → “Os livros <i>terão sido lidos</i> pelos alunos”. “A escola <i>organizava</i> a feira” → “A feira <i>era organizada</i> pela escola”.</p>
+<div class="callout trap"><b>Pegadinha:</b> conferir o tempo do verbo “ser”. “A diretora <i>aprovou</i> o projeto” → “O projeto <i>foi</i> aprovado” (pretérito perfeito), e não “era aprovado” ou “tinha sido aprovado”. E VTI não vai para a passiva: “Precisa-se de professores” não é passiva.</div>
+</article>
+
+<article class="topic" id="port-10"><h3>Pronomes: emprego, colocação e formas de tratamento</h3>
+<h4>Emprego</h4>
+<ul>
+<li><b>Reto × oblíquo:</b> “para <i>eu</i> fazer” (eu é sujeito do infinitivo); “para <i>mim</i>” só quando não há verbo depois (“o livro é para mim”). Depois de preposição: “entre <i>mim</i> e <i>ti</i>”.</li>
+<li><b>O/a/os/as</b> substituem objeto direto; <b>lhe/lhes</b> substituem objeto indireto (“Entreguei-<i>lhe</i> o livro”).</li>
+<li><b>Demonstrativos:</b> <i>este</i> (perto de quem fala; o que ainda vai ser dito; tempo presente), <i>esse</i> (perto de quem ouve; o que já foi dito), <i>aquele</i> (distante). Em enumerações: “Ana e Pedro: <i>este</i> (Pedro, o último) estuda, <i>aquela</i> (Ana, a primeira) trabalha.”</li>
+<li><b>Relativos:</b> <i>cujo</i> indica posse e concorda com o possuído, sem artigo depois (“o aluno <i>cujo</i> pai”, nunca “cujo o”); <i>onde</i> só para lugar físico.</li>
+</ul>
+<h4>Colocação pronominal</h4>
+<table class="tbl"><tr><th>Posição</th><th>Quando usar</th><th>Exemplo</th></tr>
+<tr><td><b>Próclise</b> (antes do verbo)</td><td>Com palavra atrativa: negação (não, nunca), advérbios, pronomes relativos, indefinidos e demonstrativos, conjunções subordinativas, frases exclamativas e optativas</td><td><i>Não me</i> disse. Quem <i>te</i> contou? <i>Deus o</i> abençoe!</td></tr>
+<tr><td><b>Mesóclise</b> (no meio)</td><td>Futuro do presente ou do pretérito sem palavra atrativa</td><td>Entregar-<i>lhe</i>-ei. Dir-<i>se</i>-ia.</td></tr>
+<tr><td><b>Ênclise</b> (depois)</td><td>Início de frase, imperativo afirmativo, gerúndio, infinitivo impessoal</td><td>Diga-<i>me</i>. <i>Encontrei-o</i> ontem.</td></tr></table>
+<h4>Formas de tratamento</h4>
+<p><i>Vossa Excelência</i> (chefes de Poder, ministros, governadores, prefeitos, parlamentares, juízes), <i>Vossa Senhoria</i> (demais autoridades e particulares), <i>Vossa Magnificência</i> (reitores), <i>Vossa Santidade</i> (papa). <b>Vossa</b> = falando <i>com</i> a pessoa; <b>Sua</b> = falando <i>sobre</i> ela. O verbo vai para a <b>3ª pessoa</b>: “Vossa Excelência <i>está</i> convidado”, e os possessivos também (“<i>seu</i> gabinete”, não “vosso”).</p>
+<div class="callout trap"><b>Pegadinha:</b> nunca se inicia frase com pronome oblíquo na norma-padrão (“<i>Me</i> empresta” está errado; “Empresta-<i>me</i>”). E palavra atrativa “puxa” o pronome mesmo no futuro: “Não <i>lhe</i> direi” (e não “dir-lhe-ei”).</div>
+</article>
+
+<article class="topic" id="port-11"><h3>Linguagem figurada (figuras de linguagem)</h3>
+<p><b>Denotação</b> é o sentido literal, do dicionário. <b>Conotação</b> é o sentido figurado, dependente do contexto.</p>
+<table class="tbl"><tr><th>Figura</th><th>O que é</th><th>Exemplo</th></tr>
+<tr><td>Metáfora</td><td>Comparação implícita, sem conectivo</td><td>“A sala de aula é um jardim.”</td></tr>
+<tr><td>Comparação</td><td>Com conectivo (como, tal qual, feito)</td><td>“Ela é calma como um lago.”</td></tr>
+<tr><td>Metonímia</td><td>Troca por relação de proximidade (autor/obra, parte/todo, marca/produto, continente/conteúdo)</td><td>“Li Machado de Assis.” “Bebeu dois copos.”</td></tr>
+<tr><td>Catacrese</td><td>Metáfora já incorporada à língua</td><td>“pé da mesa”, “braço da cadeira”</td></tr>
+<tr><td>Hipérbole</td><td>Exagero</td><td>“Já te disse um milhão de vezes.”</td></tr>
+<tr><td>Eufemismo</td><td>Suaviza uma ideia</td><td>“Ele partiu desta para melhor.”</td></tr>
+<tr><td>Ironia</td><td>Diz o contrário do que pensa</td><td>“Que aluno educado, chegou atrasado e gritando!”</td></tr>
+<tr><td>Antítese</td><td>Ideias opostas</td><td>“Rir ou chorar.”</td></tr>
+<tr><td>Paradoxo</td><td>Ideias opostas que se fundem numa só afirmação</td><td>“Amor é fogo que arde sem se ver.”</td></tr>
+<tr><td>Prosopopeia</td><td>Dá características humanas a seres inanimados</td><td>“O vento sussurrava.”</td></tr>
+<tr><td>Sinestesia</td><td>Mistura sentidos</td><td>“Voz doce”, “cor gritante”</td></tr>
+<tr><td>Pleonasmo</td><td>Repetição de ideia (vicioso: “subir para cima”)</td><td>“Vi com meus próprios olhos.”</td></tr>
+<tr><td>Elipse / zeugma</td><td>Omissão de termo (zeugma: termo já dito)</td><td>“Eu gosto de Português; ela, de Matemática.”</td></tr>
+<tr><td>Gradação</td><td>Sequência crescente ou decrescente</td><td>“Uma, duas, três, mil vezes.”</td></tr>
+<tr><td>Onomatopeia / aliteração</td><td>Imitação de sons / repetição de consoantes</td><td>“tic-tac” / “O rato roeu a roupa...”</td></tr></table>
+<div class="callout trap"><b>Pegadinha:</b> metáfora × comparação (só a comparação tem conectivo). Antítese × paradoxo (no paradoxo as ideias opostas convivem na mesma coisa).</div>
+</article>
+
+<article class="topic" id="port-12"><h3>Ortografia, acentuação e crase</h3>
+<h4>Acentuação: regras essenciais</h4>
+<table class="tbl"><tr><th>Grupo</th><th>Acentua quando termina em</th><th>Exemplos</th></tr>
+<tr><td>Oxítonas</td><td>a(s), e(s), o(s), em, ens</td><td>sofá, você, avô, também, parabéns</td></tr>
+<tr><td>Paroxítonas</td><td>l, n, r, x, ps, ã(s), ão(s), i(s), us, um, uns, ditongo</td><td>fácil, hífen, caráter, tórax, órfã, júri, vírus, álbum, história</td></tr>
+<tr><td>Proparoxítonas</td><td>Todas</td><td>lâmpada, pedagógico</td></tr>
+<tr><td>Hiato com i/u tônico</td><td>Sozinhos na sílaba ou com s (exceto antes de nh)</td><td>saída, baú, país (mas rainha, Raul)</td></tr>
+<tr><td>Monossílabos tônicos</td><td>a(s), e(s), o(s)</td><td>pá, pé, pó, três</td></tr></table>
+<h4>O que mudou com o Acordo Ortográfico</h4>
+<ul>
+<li>Sem acento nos ditongos abertos <i>ei</i> e <i>oi</i> das paroxítonas: ideia, assembleia, heroico (mas <i>herói</i>, <i>papéis</i> mantêm, pois são oxítonas).</li>
+<li>Sem acento em <i>êe</i> e <i>ôo</i>: creem, leem, voo, enjoo. Sem trema: linguiça, frequente.</li>
+<li>Acentos diferenciais que ficaram: <i>pôr</i> (verbo), <i>pôde</i> (passado), <i>têm/vêm</i> (plural). <i>Para</i> (verbo) perdeu o acento.</li>
+<li><b>Hífen:</b> prefixo terminado na mesma vogal que inicia a palavra → hífen (micro-ondas, anti-inflamatório); vogais diferentes → junta (autoescola, infraestrutura); prefixo + r/s → dobra (antirracismo, contrassenso); prefixo + h → hífen (anti-higiênico).</li>
+</ul>
+<h4>Grafias que caem sempre</h4>
+<p><b>Porquês:</b> <i>por que</i> (pergunta; = pelo qual), <i>por quê</i> (fim de frase), <i>porque</i> (resposta, causa), <i>o porquê</i> (substantivo). <b>Mal/mau:</b> mal ↔ bem; mau ↔ bom. <b>Há/a:</b> há = tempo passado (“há dois anos”); a = futuro ou distância (“daqui a dois dias”). <b>Onde/aonde:</b> aonde com verbos de movimento (“aonde vai?”). <b>Senão</b> (caso contrário) / <b>se não</b> (caso não). <b>A fim de</b> (finalidade) / <b>afim</b> (semelhante).</p>
+<h4>Crase (a + a)</h4>
+<table class="tbl"><tr><th>Quando</th><th>Exemplo</th></tr>
+<tr><td><b>Obrigatória:</b> termo que exige “a” + palavra feminina com artigo</td><td>Fui <i>à</i> escola. Refiro-me <i>à</i> diretora.</td></tr>
+<tr><td>Horas determinadas</td><td><i>às</i> 9h, <i>à</i> uma hora</td></tr>
+<tr><td>Locuções femininas</td><td><i>às</i> vezes, <i>à</i> noite, <i>à</i> medida que, <i>à</i> custa de</td></tr>
+<tr><td>“À moda de” (mesmo oculto)</td><td>Bife <i>à</i> milanesa; gol <i>à</i> Pelé</td></tr>
+<tr><td>A + aquele(a), aquilo</td><td>Refiro-me <i>àquele</i> livro.</td></tr>
+<tr><td><b>Proibida:</b> antes de masculino, verbo, pronome pessoal e de tratamento, artigo indefinido, palavras repetidas, “a” singular antes de plural</td><td>a pé, a partir de, a ela, a Vossa Excelência, a uma escola, cara a cara, a pessoas</td></tr>
+<tr><td><b>Facultativa:</b> possessivo feminino singular, nome próprio feminino de pessoa, “até a”</td><td><i>à/a</i> minha mãe; <i>à/a</i> Laís; até <i>à/a</i> porta</td></tr></table>
+<div class="callout tip"><b>Truques:</b> troque a palavra feminina por uma masculina; se aparecer “ao”, há crase (“fui <i>à</i> escola” → “fui <i>ao</i> colégio”). Para cidades: “vou a Recife, volto <i>de</i> Recife” (sem crase); “vou <i>à</i> Bahia, volto <i>da</i> Bahia” (com crase).</div>
+</article>
+
+<article class="topic" id="port-13"><h3>Pontuação e redação oficial</h3>
+<h4>Vírgula: proibições</h4>
+<p>Não se separa por vírgula: <b>sujeito do verbo</b> (“Os alunos<s>,</s> chegaram”), <b>verbo do complemento</b>, nem nome do seu complemento ou adjunto.</p>
+<h4>Vírgula: usos obrigatórios</h4>
+<ul>
+<li>Isolar aposto explicativo, vocativo e expressões explicativas (isto é, ou seja, por exemplo).</li>
+<li>Separar itens de uma enumeração e orações coordenadas sem conectivo.</li>
+<li>Antes de conjunções adversativas (mas, porém) e isolar as deslocadas (“Ele, porém, saiu”).</li>
+<li>Isolar adjunto adverbial deslocado (facultativa se for curto) e oração subordinada adverbial anteposta (“Quando a aula acabou, saímos”).</li>
+<li>Isolar oração adjetiva explicativa.</li>
+<li>Marcar omissão de verbo (zeugma): “Eu prefiro Português; ela, Matemática.”</li>
+<li>Antes de “e” só quando os sujeitos são diferentes ou há repetição enfática (polissíndeto).</li>
+</ul>
+<p><b>Ponto e vírgula:</b> separa itens longos de enumeração e orações coordenadas extensas. <b>Dois-pontos:</b> anuncia citação, explicação ou enumeração. <b>Travessão:</b> fala de personagem ou destaque. <b>Aspas:</b> citação, ironia, estrangeirismo.</p>
+<h4>Redação oficial (Manual de Redação da Presidência da República, 3ª ed., 2018)</h4>
+<p><b>Atributos:</b> clareza e precisão, objetividade, concisão, coesão e coerência, impessoalidade, formalidade e padronização, uso da norma-padrão. Linguagem técnica só quando necessária; sem jargões, gírias ou ornamentos.</p>
+<table class="tbl"><tr><th>Item</th><th>Regra</th></tr>
+<tr><td>Padrão ofício</td><td>Diagramação única para as comunicações oficiais; a 3ª edição passou a usar o nome <b>ofício</b> para o que antes eram ofício, aviso e memorando.</td></tr>
+<tr><td>Fechos</td><td><i>Respeitosamente</i> (para autoridade de hierarquia superior) · <i>Atenciosamente</i> (mesma hierarquia ou inferior)</td></tr>
+<tr><td>Vocativos</td><td><i>Excelentíssimo Senhor</i> + cargo só para chefes de Poder; demais: <i>Senhor</i> + cargo. Não se usa “Digníssimo” nem “Ilustríssimo”.</td></tr>
+<tr><td>Outros expedientes</td><td>Exposição de motivos (ministro → Presidente), mensagem (Executivo → Legislativo), correio eletrônico (forma oficial de comunicação)</td></tr></table>
+<div class="callout trap"><b>Pegadinha:</b> “Respeitosamente” para subordinado está errado; e o tratamento “Vossa Excelência” pede verbo na 3ª pessoa.</div>
+</article>
+</div>
+      <div data-subj="rlm" hidden><article class="topic" id="rlm-1"><h3>Estrutura lógica de relações arbitrárias (associação lógica)</h3>
+<p>É o tipo de questão “quem é quem”: três ou quatro pessoas, cada uma com uma profissão, uma cor e uma cidade, e pistas para descobrir quem tem o quê. O edital descreve isso como “estrutura lógica de relações arbitrárias entre pessoas, lugares, objetos ou eventos fictícios”.</p>
+<h4>Método da tabela</h4>
+<ol>
+<li>Monte uma tabela cruzando as categorias (pessoas × profissões, pessoas × cidades...).</li>
+<li>Comece pelas pistas <b>afirmativas diretas</b> (“Ana é professora”): marque ✓ e preencha ✗ no resto da linha e da coluna.</li>
+<li>Depois as <b>negativas</b> (“Bia não mora em Recife”): marque ✗.</li>
+<li>Quando sobrar só uma opção em uma linha ou coluna, ela é a resposta.</li>
+<li>Use as pistas que <b>relacionam</b> duas categorias (“quem mora em Olinda é médica”) por último.</li>
+</ol>
+<h4>Verdades e mentiras</h4>
+<p>Quando só um dos personagens fala a verdade (ou só um mente), <b>teste hipóteses</b>: suponha que o primeiro diz a verdade e veja se gera contradição. Procure duas afirmações <b>contraditórias</b> entre si: uma delas é necessariamente verdadeira, o que já resolve muitos casos.</p>
+<div class="callout tip"><b>Dica de prova:</b> leia todas as alternativas antes de terminar a tabela. Muitas vezes, com metade da tabela feita, só uma alternativa ainda é possível.</div>
+</article>
+
+<article class="topic" id="rlm-2"><h3>Proposições, conectivos e tabela-verdade</h3>
+<p><b>Proposição</b> é uma frase declarativa que pode ser classificada como verdadeira (V) ou falsa (F). <b>Não são proposições:</b> perguntas, exclamações, ordens, frases sem verbo e sentenças abertas (“x + 2 = 5”, “ele é professor” sem saber quem é “ele”).</p>
+<table class="tbl"><tr><th>Conectivo</th><th>Símbolo</th><th>Só é...</th></tr>
+<tr><td>Negação: “não”</td><td class="mono">~p</td><td>Inverte o valor</td></tr>
+<tr><td>Conjunção: “e”</td><td class="mono">p ∧ q</td><td><b>V</b> só se as duas forem V</td></tr>
+<tr><td>Disjunção: “ou”</td><td class="mono">p ∨ q</td><td><b>F</b> só se as duas forem F</td></tr>
+<tr><td>Disjunção exclusiva: “ou... ou”</td><td class="mono">p ⊻ q</td><td><b>V</b> se forem diferentes</td></tr>
+<tr><td>Condicional: “se... então”</td><td class="mono">p → q</td><td><b>F</b> só em V → F (“Vera Fischer é falsa”)</td></tr>
+<tr><td>Bicondicional: “se e somente se”</td><td class="mono">p ↔ q</td><td><b>V</b> se forem iguais</td></tr></table>
+<p>Número de linhas da tabela-verdade = <b>2ⁿ</b> (n = número de proposições simples). <b>Tautologia:</b> sempre V. <b>Contradição:</b> sempre F. <b>Contingência:</b> às vezes V, às vezes F.</p>
+<h4>Negações (as mais cobradas)</h4>
+<table class="tbl mono"><tr><th>Proposição</th><th>Negação</th></tr>
+<tr><td>p ∧ q</td><td>~p ∨ ~q (troca e por ou, nega as duas)</td></tr>
+<tr><td>p ∨ q</td><td>~p ∧ ~q</td></tr>
+<tr><td>p → q</td><td>p ∧ ~q (“mantém a primeira E nega a segunda”)</td></tr>
+<tr><td>p ↔ q</td><td>p ⊻ q</td></tr>
+<tr><td>Todo A é B</td><td>Algum A não é B</td></tr>
+<tr><td>Nenhum A é B</td><td>Algum A é B</td></tr>
+<tr><td>Algum A é B</td><td>Nenhum A é B</td></tr></table>
+<h4>Equivalências do condicional</h4>
+<p><span class="mono">p → q ≡ ~q → ~p</span> (contrapositiva: inverte e nega) <span class="mono">≡ ~p ∨ q</span> (nega a primeira, troca por “ou”). Ex.: “Se chove, a rua molha” ≡ “Se a rua não molha, não choveu” ≡ “Não chove ou a rua molha”.</p>
+<div class="callout trap"><b>Pegadinha:</b> a negação de “Todo aluno estudou” não é “Nenhum aluno estudou”, e sim “<b>Algum</b> aluno <b>não</b> estudou”. E a negação de “Se estudo, passo” não é “Se não estudo, não passo”, e sim “Estudo <b>e</b> não passo”.</div>
+</article>
+
+<article class="topic" id="rlm-3"><h3>Argumentação: conclusões válidas a partir de hipóteses</h3>
+<p>O edital pede “compreensão do processo lógico que, a partir de um conjunto de hipóteses, conduz, de forma válida, a conclusões determinadas”. Um <b>argumento é válido</b> quando, se as premissas forem verdadeiras, a conclusão é <b>obrigatoriamente</b> verdadeira. Validade é sobre a <b>forma</b>, não sobre o conteúdo ser verdadeiro no mundo real.</p>
+<h4>Formas válidas</h4>
+<table class="tbl"><tr><th>Nome</th><th>Estrutura</th><th>Exemplo</th></tr>
+<tr><td>Modus ponens</td><td class="mono">p → q; p; logo q</td><td>Se estudo, passo. Estudei. Logo, passo.</td></tr>
+<tr><td>Modus tollens</td><td class="mono">p → q; ~q; logo ~p</td><td>Se estudo, passo. Não passei. Logo, não estudei.</td></tr>
+<tr><td>Silogismo hipotético</td><td class="mono">p → q; q → r; logo p → r</td><td>“Encadeamento” de condicionais</td></tr>
+<tr><td>Silogismo disjuntivo</td><td class="mono">p ∨ q; ~p; logo q</td><td>Ou vou de ônibus ou de carro. Não fui de ônibus. Fui de carro.</td></tr></table>
+<h4>Falácias (formas inválidas)</h4>
+<ul><li><b>Afirmar o consequente:</b> “Se chove, molha. Molhou. Logo, choveu.” (pode ter molhado por outro motivo)</li>
+<li><b>Negar o antecedente:</b> “Se chove, molha. Não choveu. Logo, não molhou.”</li></ul>
+<h4>Método prático: “partir da proposição simples”</h4>
+<p>Quando a questão dá várias premissas consideradas verdadeiras, comece pela <b>proposição simples</b> (sem conectivo) ou pela conjunção “e” (que exige as duas partes V). Daí vá descobrindo o valor das outras.</p>
+<h4>Diagramas para “todo, algum, nenhum”</h4>
+<p><b>Todo A é B:</b> círculo A dentro de B. <b>Nenhum A é B:</b> círculos separados. <b>Algum A é B:</b> círculos que se cruzam (há pelo menos um em comum). Desenhe todas as possibilidades; a conclusão só é válida se valer em <b>todos</b> os desenhos.</p>
+<div class="callout trap"><b>Pegadinha:</b> “Todo professor é paciente; Ana é paciente; logo Ana é professora” é <b>inválido</b> (Ana pode estar fora do círculo dos professores).</div>
+</article>
+
+<article class="topic" id="rlm-4"><h3>Raciocínio verbal, formação de conceitos e discriminação de elementos</h3>
+<p>Questões que testam a capacidade de classificar, comparar e encontrar a regra que une ou separa elementos.</p>
+<h4>Tipos comuns</h4>
+<ul>
+<li><b>Analogias:</b> “Livro está para biblioteca assim como quadro está para...” (museu). Descubra a relação do primeiro par e aplique ao segundo.</li>
+<li><b>Intruso (discriminação):</b> “Qual não pertence ao grupo: maçã, banana, cenoura, uva?” Procure a característica comum (frutas) e o elemento que não a tem.</li>
+<li><b>Formação de conceitos:</b> agrupar palavras ou figuras por um critério (forma, cor, quantidade de letras, ordem alfabética).</li>
+<li><b>Anagramas e palavras:</b> reorganizar letras, contar vogais, formar palavras com letras de outra.</li>
+<li><b>Interpretação de enunciado lógico:</b> “Se apenas um é verdadeiro...”, “no mínimo”, “no máximo”.</li>
+</ul>
+<h4>Princípio da casa dos pombos (“no mínimo para garantir”)</h4>
+<p>Pergunta típica: “Numa gaveta há meias de 3 cores. Quantas tirar, no mínimo, para garantir um par da mesma cor?” Pense no <b>pior caso</b>: tira uma de cada cor (3) e a próxima garante o par → <b>4</b>.</p>
+<div class="callout tip"><b>Dica:</b> nessas questões, a resposta “óbvia” costuma estar entre as alternativas como armadilha. Releia o critério pedido (número de letras? categoria? posição?).</div>
+</article>
+
+<article class="topic" id="rlm-5"><h3>Raciocínio sequencial (sequências de números, letras e figuras)</h3>
+<h4>Como descobrir a lei de formação</h4>
+<ol>
+<li>Calcule a <b>diferença</b> entre termos vizinhos. Se for constante → progressão aritmética.</li>
+<li>Se não, calcule a <b>razão</b> (divisão). Se for constante → progressão geométrica.</li>
+<li>Se as diferenças formam outra sequência (2, 4, 6...), é sequência de <b>2ª ordem</b>.</li>
+<li>Teste <b>sequências intercaladas</b> (posições ímpares e pares seguem regras diferentes).</li>
+<li>Outras: quadrados (1, 4, 9, 16), primos (2, 3, 5, 7, 11), Fibonacci (cada termo é a soma dos dois anteriores: 1, 1, 2, 3, 5, 8).</li>
+</ol>
+<table class="tbl"><tr><th>Tipo</th><th>Fórmula</th><th>Exemplo</th></tr>
+<tr><td>PA</td><td class="mono">aₙ = a₁ + (n − 1)·r</td><td>3, 7, 11, 15... → 10º termo = 3 + 9·4 = 39</td></tr>
+<tr><td>PG</td><td class="mono">aₙ = a₁ · qⁿ⁻¹</td><td>2, 6, 18, 54... → q = 3</td></tr></table>
+<h4>Letras e figuras</h4>
+<p>Numere as letras (A = 1, B = 2 ... Z = 26; o alfabeto atual tem K, W e Y). Em sequências de figuras que se repetem em ciclo, use o <b>resto da divisão</b>: se o ciclo tem 4 figuras, a 50ª figura é a mesma da posição 50 ÷ 4 = resto <b>2</b>.</p>
+<div class="callout trap"><b>Pegadinha:</b> confira se a banca pede o “próximo termo” ou o “termo de posição n”; e se a sequência começa no termo 0 ou no 1.</div>
+</article>
+
+<article class="topic" id="rlm-6"><h3>Orientação espacial e temporal</h3>
+<h4>Calendário</h4>
+<ul><li>A semana repete a cada <b>7 dias</b>: para saber o dia da semana daqui a N dias, use o <b>resto de N ÷ 7</b>. Ex.: hoje é segunda; daqui a 30 dias → 30 ÷ 7 = resto 2 → quarta.</li>
+<li>Ano comum = 365 dias = 52 semanas + 1 dia: o mesmo dia do ano “anda” 1 dia da semana. Ano bissexto (366) anda 2.</li>
+<li>Bissextos: divisíveis por 4 (exceto os divisíveis por 100 que não são por 400). Meses com 31 dias: jan, mar, mai, jul, ago, out, dez.</li></ul>
+<h4>Relógio</h4>
+<p>O ponteiro dos minutos anda 6° por minuto; o das horas, 0,5° por minuto (30° por hora). Ângulo entre os ponteiros: <span class="mono">|30·H − 5,5·M|</span>. Ex.: 3h20 → |90 − 110| = 20°.</p>
+<h4>Direções e lateralidade</h4>
+<ul><li>Pontos cardeais: Norte, Sul, Leste, Oeste. Virar à direita = girar 90° no sentido horário.</li>
+<li>Duas pessoas <b>frente a frente</b> têm direita e esquerda invertidas.</li>
+<li>Em mesas circulares, fixe uma pessoa e posicione as demais a partir dela; “à direita de” depende de as pessoas estarem viradas para o centro.</li></ul>
+<div class="callout trap"><b>Pegadinha:</b> contar o dia inicial. “De 10 a 15 de março” são 6 dias se incluir os dois extremos, mas a diferença é 5.</div>
+</article>
+
+<article class="topic" id="rlm-7"><h3>Noções básicas de aritmética</h3>
+<h4>Ordem das operações</h4>
+<p>1º parênteses, colchetes e chaves (de dentro para fora) → 2º potências e raízes → 3º multiplicação e divisão (na ordem em que aparecem) → 4º adição e subtração.</p>
+<h4>MMC e MDC</h4>
+<table class="tbl"><tr><th></th><th>Quando usar</th><th>Exemplo</th></tr>
+<tr><td><b>MMC</b></td><td>Eventos que se repetem e voltam a <b>coincidir</b> (“daqui a quantos dias se encontram de novo?”)</td><td>Ônibus a cada 12 e 18 min saem juntos às 8h → MMC(12, 18) = 36 → 8h36</td></tr>
+<tr><td><b>MDC</b></td><td>Dividir em partes <b>iguais e do maior tamanho possível</b></td><td>Fitas de 24 e 36 cm em pedaços iguais, maiores possíveis → MDC = 12 cm</td></tr></table>
+<h4>Frações e decimais</h4>
+<ul><li>Somar/subtrair: igualar denominadores (MMC). Multiplicar: numerador × numerador, denominador × denominador. Dividir: multiplica pelo inverso da segunda.</li>
+<li>“Fração de uma quantidade”: 2/5 de 40 = 40 ÷ 5 × 2 = 16.</li>
+<li>Problemas de “gastou 1/3 e depois 1/4 do <b>restante</b>”: calcule sempre sobre o que sobrou.</li></ul>
+<h4>Divisibilidade</h4>
+<p>Por 2: par. Por 3: soma dos algarismos divisível por 3. Por 4: dois últimos algarismos divisíveis por 4. Por 5: termina em 0 ou 5. Por 6: por 2 e por 3. Por 9: soma divisível por 9. Por 10: termina em 0.</p>
+<div class="callout trap"><b>Pegadinha:</b> “1/4 do restante” ≠ “1/4 do total”. Leia com atenção a palavra <i>restante</i>.</div>
+</article>
+
+<article class="topic" id="rlm-8"><h3>Razão, proporção e regra de três simples</h3>
+<p><b>Razão</b> é a divisão entre duas grandezas (a/b). <b>Proporção</b> é a igualdade entre duas razões: a/b = c/d ⇔ <b>a·d = b·c</b> (produto dos meios = produto dos extremos).</p>
+<h4>Grandezas</h4>
+<ul><li><b>Diretamente proporcionais:</b> uma aumenta, a outra aumenta na mesma proporção (quantidade de cadernos × preço total).</li>
+<li><b>Inversamente proporcionais:</b> uma aumenta, a outra diminui (número de trabalhadores × tempo para terminar a obra; velocidade × tempo).</li></ul>
+<h4>Regra de três simples: passo a passo</h4>
+<ol><li>Monte duas colunas com as grandezas e coloque o <b>x</b>.</li>
+<li>Pergunte: “se uma aumenta, a outra aumenta ou diminui?”</li>
+<li><b>Direta:</b> multiplique cruzado. <b>Inversa:</b> inverta uma das colunas antes (ou multiplique na horizontal).</li></ol>
+<p>Ex. direta: 3 kg custam R$ 12; 5 kg custam x → 3x = 60 → x = R$ 20. Ex. inversa: 4 pedreiros fazem o muro em 6 dias; 8 pedreiros → 8x = 4·6 → x = 3 dias.</p>
+<h4>Divisão proporcional e escala</h4>
+<p>Dividir R$ 600 em partes proporcionais a 2 e 3: soma das partes = 5 → cada “parte” vale 120 → R$ 240 e R$ 360. <b>Escala</b> = medida no desenho ÷ medida real (mesma unidade). 1:100 → 1 cm no mapa = 1 m real.</p>
+<div class="callout trap"><b>Pegadinha:</b> não monte a regra de três como direta automaticamente. Mais trabalhadores ou mais velocidade quase sempre significam <b>menos tempo</b> (inversa).</div>
+</article>
+
+<article class="topic" id="rlm-9"><h3>Porcentagem, acréscimos e descontos</h3>
+<p><b>x% = x/100</b>. Ex.: 15% de 80 = 0,15 × 80 = 12. Atalhos: 10% = divide por 10; 1% = divide por 100; 50% = metade; 25% = um quarto.</p>
+<h4>Fator multiplicativo (o método mais rápido)</h4>
+<table class="tbl"><tr><th>Operação</th><th>Fator</th><th>Exemplo</th></tr>
+<tr><td>Aumento de p%</td><td class="mono">1 + p/100</td><td>R$ 200 + 15% → 200 × 1,15 = R$ 230</td></tr>
+<tr><td>Desconto de p%</td><td class="mono">1 − p/100</td><td>R$ 200 − 15% → 200 × 0,85 = R$ 170</td></tr>
+<tr><td>Sucessivos</td><td>Multiplique os fatores</td><td>+10% e depois −10% → 1,1 × 0,9 = 0,99 → <b>perda de 1%</b></td></tr></table>
+<h4>“Quanto por cento”</h4>
+<ul><li>Variação percentual = (valor final − valor inicial) ÷ valor inicial × 100. Ex.: de 50 para 65 → 15/50 = 30% de aumento.</li>
+<li>Descobrir o valor original: se depois de um aumento de 20% custa R$ 120 → original × 1,2 = 120 → R$ 100 (e não 120 − 24).</li>
+<li>Lucro sobre o custo × lucro sobre a venda: a base muda o percentual.</li></ul>
+<div class="callout trap"><b>Pegadinha:</b> dois descontos de 10% não equivalem a 20%: 0,9 × 0,9 = 0,81 → desconto de <b>19%</b>. Aumentos e descontos sucessivos sempre se multiplicam.</div>
+</article>
+</div>
+      <div data-subj="esp" hidden><article class="topic" id="esp-1"><h3>Relação educação e sociedade; a educação e a escola</h3>
+<p>A educação é um fenômeno <b>social</b>: acontece em todas as sociedades e é condicionada por elas (economia, política, cultura). A escola é uma das instituições que realizam essa tarefa, de forma sistemática.</p>
+<h4>Educação formal, não formal e informal</h4>
+<table class="tbl"><tr><th>Tipo</th><th>Características</th><th>Exemplo</th></tr>
+<tr><td>Formal</td><td>Intencional, sistemática, com currículo, certificação e etapas</td><td>Escola, universidade</td></tr>
+<tr><td>Não formal</td><td>Intencional, organizada, mas fora do sistema escolar</td><td>ONGs, movimentos sociais, cursos livres</td></tr>
+<tr><td>Informal</td><td>Não intencional, espontânea, no convívio</td><td>Família, mídia, rua, amigos</td></tr></table>
+<h4>Três visões sobre o papel da educação na sociedade (Luckesi)</h4>
+<table class="tbl"><tr><th>Visão</th><th>Ideia central</th></tr>
+<tr><td><b>Redenção</b></td><td>A educação “salva” a sociedade, corrige desvios e integra indivíduos. Visão otimista e ingênua: ignora as condições sociais.</td></tr>
+<tr><td><b>Reprodução</b></td><td>A escola reproduz a desigualdade e a ideologia dominante (Bourdieu e Passeron: violência simbólica e capital cultural; Althusser: escola como aparelho ideológico de Estado). Visão pessimista.</td></tr>
+<tr><td><b>Transformação</b></td><td>A educação é mediação: pode reproduzir, mas também contribuir para transformar a sociedade (Freire, Saviani, Libâneo). Visão crítica e dialética.</td></tr></table>
+<h4>Autores de referência</h4>
+<ul>
+<li><b>Durkheim:</b> educação é a ação das gerações adultas sobre as que ainda não estão preparadas para a vida social (socialização metódica).</li>
+<li><b>Bourdieu:</b> a escola valoriza o <b>capital cultural</b> das classes dominantes e transforma desigualdade social em “mérito” individual.</li>
+<li><b>Paulo Freire:</b> a educação não é neutra; é um ato político. Educação bancária (depositar conteúdos) × problematizadora (dialógica, conscientizadora).</li>
+<li><b>Saviani:</b> função da escola é socializar o <b>saber sistematizado</b>, garantindo às classes populares o acesso ao conhecimento.</li>
+</ul>
+<div class="callout trap"><b>Pegadinha:</b> afirmações como “a escola, sozinha, resolve os problemas sociais” correspondem à visão redentora (ingênua) e costumam ser a alternativa errada.</div>
+</article>
+
+<article class="topic" id="esp-2"><h3>Tendências pedagógicas na prática escolar (Libâneo)</h3>
+<p>A classificação mais cobrada é a de José Carlos Libâneo (livro <i>Democratização da Escola Pública</i>), que divide as tendências em <b>liberais</b> (a escola prepara o indivíduo para papéis sociais, sem questionar a sociedade) e <b>progressistas</b> (análise crítica da realidade social).</p>
+<h4>Pedagogias liberais</h4>
+<table class="tbl"><tr><th>Tendência</th><th>Professor</th><th>Aluno</th><th>Marcas</th></tr>
+<tr><td><b>Tradicional</b></td><td>Centro do processo, autoridade, transmissor</td><td>Receptor passivo</td><td>Aula expositiva, memorização, repetição, conteúdos enciclopédicos, avaliação por provas</td></tr>
+<tr><td><b>Renovada progressivista</b> (Escola Nova)</td><td>Facilitador, organiza experiências</td><td>Centro, ativo</td><td>“Aprender fazendo”, experimentação, interesse do aluno. Dewey, Montessori, Decroly; no Brasil, Anísio Teixeira e o Manifesto dos Pioneiros (1932)</td></tr>
+<tr><td><b>Renovada não diretiva</b></td><td>Facilitador, não intervém</td><td>Autodesenvolvimento</td><td>Foco em aspectos psicológicos e afetivos, autorrealização. Carl Rogers</td></tr>
+<tr><td><b>Tecnicista</b></td><td>Técnico que aplica o programa</td><td>Executor de tarefas</td><td>Eficiência, produtividade, objetivos operacionais, instrução programada, manuais. Skinner (behaviorismo); auge no Brasil no regime militar (Lei 5.692/71)</td></tr></table>
+<h4>Pedagogias progressistas</h4>
+<table class="tbl"><tr><th>Tendência</th><th>Marcas</th></tr>
+<tr><td><b>Libertadora</b></td><td>Paulo Freire. Temas geradores tirados da realidade dos alunos, diálogo, círculos de cultura, conscientização. Professor e aluno são sujeitos do ato de conhecer.</td></tr>
+<tr><td><b>Libertária</b></td><td>Inspiração anarquista: autogestão, antiautoritarismo, grupo decide. Conteúdos a partir das necessidades do grupo.</td></tr>
+<tr><td><b>Crítico-social dos conteúdos</b> (histórico-crítica)</td><td>Libâneo e Saviani. Valoriza os <b>conteúdos</b> universais confrontados com a realidade social; o professor é <b>mediador</b> entre o aluno e o saber. Passos de Saviani: prática social → problematização → instrumentalização → catarse → prática social transformada.</td></tr></table>
+<div class="callout trap"><b>Pegadinhas:</b> a Escola Nova é <b>liberal</b> (não progressista), mesmo sendo “ativa”. A crítico-social dos conteúdos valoriza os conteúdos (diferente da libertadora, que parte dos temas geradores). Tecnicista = objetivos operacionais, eficiência, instrução programada.</div>
+</article>
+
+<article class="topic" id="esp-3"><h3>A construção do conhecimento: Piaget e Vygotsky</h3>
+<p>Três concepções de como o conhecimento se forma: <b>empirismo/ambientalismo</b> (vem de fora, por estímulos; o aluno é “tábula rasa” — base do tecnicismo e do behaviorismo de Skinner), <b>inatismo</b> (já nasce com a pessoa; o ensino só “desperta”) e <b>interacionismo/construtivismo</b> (construído na interação entre sujeito e meio).</p>
+<h4>Jean Piaget: epistemologia genética (construtivismo)</h4>
+<ul>
+<li><b>Assimilação:</b> incorporar o novo aos esquemas que já se tem. <b>Acomodação:</b> modificar os esquemas para dar conta do novo. <b>Equilibração:</b> busca de equilíbrio entre as duas; o <b>conflito cognitivo</b> (desequilíbrio) move a aprendizagem.</li>
+<li>Desenvolvimento <b>precede</b> a aprendizagem: a criança só aprende o que sua estrutura cognitiva permite.</li>
+</ul>
+<table class="tbl"><tr><th>Estágio</th><th>Idade aprox.</th><th>Características</th></tr>
+<tr><td>Sensório-motor</td><td class="mono">0 a 2</td><td>Ação e reflexos; permanência do objeto</td></tr>
+<tr><td>Pré-operatório</td><td class="mono">2 a 7</td><td>Função simbólica (linguagem, faz de conta), egocentrismo, animismo, pensamento intuitivo, ainda sem conservação</td></tr>
+<tr><td><b>Operatório concreto</b></td><td class="mono">7 a 11/12</td><td>Reversibilidade, conservação, classificação, seriação; raciocina sobre o concreto. <b>É a fase da maior parte dos anos iniciais.</b></td></tr>
+<tr><td>Operatório formal</td><td class="mono">12 em diante</td><td>Pensamento abstrato, hipotético-dedutivo</td></tr></table>
+<h4>Lev Vygotsky: sociointeracionismo (histórico-cultural)</h4>
+<ul>
+<li>O desenvolvimento é <b>social</b> antes de ser individual: as funções psicológicas superiores surgem nas relações e depois são <b>internalizadas</b>.</li>
+<li><b>Mediação</b> por instrumentos (objetos) e <b>signos</b> (principalmente a linguagem).</li>
+<li><b>Zona de Desenvolvimento Proximal (ZDP):</b> distância entre o <b>nível real</b> (o que a criança faz sozinha) e o <b>nível potencial</b> (o que faz com ajuda de um adulto ou colega mais experiente). O bom ensino atua na ZDP.</li>
+<li>A aprendizagem <b>impulsiona</b> o desenvolvimento (diferente de Piaget).</li>
+</ul>
+<div class="callout trap"><b>Pegadinha:</b> trocar os autores. Assimilação, acomodação, estágios → Piaget. ZDP, mediação, signos, interação social → Vygotsky. Afetividade e emoção → Wallon (próximo tópico).</div>
+</article>
+
+<article class="topic" id="esp-4"><h3>A construção do conhecimento: Wallon, Ausubel, Emilia Ferreiro e outros</h3>
+<h4>Henri Wallon: afetividade</h4>
+<p>Estuda a criança como pessoa <b>completa</b>: afetividade, cognição e movimento (motor) são inseparáveis. A <b>emoção</b> é a primeira forma de comunicação. Estágios: impulsivo-emocional (0–1), sensório-motor e projetivo (1–3), personalismo (3–6, formação do “eu”), <b>categorial</b> (6–11, avanço da inteligência e da atenção — anos iniciais), puberdade e adolescência. Há <b>alternância</b> entre fases com predomínio afetivo e fases com predomínio cognitivo.</p>
+<h4>David Ausubel: aprendizagem significativa</h4>
+<p>O novo conteúdo se ancora em conhecimentos que o aluno já tem (<b>subsunçores</b>). Se não houver ligação, a aprendizagem é <b>mecânica</b> (decorada). <b>Organizadores prévios</b> são materiais introdutórios que fazem a ponte. Condições: material potencialmente significativo + disposição do aluno para aprender.</p>
+<h4>Emilia Ferreiro e Ana Teberosky: psicogênese da língua escrita</h4>
+<table class="tbl"><tr><th>Hipótese</th><th>Como a criança escreve</th></tr>
+<tr><td>Pré-silábica</td><td>Não relaciona escrita e som; usa rabiscos, letras aleatórias, pode achar que coisa grande tem nome grande (realismo nominal)</td></tr>
+<tr><td>Silábica</td><td>Uma letra para cada sílaba; sem valor sonoro (qualquer letra) ou com valor sonoro (“A O” para GATO)</td></tr>
+<tr><td>Silábico-alfabética</td><td>Transição: às vezes uma letra por sílaba, às vezes a sílaba completa (“GAO”)</td></tr>
+<tr><td>Alfabética</td><td>Compreende que cada som corresponde a uma letra; ainda com erros ortográficos (“CAZA”)</td></tr></table>
+<p>O erro é <b>construtivo</b>: revela a hipótese da criança. A escrita é um sistema de representação, não apenas um código a ser memorizado.</p>
+<h4>Outros nomes que caem</h4>
+<ul>
+<li><b>Howard Gardner:</b> inteligências múltiplas (linguística, lógico-matemática, espacial, musical, corporal-cinestésica, interpessoal, intrapessoal, naturalista).</li>
+<li><b>Skinner:</b> behaviorismo, condicionamento operante, reforço positivo e negativo.</li>
+<li><b>Fernando Becker</b> (modelos pedagógicos): diretivo (empirismo), não diretivo (inatismo/apriorismo), relacional (construtivismo).</li>
+</ul>
+<div class="callout trap"><b>Pegadinha:</b> no nível silábico, a criança já percebe que a escrita representa a fala (sílabas); no alfabético ela ainda pode errar ortografia. Errar ortografia não significa ser pré-silábico.</div>
+</article>
+
+<article class="topic" id="esp-5"><h3>O processo de ensino e aprendizagem: a ação pedagógica</h3>
+<p>Para Libâneo (<i>Didática</i>), o processo de ensino é uma unidade entre <b>objetivos, conteúdos, métodos e avaliação</b>, mediada pelo professor. Ensino e aprendizagem são duas faces do mesmo processo: o professor dirige e organiza; o aluno é sujeito ativo da sua aprendizagem.</p>
+<h4>Didática</h4>
+<p>Disciplina que estuda o processo de ensino: seus objetivos, conteúdos, meios e condições. É a mediação entre as bases teóricas da educação e a prática docente.</p>
+<h4>Conteúdos (Zabala e Coll)</h4>
+<table class="tbl"><tr><th>Tipo</th><th>Pergunta</th><th>Exemplo</th></tr>
+<tr><td>Conceituais</td><td>O que se deve <b>saber</b>?</td><td>Fatos, conceitos, princípios (o ciclo da água)</td></tr>
+<tr><td>Procedimentais</td><td>O que se deve <b>saber fazer</b>?</td><td>Técnicas, métodos (montar um gráfico, consultar um dicionário)</td></tr>
+<tr><td>Atitudinais</td><td>Como se deve <b>ser</b>?</td><td>Valores, normas, atitudes (respeitar a vez do colega)</td></tr></table>
+<h4>Métodos de ensino (Libâneo)</h4>
+<p>Exposição verbal pelo professor; trabalho independente dos alunos; elaboração conjunta (conversação dirigida); trabalho em grupo; atividades especiais (estudo do meio, feiras, visitas).</p>
+<h4>Momentos didáticos</h4>
+<p>Preparação e introdução do assunto (mobilizar, ligar ao que o aluno sabe) → tratamento didático da matéria nova → consolidação (exercícios, fixação) → aplicação → controle e avaliação.</p>
+<div class="callout tip"><b>Dica:</b> nas provas, a alternativa correta quase sempre descreve um ensino que parte dos <b>conhecimentos prévios</b>, considera o aluno <b>sujeito ativo</b> e o professor como <b>mediador</b>. Alternativas com “transmitir”, “depositar”, “memorizar” como ideal tendem a estar erradas.</div>
+</article>
+
+<article class="topic" id="esp-6"><h3>Papel do professor (Freire, Libâneo, Perrenoud, Schön, Tardif)</h3>
+<h4>Paulo Freire: <i>Pedagogia da Autonomia</i></h4>
+<p>“<b>Ensinar não é transferir conhecimento</b>, mas criar as possibilidades para a sua produção ou a sua construção.” Saberes necessários à prática educativa (os mais cobrados): ensinar exige <b>rigorosidade metódica</b>; pesquisa; <b>respeito aos saberes dos educandos</b>; criticidade; estética e ética; corporeificação das palavras pelo exemplo; risco, aceitação do novo e rejeição a qualquer forma de discriminação; <b>reflexão crítica sobre a prática</b>; reconhecimento da identidade cultural; <b>consciência do inacabamento</b>; respeito à autonomia do educando; bom senso; humildade, tolerância; alegria e esperança; curiosidade; segurança e competência profissional; saber escutar; <b>disponibilidade para o diálogo</b>; querer bem aos educandos.</p>
+<h4>Professor reflexivo (Donald Schön)</h4>
+<p>Reflexão <b>na</b> ação (durante a aula), <b>sobre</b> a ação (depois) e <b>sobre a reflexão na ação</b>. O professor aprende com a própria prática.</p>
+<h4>Saberes docentes (Maurice Tardif)</h4>
+<p>Saberes da <b>formação profissional</b> (ciências da educação), <b>disciplinares</b> (das áreas de conhecimento), <b>curriculares</b> (programas da escola) e <b>experienciais</b> (da prática; os que o professor mais valoriza).</p>
+<h4>Dez novas competências para ensinar (Philippe Perrenoud)</h4>
+<p>Organizar e dirigir situações de aprendizagem; administrar a progressão das aprendizagens; conceber e fazer evoluir dispositivos de diferenciação; envolver os alunos em suas aprendizagens e trabalho; trabalhar em equipe; participar da administração da escola; informar e envolver os pais; utilizar novas tecnologias; enfrentar os deveres e dilemas éticos da profissão; administrar a própria formação contínua.</p>
+<h4>Incumbências do docente na LDB (art. 13)</h4>
+<p>Participar da elaboração da proposta pedagógica; elaborar e cumprir plano de trabalho; zelar pela aprendizagem; estabelecer estratégias de recuperação para alunos de menor rendimento; ministrar os dias letivos e horas-aula; participar integralmente dos períodos de planejamento, avaliação e desenvolvimento profissional; colaborar com a articulação da escola com as famílias e a comunidade. <i>(São quase as mesmas atribuições do cargo no Anexo II do edital.)</i></p>
+<div class="callout trap"><b>Pegadinha:</b> “consciência do inacabamento” (Freire) significa que o ser humano está sempre aprendendo, e não que o professor “sabe tudo”. Autoritarismo é diferente de autoridade: Freire defende autoridade democrática, sem autoritarismo nem licenciosidade.</div>
+</article>
+
+<article class="topic" id="esp-7"><h3>Planejamento na prática educativa</h3>
+<p>Planejar é um processo de <b>reflexão e tomada de decisões</b> sobre a ação educativa, a partir da realidade. O <b>plano</b> é o registro (documento) desse processo. Para Vasconcellos, o planejamento não é preenchimento burocrático de formulários, e sim uma ferramenta de trabalho do professor.</p>
+<h4>Níveis de planejamento (Libâneo)</h4>
+<table class="tbl"><tr><th>Nível</th><th>O que é</th></tr>
+<tr><td>Plano da escola</td><td>Documento global, ligado ao Projeto Político-Pedagógico; orienta toda a escola</td></tr>
+<tr><td>Plano de ensino (de curso/unidade)</td><td>Previsão dos objetivos e conteúdos de um ano, semestre ou unidade, para uma turma ou componente</td></tr>
+<tr><td>Plano de aula</td><td>Detalhamento de uma ou mais aulas</td></tr></table>
+<h4>Elementos de um plano de aula</h4>
+<p><b>Objetivos</b> (gerais e específicos, com verbos de ação que indicam o que o aluno será capaz de fazer: identificar, comparar, produzir) → <b>conteúdos</b> → <b>procedimentos/metodologia</b> → <b>recursos</b> → <b>avaliação</b> → referências.</p>
+<h4>Características de um bom plano</h4>
+<p><b>Coerência</b> (objetivos, conteúdos, métodos e avaliação alinhados), <b>sequência</b> e continuidade, <b>flexibilidade</b> (pode ser ajustado), <b>objetividade</b> e precisão, adequação à realidade dos alunos.</p>
+<h4>Outras formas de organização</h4>
+<ul>
+<li><b>Sequência didática:</b> conjunto de atividades encadeadas para um objetivo (Zabala). Em Língua Portuguesa (Dolz e Schneuwly): apresentação da situação → produção inicial → módulos → produção final.</li>
+<li><b>Projetos de trabalho:</b> partem de um problema ou tema de interesse, com produto final e participação ativa dos alunos (Fernando Hernández).</li>
+<li><b>Atividades permanentes:</b> rotina regular (roda de leitura diária, calendário).</li>
+</ul>
+<div class="callout trap"><b>Pegadinha:</b> planejamento “rígido e que não pode ser alterado” está errado: a flexibilidade é uma característica do bom plano. E planejamento não se confunde com o plano (processo × produto).</div>
+</article>
+
+<article class="topic" id="esp-8"><h3>Metodologia e avaliação do processo ensino-aprendizagem</h3>
+<h4>Funções da avaliação (Bloom e Scriven)</h4>
+<table class="tbl"><tr><th>Função</th><th>Quando</th><th>Para quê</th></tr>
+<tr><td><b>Diagnóstica</b></td><td>Início (mas também ao longo)</td><td>Identificar conhecimentos prévios e dificuldades para planejar</td></tr>
+<tr><td><b>Formativa</b></td><td>Durante o processo</td><td>Acompanhar, dar retorno (feedback) e <b>regular</b> o ensino e a aprendizagem</td></tr>
+<tr><td><b>Somativa</b></td><td>Final de uma etapa</td><td>Classificar, atribuir nota, certificar</td></tr></table>
+<h4>Autores mais cobrados</h4>
+<ul>
+<li><b>Cipriano Luckesi:</b> distingue <b>avaliar</b> (diagnosticar para tomar decisões e intervir, inclusivo) de <b>examinar</b> (classificar, aprovar/reprovar, excludente). Critica a “pedagogia do exame”. Avaliação é um ato <b>amoroso</b> e de acolhimento.</li>
+<li><b>Jussara Hoffmann:</b> avaliação <b>mediadora</b>: o professor acompanha, dialoga e intervém; a avaliação é contínua e serve para promover a aprendizagem, não para punir.</li>
+<li><b>Perrenoud:</b> avaliação formativa como <b>regulação</b> das aprendizagens.</li>
+<li><b>Celso Vasconcellos:</b> avaliação como processo de transformação; crítica ao uso da nota como instrumento de controle.</li>
+</ul>
+<h4>Avaliação na LDB (art. 24, V)</h4>
+<p>Avaliação <b>contínua e cumulativa</b>, com <b>prevalência dos aspectos qualitativos sobre os quantitativos</b> e dos resultados ao longo do período sobre os de eventuais provas finais. Prevê aceleração de estudos para alunos com atraso, avanço mediante verificação do aprendizado, aproveitamento de estudos e <b>estudos de recuperação obrigatórios</b>, de preferência paralelos ao período letivo. Frequência mínima de <b>75%</b> para aprovação.</p>
+<h4>Instrumentos</h4>
+<p>Observação e registro, portfólio, autoavaliação, produções dos alunos, rubricas, provas e trabalhos. Usar <b>vários instrumentos</b> e critérios claros, informados aos alunos.</p>
+<div class="callout trap"><b>Pegadinha:</b> avaliação diagnóstica não acontece só no início do ano; pode ser feita sempre que se começa um novo conteúdo. E a avaliação na perspectiva atual não tem como objetivo principal classificar ou punir.</div>
+</article>
+
+<article class="topic" id="esp-9"><h3>Currículo escolar: conceito, fundamentos e componentes</h3>
+<p><b>Currículo</b> não é só a lista de conteúdos: é o conjunto de experiências, conhecimentos e práticas que a escola organiza para formar os alunos, e expressa escolhas políticas e culturais (quem decide o que vale a pena ensinar).</p>
+<h4>Dimensões do currículo</h4>
+<table class="tbl"><tr><th>Currículo</th><th>O que é</th></tr>
+<tr><td>Formal (prescrito, oficial)</td><td>O que está nos documentos: BNCC, diretrizes, proposta da rede</td></tr>
+<tr><td>Real (em ação)</td><td>O que de fato acontece na sala de aula</td></tr>
+<tr><td><b>Oculto</b></td><td>Aprendizagens não explícitas: valores, atitudes, comportamentos transmitidos pela rotina, organização do espaço, relações de poder (fila, silêncio, obediência)</td></tr></table>
+<h4>Teorias do currículo (Tomaz Tadeu da Silva, <i>Documentos de Identidade</i>)</h4>
+<table class="tbl"><tr><th>Teoria</th><th>Conceitos-chave</th></tr>
+<tr><td>Tradicionais</td><td>Ensino, aprendizagem, avaliação, metodologia, organização, planejamento, <b>eficiência</b>, objetivos (Bobbitt, Tyler)</td></tr>
+<tr><td>Críticas</td><td><b>Ideologia</b>, reprodução cultural e social, poder, classe social, capitalismo, conscientização, emancipação, currículo oculto, resistência</td></tr>
+<tr><td>Pós-críticas</td><td><b>Identidade, alteridade, diferença</b>, subjetividade, discurso, saber-poder, representação, cultura, gênero, raça, etnia, sexualidade, multiculturalismo</td></tr></table>
+<h4>Componentes do currículo no Brasil</h4>
+<ul>
+<li><b>LDB, art. 26:</b> base nacional comum + <b>parte diversificada</b> (características regionais e locais). Obrigatórios: Língua Portuguesa, Matemática, conhecimento do mundo físico e natural e da realidade social e política; <b>Arte</b> (especialmente expressões regionais); <b>Educação Física</b>.</li>
+<li><b>Art. 26-A:</b> obrigatório o estudo da <b>história e cultura afro-brasileira e indígena</b> (Leis 10.639/2003 e 11.645/2008).</li>
+<li><b>BNCC</b> (2017, educação infantil e ensino fundamental): documento <b>normativo</b> que define as aprendizagens essenciais; 10 competências gerais; não é currículo pronto, e sim referência para as redes construírem os seus.</li>
+</ul>
+<div class="callout trap"><b>Pegadinha:</b> a BNCC não substitui os currículos das redes nem o PPP: ela é a referência obrigatória para elaborá-los. E “currículo oculto” é um conceito das teorias <b>críticas</b>.</div>
+</article>
+
+<article class="topic" id="esp-10"><h3>Construção coletiva do Projeto Político-Pedagógico (PPP)</h3>
+<p>O PPP é a <b>identidade</b> da escola: diz quem ela é, aonde quer chegar e como. É <b>projeto</b> (lançar-se para o futuro), <b>político</b> (compromisso com a formação do cidadão para um tipo de sociedade) e <b>pedagógico</b> (define as ações educativas). Ilma Passos Veiga é a principal autora.</p>
+<h4>Base legal</h4>
+<ul>
+<li>LDB, art. 12, I: os estabelecimentos de ensino têm a incumbência de <b>elaborar e executar sua proposta pedagógica</b>.</li>
+<li>LDB, art. 13, I: os docentes devem <b>participar da elaboração</b> da proposta pedagógica.</li>
+<li>LDB, art. 14: <b>gestão democrática</b>, com participação dos profissionais da educação na elaboração do projeto pedagógico e das comunidades escolar e local em conselhos escolares ou equivalentes.</li>
+</ul>
+<h4>Princípios (Veiga)</h4>
+<p>Igualdade de condições de acesso e permanência; qualidade para todos; <b>gestão democrática</b>; liberdade (autonomia); valorização do magistério.</p>
+<h4>Estrutura comum</h4>
+<table class="tbl"><tr><th>Parte</th><th>Pergunta que responde</th></tr>
+<tr><td>Marco referencial (situacional, doutrinal/filosófico, operativo)</td><td>Que sociedade, que ser humano e que escola queremos?</td></tr>
+<tr><td>Diagnóstico</td><td>Onde estamos? (realidade da escola e da comunidade)</td></tr>
+<tr><td>Programação / plano de ação</td><td>O que faremos para chegar lá? (metas, ações, responsáveis, prazos)</td></tr>
+<tr><td>Avaliação</td><td>Como vamos acompanhar e rever o projeto?</td></tr></table>
+<h4>Características</h4>
+<p>Construído <b>coletivamente</b> (gestores, professores, funcionários, alunos, pais, comunidade); processo <b>permanente</b>, revisto periodicamente; não é documento para cumprir exigência burocrática e “engavetar”. Conselho escolar e conselho de classe são espaços de participação.</p>
+<div class="callout trap"><b>Pegadinha:</b> PPP elaborado só pela direção ou por técnicos da secretaria contradiz a gestão democrática. E PPP ≠ regimento escolar (o regimento trata das normas de funcionamento: direitos, deveres, organização).</div>
+</article>
+
+<article class="topic" id="esp-11"><h3>Orientações metodológicas para o Ensino Fundamental (anos iniciais)</h3>
+<h4>Ensino fundamental na LDB</h4>
+<p>Art. 32: obrigatório, com <b>duração de 9 anos</b>, gratuito na escola pública, iniciando-se aos <b>6 anos</b>. Objetivo: formação básica do cidadão, mediante (I) o desenvolvimento da capacidade de aprender, tendo como meios básicos o <b>pleno domínio da leitura, da escrita e do cálculo</b>; (II) a compreensão do ambiente natural e social, do sistema político, da tecnologia, das artes e dos valores; (III) o desenvolvimento da capacidade de aprendizagem, com aquisição de conhecimentos e formação de atitudes e valores; (IV) o fortalecimento dos vínculos de família, dos laços de solidariedade e da tolerância. Pode ser organizado em <b>ciclos</b>; jornada de pelo menos <b>4 horas</b> diárias em sala (art. 34).</p>
+<h4>BNCC: anos iniciais (1º ao 5º ano)</h4>
+<table class="tbl"><tr><th>Área</th><th>Componentes</th></tr>
+<tr><td>Linguagens</td><td>Língua Portuguesa, Arte, Educação Física (Língua Inglesa só a partir do 6º ano)</td></tr>
+<tr><td>Matemática</td><td>Matemática (números, álgebra, geometria, grandezas e medidas, probabilidade e estatística)</td></tr>
+<tr><td>Ciências da Natureza</td><td>Ciências</td></tr>
+<tr><td>Ciências Humanas</td><td>Geografia e História</td></tr>
+<tr><td>Ensino Religioso</td><td>Ensino Religioso (matrícula facultativa, sem proselitismo — LDB, art. 33)</td></tr></table>
+<p>A BNCC determina que a <b>alfabetização</b> seja o foco da ação pedagógica nos <b>dois primeiros anos</b> do ensino fundamental. Valoriza a transição da educação infantil, as situações lúdicas e a progressiva sistematização.</p>
+<h4>Alfabetização e letramento (Magda Soares)</h4>
+<p><b>Alfabetização</b> é a apropriação do sistema de escrita alfabética (relação entre sons e letras). <b>Letramento</b> é o uso social da leitura e da escrita em práticas reais (ler uma receita, escrever um bilhete). São processos distintos, mas <b>simultâneos e interdependentes</b>: “alfabetizar letrando”. Consciência fonológica (perceber rimas, sílabas, sons) ajuda a avançar nas hipóteses de escrita.</p>
+<h4>Princípios metodológicos que as provas valorizam</h4>
+<ul>
+<li>Partir dos <b>conhecimentos prévios</b> e da realidade dos alunos; contextualização.</li>
+<li><b>Interdisciplinaridade</b> e temas transversais (PCN: ética, saúde, meio ambiente, orientação sexual, pluralidade cultural, trabalho e consumo; na BNCC, temas contemporâneos transversais).</li>
+<li>Matemática pela <b>resolução de problemas</b> e uso de material concreto (material dourado, ábaco, jogos).</li>
+<li>Ciências pela investigação: observar, levantar hipóteses, experimentar, registrar.</li>
+<li>Diversidade de textos e gêneros reais na sala de aula; leitura diária pelo professor.</li>
+</ul>
+<div class="callout trap"><b>Pegadinha:</b> alfabetização e letramento não são etapas em sequência (“primeiro alfabetiza, depois letra”); acontecem juntos. E o ensino fundamental de 9 anos começa aos 6 anos, não aos 7.</div>
+</article>
+
+<article class="topic" id="esp-12"><h3>Atividades adequadas e utilização de jogos na aprendizagem</h3>
+<p>O jogo e a brincadeira são formas privilegiadas de aprender na infância. Na escola, o jogo pode ter função <b>lúdica</b> (prazer, diversão) e <b>educativa</b> (ensinar algo). Tizuko Kishimoto defende o <b>equilíbrio</b> entre as duas: se só há função educativa, vira exercício; se só há lúdica, perde a intenção pedagógica.</p>
+<h4>Jogo segundo os teóricos</h4>
+<table class="tbl"><tr><th>Autor</th><th>Contribuição</th></tr>
+<tr><td><b>Piaget</b></td><td>Tipos de jogo ligados aos estágios: <b>de exercício</b> (sensório-motor), <b>simbólico</b> / faz de conta (pré-operatório) e <b>de regras</b> (operatório concreto, dos 7 anos em diante, socialização)</td></tr>
+<tr><td><b>Vygotsky</b></td><td>A brincadeira cria uma <b>ZDP</b>: brincando, a criança age além da sua idade. Até o faz de conta tem regras implícitas</td></tr>
+<tr><td><b>Kishimoto</b></td><td>Distingue jogo, brinquedo (objeto, suporte) e brincadeira (ação de brincar); jogo educativo com equilíbrio entre lúdico e educativo</td></tr>
+<tr><td><b>Huizinga</b></td><td><i>Homo Ludens</i>: o jogo é anterior à cultura; atividade livre, com regras, tempo e espaço próprios</td></tr>
+<tr><td><b>Wallon</b></td><td>Jogos funcionais, de ficção, de aquisição e de fabricação</td></tr></table>
+<h4>Como usar jogos em sala</h4>
+<ul>
+<li>Definir o <b>objetivo pedagógico</b> antes de escolher o jogo.</li>
+<li>Adequar à faixa etária e ao nível dos alunos (desafiador, mas possível — ZDP).</li>
+<li>Regras claras; o professor atua como <b>mediador</b> (observa, questiona, intervém).</li>
+<li>Momento de <b>reflexão</b> depois do jogo (“que estratégia você usou?”) e registro.</li>
+<li>Exemplos: bingo de palavras e de números, jogos de trilha, dominó de operações, quebra-cabeças, jogo da memória com sílabas, boliche para contagem.</li>
+</ul>
+<h4>Atividades adequadas</h4>
+<p>São significativas (fazem sentido para o aluno), <b>contextualizadas</b>, desafiadoras na medida certa, variadas (individual, dupla, grupo) e diversificadas para atender a ritmos diferentes.</p>
+<div class="callout trap"><b>Pegadinha:</b> usar jogo apenas como “prêmio” para quem terminou a tarefa ou como passatempo, sem objetivo, não é uso pedagógico do jogo. Também está errado dizer que o jogo de regras é típico do estágio sensório-motor.</div>
+</article>
+
+<article class="topic" id="esp-13"><h3>Educação inclusiva: diversidade na sala de aula</h3>
+<p><b>Integração</b> × <b>inclusão</b>: na integração, o aluno precisa se adaptar à escola (classes especiais, só entra “quem consegue acompanhar”). Na <b>inclusão</b>, a <b>escola</b> se transforma para receber todos, com as adaptações necessárias. A inclusão vale para todas as diferenças: deficiência, raça e etnia, gênero, classe social, religião, ritmo de aprendizagem.</p>
+<h4>Marcos legais e documentos</h4>
+<table class="tbl"><tr><th>Ano</th><th>Documento</th><th>Destaque</th></tr>
+<tr><td class="mono">1990</td><td>Declaração Mundial de Educação para Todos (Jomtien)</td><td>Satisfação das necessidades básicas de aprendizagem</td></tr>
+<tr><td class="mono">1994</td><td><b>Declaração de Salamanca</b></td><td>Escolas regulares com orientação inclusiva são o meio mais eficaz de combater a discriminação</td></tr>
+<tr><td class="mono">1999/2001</td><td>Convenção da Guatemala (Decreto 3.956/2001)</td><td>Eliminação de todas as formas de discriminação contra a pessoa com deficiência</td></tr>
+<tr><td class="mono">2002</td><td>Lei 10.436</td><td>Reconhece a <b>Libras</b> como meio legal de comunicação e expressão</td></tr>
+<tr><td class="mono">2008</td><td><b>Política Nacional de Educação Especial na Perspectiva da Educação Inclusiva</b></td><td>Educação especial transversal a todos os níveis; AEE complementar ou suplementar, não substitutivo</td></tr>
+<tr><td class="mono">2009</td><td>Convenção da ONU (Decreto 6.949/2009)</td><td>Tem status de <b>emenda constitucional</b>; base da LBI</td></tr>
+<tr><td class="mono">2012</td><td>Lei 12.764 (TEA)</td><td>Pessoa com transtorno do espectro autista é considerada pessoa com deficiência para todos os efeitos legais</td></tr>
+<tr><td class="mono">2015</td><td>Lei 13.146 (LBI)</td><td>Ver os tópicos próprios</td></tr></table>
+<h4>Atendimento Educacional Especializado (AEE)</h4>
+<p>Público-alvo da educação especial: estudantes com <b>deficiência</b>, <b>transtornos globais do desenvolvimento</b> (inclui TEA) e <b>altas habilidades/superdotação</b>. O AEE é feito preferencialmente em <b>salas de recursos multifuncionais</b>, no <b>contraturno</b>, e <b>complementa ou suplementa</b> a formação — nunca substitui a classe comum (Resolução CNE/CEB 4/2009). LDB, art. 58: educação especial é modalidade oferecida <b>preferencialmente na rede regular</b>, com início na educação infantil e ao longo da vida.</p>
+<h4>Diversidade na sala de aula</h4>
+<p>Valorizar a cultura dos alunos; combater o racismo e o bullying (a LDB, art. 12, manda a escola promover medidas de prevenção e combate à intimidação sistemática); trabalhar a história e cultura afro-brasileira e indígena; diferenciar atividades para ritmos diferentes; avaliar considerando o progresso individual.</p>
+<div class="callout trap"><b>Pegadinha:</b> o AEE não é reforço escolar nem substitui a escolarização na classe comum. E altas habilidades/superdotação também é público da educação especial.</div>
+</article>
+
+<article class="topic" id="esp-14"><h3>LDB (Lei 9.394/96) — Parte 1: princípios, direito à educação e organização</h3>
+<h4>Arts. 1º a 3º</h4>
+<ul>
+<li>A educação abrange os processos formativos que se desenvolvem na família, na convivência humana, no trabalho, nas instituições de ensino e pesquisa, nos movimentos sociais e nas manifestações culturais. A lei disciplina a <b>educação escolar</b>, que deve vincular-se ao mundo do trabalho e à prática social.</li>
+<li>Art. 2º: a educação é <b>dever da família e do Estado</b>, inspirada nos princípios de liberdade e nos ideais de solidariedade humana, com a finalidade de <b>pleno desenvolvimento do educando, preparo para o exercício da cidadania e qualificação para o trabalho</b>.</li>
+<li>Art. 3º (princípios): igualdade de condições para acesso e permanência; liberdade de aprender, ensinar, pesquisar e divulgar; pluralismo de ideias e concepções pedagógicas; respeito à liberdade e apreço à tolerância; gratuidade do ensino público em estabelecimentos oficiais; valorização do profissional da educação; <b>gestão democrática do ensino público</b>; garantia de padrão de qualidade; valorização da experiência extraescolar; vinculação entre educação escolar, trabalho e práticas sociais; consideração com a diversidade étnico-racial; garantia do direito à educação e à aprendizagem ao longo da vida.</li>
+</ul>
+<h4>Art. 4º: dever do Estado</h4>
+<ul>
+<li>Educação básica <b>obrigatória e gratuita dos 4 aos 17 anos</b>: pré-escola, ensino fundamental e ensino médio.</li>
+<li>Educação infantil gratuita às crianças de <b>até 5 anos</b>.</li>
+<li>Atendimento educacional especializado gratuito, transversal a todos os níveis, <b>preferencialmente na rede regular</b>.</li>
+<li>Acesso público e gratuito aos ensinos fundamental e médio para quem não concluiu na idade própria.</li>
+<li>Vaga na escola pública mais próxima de casa a toda criança a partir dos 4 anos.</li>
+</ul>
+<p>Art. 5º: o acesso à educação básica obrigatória é <b>direito público subjetivo</b>. Art. 6º: é dever dos pais matricular as crianças na educação básica <b>a partir dos 4 anos</b>.</p>
+<h4>Organização da educação nacional (arts. 8º a 14)</h4>
+<table class="tbl"><tr><th>Ente</th><th>Prioridade</th></tr>
+<tr><td>União</td><td>Coordena a política nacional; elabora o Plano Nacional de Educação; assistência técnica e financeira; ensino superior federal</td></tr>
+<tr><td>Estados</td><td>Assegurar o ensino fundamental e oferecer, <b>com prioridade, o ensino médio</b></td></tr>
+<tr><td><b>Municípios</b></td><td>Oferecer a <b>educação infantil</b> em creches e pré-escolas e, <b>com prioridade, o ensino fundamental</b>; só atuam em outros níveis depois de atender plenamente essas etapas</td></tr></table>
+<p><b>Art. 12</b> (escolas): elaborar e executar a proposta pedagógica; assegurar os dias letivos e horas-aula; velar pelo cumprimento do plano de trabalho docente; prover meios de recuperação; articular-se com as famílias; informar pais sobre frequência e rendimento; <b>notificar ao Conselho Tutelar</b> a relação dos alunos com faltas acima de <b>30% do percentual permitido em lei</b>; promover medidas de combate a todos os tipos de violência, especialmente a intimidação sistemática (<b>bullying</b>), e promover a cultura de paz. <b>Art. 13</b> (docentes) e <b>art. 14</b> (gestão democrática): ver os tópicos “Papel do professor” e “PPP”.</p>
+<div class="callout trap"><b>Pegadinhas:</b> a obrigatoriedade é dos <b>4 aos 17</b> (não 6 a 14). Município tem prioridade no ensino <b>fundamental</b> (e oferece a educação infantil); o ensino médio é prioridade dos Estados.</div>
+</article>
+
+<article class="topic" id="esp-15"><h3>LDB (Lei 9.394/96) — Parte 2: educação básica, ensino fundamental, educação especial e profissionais</h3>
+<h4>Regras comuns da educação básica (arts. 22 a 28)</h4>
+<ul>
+<li>Art. 21: educação escolar = <b>educação básica</b> (educação infantil, ensino fundamental, ensino médio) + educação superior.</li>
+<li>Art. 23: pode organizar-se em séries anuais, períodos semestrais, ciclos, alternância de períodos, grupos não seriados por idade ou competência.</li>
+<li>Art. 24: carga horária mínima anual de <b>800 horas</b>, em no mínimo <b>200 dias</b> de efetivo trabalho escolar; frequência mínima de <b>75%</b>; avaliação contínua e cumulativa, qualitativo sobre quantitativo; recuperação obrigatória.</li>
+<li>Art. 26: base nacional comum + parte diversificada; Arte e Educação Física obrigatórias; música, artes visuais, dança e teatro são linguagens da Arte; conteúdos sobre direitos humanos e prevenção da violência contra a criança, o adolescente e a mulher como temas transversais.</li>
+<li>Art. 26-A: história e cultura <b>afro-brasileira e indígena</b> obrigatórias.</li>
+</ul>
+<h4>Educação infantil (arts. 29 a 31)</h4>
+<p>Primeira etapa da educação básica; desenvolvimento integral da criança <b>até 5 anos</b>. Creche: até 3 anos; pré-escola: 4 e 5. Avaliação por acompanhamento e registro, <b>sem objetivo de promoção</b>; frequência mínima de <b>60%</b>.</p>
+<h4>Ensino fundamental (arts. 32 a 34)</h4>
+<p>9 anos, início aos 6 anos, gratuito na escola pública. Pode ser em ciclos; regime de <b>progressão continuada</b> permitido (sem prejuízo da avaliação). Ministrado em língua portuguesa, assegurado às comunidades indígenas o uso de suas línguas maternas. Currículo inclui conteúdo sobre os direitos das crianças e dos adolescentes, tendo o ECA como diretriz. <b>Ensino religioso</b>: matrícula facultativa, vedado o proselitismo. Jornada mínima de <b>4 horas</b> em sala, com ampliação progressiva para tempo integral.</p>
+<h4>EJA (arts. 37 e 38)</h4>
+<p>Para quem não teve acesso ou continuidade na idade própria. Exames supletivos: fundamental para <b>maiores de 15 anos</b>; médio para <b>maiores de 18</b>.</p>
+<h4>Educação especial (arts. 58 a 60)</h4>
+<p>Modalidade oferecida <b>preferencialmente na rede regular</b>, para educandos com deficiência, transtornos globais do desenvolvimento e altas habilidades/superdotação; começa na educação infantil e se estende ao longo da vida. Os sistemas devem assegurar currículos, métodos e recursos específicos; <b>terminalidade específica</b> para quem não puder concluir o fundamental por causa da deficiência; <b>aceleração</b> para superdotados; professores com especialização adequada.</p>
+<h4>Profissionais da educação (arts. 61 a 67)</h4>
+<ul>
+<li>Art. 62: formação de docentes em nível superior (licenciatura), admitida como <b>formação mínima</b> para a educação infantil e os <b>cinco primeiros anos do ensino fundamental</b> a oferecida em <b>nível médio, modalidade normal</b> — por isso o edital aceita Normal Médio/Magistério.</li>
+<li>Art. 67 (valorização): ingresso <b>exclusivamente por concurso público de provas e títulos</b>; aperfeiçoamento continuado, inclusive com licenciamento periódico remunerado; piso salarial profissional; progressão funcional por titulação e avaliação de desempenho; <b>período reservado a estudos, planejamento e avaliação</b> incluído na carga de trabalho; condições adequadas de trabalho.</li>
+</ul>
+<div class="callout trap"><b>Pegadinhas:</b> frequência mínima é 75% no fundamental e 60% na educação infantil. Avaliação na educação infantil não reprova. Ensino religioso é de oferta obrigatória pela escola, mas matrícula <b>facultativa</b> para o aluno.</div>
+</article>
+
+<article class="topic" id="esp-16"><h3>ECA (Lei 8.069/90) — Parte 1: disposições gerais e direitos fundamentais</h3>
+<h4>Conceitos (arts. 1º a 6º)</h4>
+<ul>
+<li>Adota a <b>proteção integral</b>. <b>Criança:</b> até 12 anos incompletos. <b>Adolescente:</b> de 12 a 18 anos. Excepcionalmente, aplica-se a pessoas entre 18 e 21 anos.</li>
+<li>Art. 4º: é dever da família, da comunidade, da sociedade em geral e do poder público assegurar, com <b>absoluta prioridade</b>, os direitos à vida, saúde, alimentação, educação, esporte, lazer, profissionalização, cultura, dignidade, respeito, liberdade e convivência familiar e comunitária. A prioridade compreende: primazia de receber proteção e socorro; precedência no atendimento nos serviços públicos; preferência na formulação das políticas sociais; destinação privilegiada de recursos.</li>
+<li>Art. 5º: nenhuma criança ou adolescente será objeto de negligência, discriminação, exploração, violência, crueldade e opressão.</li>
+</ul>
+<h4>Direitos fundamentais que mais caem</h4>
+<ul>
+<li><b>Art. 13:</b> casos de suspeita ou confirmação de castigo físico, tratamento cruel ou degradante e maus-tratos serão <b>obrigatoriamente comunicados ao Conselho Tutelar</b> da localidade.</li>
+<li><b>Art. 16 (liberdade):</b> ir, vir e estar; opinião e expressão; crença e culto; <b>brincar, praticar esportes e divertir-se</b>; participar da vida familiar e comunitária sem discriminação; participar da vida política; buscar refúgio, auxílio e orientação.</li>
+<li><b>Art. 17 (respeito):</b> inviolabilidade da integridade física, psíquica e moral, abrangendo imagem, identidade, autonomia, valores, ideias, crenças, espaços e objetos pessoais.</li>
+<li><b>Art. 18-A</b> (Lei Menino Bernardo, 13.010/2014): direito de ser educado <b>sem uso de castigo físico ou tratamento cruel ou degradante</b>.</li>
+<li><b>Art. 19:</b> direito de ser criado no seio da família e, excepcionalmente, em família substituta.</li>
+</ul>
+<h4>Direito à educação (arts. 53 a 59) — o capítulo mais importante para professor</h4>
+<p><b>Art. 53:</b> educação visando ao pleno desenvolvimento, preparo para a cidadania e qualificação para o trabalho, assegurando: I igualdade de condições de acesso e permanência; II <b>direito de ser respeitado por seus educadores</b>; III <b>direito de contestar critérios avaliativos</b>, podendo recorrer às instâncias escolares superiores; IV direito de organização e participação em entidades estudantis; V acesso à escola pública e gratuita próxima de casa, garantindo vagas no mesmo estabelecimento a irmãos na mesma etapa. Parágrafo único: os pais têm direito de ter ciência do processo pedagógico e participar da definição das propostas educacionais.</p>
+<p><b>Art. 54:</b> dever do Estado: ensino fundamental obrigatório e gratuito (inclusive para quem não teve acesso na idade própria); progressiva extensão ao ensino médio; AEE preferencialmente na rede regular; creche e pré-escola de <b>0 a 5 anos</b>; ensino noturno regular; programas suplementares (material didático, transporte, alimentação, saúde). O acesso ao ensino obrigatório é <b>direito público subjetivo</b>; cabe ao poder público fazer a chamada e zelar, com os pais, pela frequência.</p>
+<p><b>Art. 55:</b> os pais têm a <b>obrigação</b> de matricular os filhos na rede regular.</p>
+<p><b>Art. 56:</b> os dirigentes de estabelecimentos de ensino fundamental comunicarão ao <b>Conselho Tutelar</b> os casos de: I <b>maus-tratos</b> envolvendo alunos; II <b>reiteração de faltas injustificadas e evasão escolar</b>, esgotados os recursos escolares; III <b>elevados níveis de repetência</b>.</p>
+<p><b>Art. 58:</b> no processo educacional, respeitam-se os valores culturais, artísticos e históricos do contexto social da criança.</p>
+<div class="callout trap"><b>Pegadinhas:</b> criança é até 12 anos <b>incompletos</b> (quem tem 12 anos já é adolescente). Comunicação de maus-tratos vai ao <b>Conselho Tutelar</b> (não “à direção”, nem só à polícia). O aluno pode contestar critérios avaliativos.</div>
+</article>
+
+<article class="topic" id="esp-17"><h3>ECA — Parte 2: Conselho Tutelar, medidas e infrações</h3>
+<h4>Medidas de proteção (arts. 98 a 101)</h4>
+<p>Aplicáveis sempre que os direitos forem ameaçados ou violados: por ação ou omissão da sociedade ou do Estado; por falta, omissão ou abuso dos pais ou responsável; ou em razão da conduta da própria criança/adolescente. Exemplos (art. 101): encaminhamento aos pais mediante termo de responsabilidade; orientação, apoio e acompanhamento temporários; <b>matrícula e frequência obrigatórias</b> em escola de ensino fundamental; inclusão em programas de apoio à família; tratamento médico ou psicológico; acolhimento institucional; acolhimento familiar; família substituta.</p>
+<h4>Ato infracional (arts. 103 a 112)</h4>
+<ul>
+<li>Ato infracional é a conduta descrita como crime ou contravenção penal. Menores de 18 anos são <b>penalmente inimputáveis</b>.</li>
+<li><b>Criança</b> que comete ato infracional recebe <b>medidas de proteção</b> (art. 101) — nunca medida socioeducativa.</li>
+<li><b>Adolescente</b> recebe <b>medidas socioeducativas</b> (art. 112): advertência; obrigação de reparar o dano; prestação de serviços à comunidade (até 6 meses); liberdade assistida (mínimo 6 meses); semiliberdade; internação (máximo 3 anos; liberação compulsória aos 21).</li>
+</ul>
+<h4>Conselho Tutelar (arts. 131 a 140)</h4>
+<ul>
+<li>Órgão <b>permanente e autônomo, não jurisdicional</b>, encarregado pela sociedade de zelar pelos direitos da criança e do adolescente.</li>
+<li>No mínimo <b>1 por município</b>, com <b>5 membros</b> escolhidos pela população local, mandato de <b>4 anos</b>, permitida a recondução por novos processos de escolha.</li>
+<li>Requisitos: reconhecida idoneidade moral, idade <b>superior a 21 anos</b>, residir no município.</li>
+<li>Escolha em data unificada em todo o país, no primeiro domingo de outubro do ano seguinte à eleição presidencial.</li>
+</ul>
+<h4>Crimes e infrações que envolvem a escola</h4>
+<ul>
+<li><b>Art. 245:</b> deixar o médico, <b>professor</b> ou responsável por estabelecimento de ensino fundamental, pré-escola ou creche de comunicar à autoridade competente casos de suspeita ou confirmação de maus-tratos: <b>multa de 3 a 20 salários de referência</b> (o dobro na reincidência). É infração <b>administrativa</b>.</li>
+<li><b>Art. 232:</b> submeter criança ou adolescente sob sua autoridade, guarda ou vigilância a <b>vexame ou constrangimento</b>: detenção de 6 meses a 2 anos.</li>
+<li><b>Art. 70-A:</b> poder público deve promover a formação continuada de profissionais da educação para prevenir e identificar violência contra crianças e adolescentes.</li>
+</ul>
+<div class="callout trap"><b>Pegadinhas:</b> o Conselho Tutelar <b>não</b> é órgão do Judiciário (não julga). Criança não recebe medida socioeducativa. Omissão do professor diante de maus-tratos é infração administrativa com multa (art. 245).</div>
+</article>
+
+<article class="topic" id="esp-18"><h3>LBI (Lei 13.146/2015) — Parte 1: conceitos e igualdade</h3>
+<p>A Lei Brasileira de Inclusão (Estatuto da Pessoa com Deficiência) destina-se a assegurar e promover, em condições de igualdade, o exercício dos direitos e liberdades fundamentais pela pessoa com deficiência, visando à sua inclusão social e cidadania. Tem como base a Convenção da ONU (Decreto 6.949/2009).</p>
+<h4>Conceito de pessoa com deficiência (art. 2º)</h4>
+<p>Aquela que tem <b>impedimento de longo prazo</b> de natureza <b>física, mental, intelectual ou sensorial</b>, o qual, <b>em interação com uma ou mais barreiras</b>, pode obstruir sua participação plena e efetiva na sociedade em igualdade de condições. A avaliação, quando necessária, é <b>biopsicossocial</b>, por equipe multiprofissional e interdisciplinar. (Modelo social: a deficiência está na interação com as barreiras, não só no corpo.)</p>
+<h4>Definições do art. 3º</h4>
+<table class="tbl"><tr><th>Termo</th><th>Significado</th></tr>
+<tr><td>Acessibilidade</td><td>Possibilidade e condição de alcance para uso, com segurança e autonomia, de espaços, transportes, informação, comunicação e tecnologias</td></tr>
+<tr><td>Desenho universal</td><td>Produtos e ambientes usáveis por todas as pessoas, sem necessidade de adaptação</td></tr>
+<tr><td>Tecnologia assistiva</td><td>Produtos, recursos, metodologias e serviços que promovem a funcionalidade e a autonomia</td></tr>
+<tr><td>Barreiras</td><td>Urbanísticas, arquitetônicas, nos transportes, nas comunicações e na informação, <b>atitudinais</b> e tecnológicas</td></tr>
+<tr><td><b>Adaptações razoáveis</b></td><td>Modificações e ajustes necessários e adequados que <b>não acarretem ônus desproporcional e indevido</b></td></tr>
+<tr><td><b>Profissional de apoio escolar</b></td><td>Exerce atividades de <b>alimentação, higiene e locomoção</b> do estudante e atua em todas as atividades escolares necessárias, excluídas técnicas de profissões regulamentadas</td></tr>
+<tr><td>Acompanhante</td><td>Aquele que acompanha a pessoa com deficiência, podendo ou não desempenhar as funções de atendente pessoal</td></tr></table>
+<h4>Igualdade e não discriminação (arts. 4º a 8º)</h4>
+<ul>
+<li>Toda pessoa com deficiência tem direito à igualdade de oportunidades e não sofrerá nenhuma discriminação. A <b>recusa de adaptações razoáveis</b> e de tecnologias assistivas também é discriminação.</li>
+<li>A pessoa com deficiência <b>não está obrigada</b> a usufruir de benefícios de ação afirmativa.</li>
+<li>Art. 6º: a deficiência <b>não afeta a plena capacidade civil</b> (casar, ter filhos, exercer direitos reprodutivos, guarda, adoção).</li>
+<li>Art. 8º: dever do Estado, da sociedade e da família assegurar, com prioridade, a efetivação dos direitos.</li>
+</ul>
+<div class="callout trap"><b>Pegadinha:</b> o conceito exige impedimento de <b>longo prazo</b> e a <b>interação com barreiras</b>. Alternativas que definem deficiência apenas como “doença” ou “incapacidade da pessoa” estão erradas.</div>
+</article>
+
+<article class="topic" id="esp-19"><h3>LBI — Parte 2: direito à educação, acessibilidade e crimes</h3>
+<h4>Art. 27</h4>
+<p>A educação constitui direito da pessoa com deficiência, assegurados <b>sistema educacional inclusivo em todos os níveis</b> e aprendizado ao longo de toda a vida, de forma a alcançar o máximo desenvolvimento possível de seus talentos e habilidades físicas, sensoriais, intelectuais e sociais. É dever do Estado, da família, da comunidade escolar e da sociedade assegurar educação de qualidade, a salvo de toda forma de violência, negligência e discriminação.</p>
+<h4>Art. 28: incumbências do poder público (principais)</h4>
+<ul>
+<li>Sistema educacional inclusivo em todos os níveis e modalidades.</li>
+<li><b>Projeto pedagógico que institucionalize o AEE</b>.</li>
+<li>Oferta de <b>educação bilíngue</b>: Libras como primeira língua e português escrito como segunda língua, em escolas e classes bilíngues e em escolas inclusivas.</li>
+<li>Planejamento de estudo de caso, de plano de AEE, de organização de recursos de acessibilidade e de tecnologia assistiva.</li>
+<li>Formação inicial e continuada de professores para o AEE; oferta de tradutores e intérpretes de Libras, guias-intérpretes e <b>profissionais de apoio escolar</b>.</li>
+<li>Ensino da Libras, do Braille e do uso de tecnologia assistiva.</li>
+<li>Acesso a jogos, atividades recreativas, esportivas e de lazer no sistema escolar, em igualdade de condições.</li>
+</ul>
+<p><b>§ 1º:</b> as escolas <b>privadas</b> também devem cumprir essas determinações, <b>vedada a cobrança de valores adicionais</b> de qualquer natureza em mensalidades, anuidades e matrículas.</p>
+<p><b>§ 2º:</b> tradutores e intérpretes de Libras na educação básica: no mínimo <b>nível médio</b> e certificado de proficiência em Libras; no ensino superior: nível superior, com habilitação prioritariamente em Tradução e Interpretação em Libras.</p>
+<h4>Acessibilidade (art. 53)</h4>
+<p>Acessibilidade é direito que garante à pessoa com deficiência ou com mobilidade reduzida <b>viver de forma independente</b> e exercer seus direitos de cidadania e de participação social.</p>
+<h4>Crimes (arts. 88 a 91) e recusa de matrícula</h4>
+<table class="tbl"><tr><th>Conduta</th><th>Pena</th></tr>
+<tr><td>Praticar, induzir ou incitar <b>discriminação</b> de pessoa em razão de sua deficiência (art. 88)</td><td>Reclusão de 1 a 3 anos e multa</td></tr>
+<tr><td>Apropriar-se de ou desviar bens, pensão ou rendimentos da pessoa com deficiência (art. 89)</td><td>Reclusão de 1 a 4 anos e multa</td></tr>
+<tr><td>Abandonar pessoa com deficiência em hospitais, abrigos ou congêneres (art. 90)</td><td>Reclusão de 6 meses a 3 anos e multa</td></tr>
+<tr><td>Reter ou usar cartão magnético ou documento da pessoa com deficiência para obter vantagem (art. 91)</td><td>Detenção de 6 meses a 2 anos e multa</td></tr>
+<tr><td><b>Recusar, cobrar valores adicionais, suspender, procrastinar ou cancelar a matrícula</b> de aluno em razão de sua deficiência (Lei 7.853/89, art. 8º, com redação da LBI)</td><td><b>Reclusão de 2 a 5 anos e multa</b></td></tr></table>
+<div class="callout trap"><b>Pegadinhas:</b> escola particular <b>não pode</b> cobrar a mais pelo profissional de apoio ou adaptações. A educação bilíngue de surdos tem Libras como <b>primeira</b> língua. Recusar matrícula por deficiência é <b>crime</b>, não só infração administrativa.</div>
+</article>
+</div>
+    </div>
+  </div>
+</section>
+
+<!-- SIMULADOS -->
+<section role="tabpanel" id="p-simulados" aria-labelledby="tab-simulados" hidden>
+  <div id="sim-home">
+    <div class="callout trap" id="bank-empty" style="margin:0"><b>Banco de questões em construção.</b> As questões e os simulados entram aqui depois da pesquisa das provas anteriores da IDHTEC. A estrutura já está pronta: prova de 40 questões com cronômetro de 3 horas, correção com a regra da nota mínima 4,00, treino por assunto e caderno de erros.</div>
+    <div class="grid g3 simcards">
+      <div class="card"><span class="eyebrow">Prova completa · 21/11</span><h3>Simulado 1</h3><p>40 questões na ordem da prova: 12 de Português, 8 de Raciocínio Lógico/Matemático e 20 de Conhecimentos Específicos.</p><div id="last-0" class="muted"></div><div class="row"><button class="btn" data-start="0">Começar</button></div></div>
+      <div class="card"><span class="eyebrow">Prova completa · 05/12</span><h3>Simulado 2</h3><p>Mais 40 questões, com outro texto de interpretação e novos tópicos do edital.</p><div id="last-1" class="muted"></div><div class="row"><button class="btn" data-start="1">Começar</button></div></div>
+      <div class="card"><span class="eyebrow">Prova completa · 12/12</span><h3>Simulado 3</h3><p>O último ensaio antes da prova, com foco em LDB, ECA e LBI.</p><div id="last-2" class="muted"></div><div class="row"><button class="btn" data-start="2">Começar</button></div></div>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Configuração da prova</span>
+      <div class="row">
+        <label for="dur">Tempo da prova (minutos)</label><input type="number" id="dur" min="30" max="300" step="10" value="180">
+        <span class="muted">A prova real tem 3 horas para as 40 questões, incluindo o preenchimento da folha de resposta.</span>
+      </div>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Banco de questões</span>
+      <h3 style="font-size:1.5rem">Treino com filtros e correção na hora</h3>
+      <p class="muted" id="bank-note">Nenhuma questão cadastrada ainda.</p>
+      <div class="filters">
+        <label>Matéria<select id="train-subj"></select></label>
+        <label>Assunto<select id="train-topic"></select></label>
+        <label>Situação<select id="train-status"><option value="all">Todas</option><option value="new">Nunca respondidas</option><option value="wrong">Que errei</option><option value="right">Que acertei</option></select></label>
+        <label>Quantidade<select id="train-n"><option value="10">10</option><option value="20">20</option><option value="0" selected>Todas as encontradas</option></select></label>
+      </div>
+      <div class="row" style="margin-top:12px"><button class="btn star" id="train-go">Treinar</button><span class="pill" id="train-count"></span></div>
+    </div>
+    <div class="card"><span class="eyebrow">Histórico</span><div id="history" class="tblwrap"></div></div>
+  </div>
+  <div id="sim-run" hidden></div>
+</section>
+
+<!-- ERROS -->
+<section role="tabpanel" id="p-erros" aria-labelledby="tab-erros" hidden>
+  <div class="card">
+    <span class="eyebrow">Caderno de erros</span>
+    <h2>Questões para refazer</h2>
+    <p>Toda questão que você errar nos treinos e simulados vem para cá. Quando acertar no treino, ela sai do caderno.</p>
+    <div class="row"><button class="btn star" id="err-redo">Refazer todas</button><button class="btn ghost" id="err-clear">Limpar caderno</button></div>
+    <div id="err-confirm"></div>
+  </div>
+  <div id="err-list" class="review"></div>
+</section>
+
+</main>
+
+<script>
+const TEXTS = {}; const Q = {port:[], rlm:[], esp:[]}; let QX = [];
+// Banco de questões: preencher Q.port / Q.rlm / Q.esp com {id, t:'esp-3', q, o:[5 alternativas], a:índice correto, e:explicação, src?}
+const VERT=[{"id": "p01", "s": "port", "t": "1. Compreensão e interpretação de texto", "th": "port-1"}, {"id": "p02", "s": "port", "t": "2. Tipologia, gêneros e funções da linguagem", "th": "port-2"}, {"id": "p03", "s": "port", "t": "3. Equivalência de sentido e reescrita de frases", "th": "port-3"}, {"id": "p04", "s": "port", "t": "4. Sintaxe da oração: termos da oração", "th": "port-4"}, {"id": "p05", "s": "port", "t": "5. Sintaxe do período: coordenação e subordinação", "th": "port-5"}, {"id": "p06", "s": "port", "t": "6. Concordância verbal e nominal", "th": "port-6"}, {"id": "p07", "s": "port", "t": "7. Regência verbal e nominal", "th": "port-7"}, {"id": "p08", "s": "port", "t": "8. Correlação de tempos e modos verbais", "th": "port-8"}, {"id": "p09", "s": "port", "t": "9. Vozes verbais e sua transposição", "th": "port-9"}, {"id": "p10", "s": "port", "t": "10. Pronomes: emprego, colocação e formas de tratamento", "th": "port-10"}, {"id": "p11", "s": "port", "t": "11. Linguagem figurada (figuras de linguagem)", "th": "port-11"}, {"id": "p12", "s": "port", "t": "12. Ortografia, acentuação e crase", "th": "port-12"}, {"id": "p13", "s": "port", "t": "13. Pontuação e redação oficial", "th": "port-13"}, {"id": "r01", "s": "rlm", "t": "1. Estrutura lógica de relações arbitrárias (associação lógica)", "th": "rlm-1"}, {"id": "r02", "s": "rlm", "t": "2. Proposições, conectivos e tabela-verdade", "th": "rlm-2"}, {"id": "r03", "s": "rlm", "t": "3. Argumentação: conclusões válidas a partir de hipóteses", "th": "rlm-3"}, {"id": "r04", "s": "rlm", "t": "4. Raciocínio verbal, formação de conceitos e discriminação de elementos", "th": "rlm-4"}, {"id": "r05", "s": "rlm", "t": "5. Raciocínio sequencial (sequências de números, letras e figuras)", "th": "rlm-5"}, {"id": "r06", "s": "rlm", "t": "6. Orientação espacial e temporal", "th": "rlm-6"}, {"id": "r07", "s": "rlm", "t": "7. Noções básicas de aritmética", "th": "rlm-7"}, {"id": "r08", "s": "rlm", "t": "8. Razão, proporção e regra de três simples", "th": "rlm-8"}, {"id": "r09", "s": "rlm", "t": "9. Porcentagem, acréscimos e descontos", "th": "rlm-9"}, {"id": "e01", "s": "esp", "t": "1. Relação educação e sociedade; a educação e a escola", "th": "esp-1"}, {"id": "e02", "s": "esp", "t": "2. Tendências pedagógicas na prática escolar (Libâneo)", "th": "esp-2"}, {"id": "e03", "s": "esp", "t": "3. A construção do conhecimento: Piaget e Vygotsky", "th": "esp-3"}, {"id": "e04", "s": "esp", "t": "4. A construção do conhecimento: Wallon, Ausubel, Emilia Ferreiro e outros", "th": "esp-4"}, {"id": "e05", "s": "esp", "t": "5. O processo de ensino e aprendizagem: a ação pedagógica", "th": "esp-5"}, {"id": "e06", "s": "esp", "t": "6. Papel do professor (Freire, Libâneo, Perrenoud, Schön, Tardif)", "th": "esp-6"}, {"id": "e07", "s": "esp", "t": "7. Planejamento na prática educativa", "th": "esp-7"}, {"id": "e08", "s": "esp", "t": "8. Metodologia e avaliação do processo ensino-aprendizagem", "th": "esp-8"}, {"id": "e09", "s": "esp", "t": "9. Currículo escolar: conceito, fundamentos e componentes", "th": "esp-9"}, {"id": "e10", "s": "esp", "t": "10. Construção coletiva do Projeto Político-Pedagógico (PPP)", "th": "esp-10"}, {"id": "e11", "s": "esp", "t": "11. Orientações metodológicas para o Ensino Fundamental (anos iniciais)", "th": "esp-11"}, {"id": "e12", "s": "esp", "t": "12. Atividades adequadas e utilização de jogos na aprendizagem", "th": "esp-12"}, {"id": "e13", "s": "esp", "t": "13. Educação inclusiva: diversidade na sala de aula", "th": "esp-13"}, {"id": "e14", "s": "esp", "t": "14. LDB (Lei 9.394/96) — Parte 1: princípios, direito à educação e organização", "th": "esp-14"}, {"id": "e15", "s": "esp", "t": "15. LDB (Lei 9.394/96) — Parte 2: educação básica, ensino fundamental, educação especial e profissionais", "th": "esp-15"}, {"id": "e16", "s": "esp", "t": "16. ECA (Lei 8.069/90) — Parte 1: disposições gerais e direitos fundamentais", "th": "esp-16"}, {"id": "e17", "s": "esp", "t": "17. ECA — Parte 2: Conselho Tutelar, medidas e infrações", "th": "esp-17"}, {"id": "e18", "s": "esp", "t": "18. LBI (Lei 13.146/2015) — Parte 1: conceitos e igualdade", "th": "esp-18"}, {"id": "e19", "s": "esp", "t": "19. LBI — Parte 2: direito à educação, acessibilidade e crimes", "th": "esp-19"}];
+const PLAN=[{"d": "2026-10-15", "f": 1, "x": [{"k": "setup", "t": "Comece aqui: leia o Painel e o Edital verticalizado desta página e salve o edital (PDF) no celular."}, {"s": "esp", "k": "teoria", "i": "e01", "th": "esp-1", "t": "1. Relação educação e sociedade; a educação e a escola", "lab": "Teoria + questões"}]}, {"d": "2026-10-16", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e02", "th": "esp-2", "t": "2. Tendências pedagógicas na prática escolar (Libâneo) (parte 1/2)", "lab": "Teoria + questões"}, {"s": "port", "k": "teoria", "i": "p01", "th": "port-1", "t": "1. Compreensão e interpretação de texto (parte 1/2)", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}]}, {"d": "2026-10-17", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e02", "th": "esp-2", "t": "2. Tendências pedagógicas na prática escolar (Libâneo) (parte 2/2)", "lab": "Teoria + questões"}, {"k": "q", "t": "Revisão da semana: releia os resumos e resolva questões de provas anteriores da banca sobre os assuntos da semana."}]}, {"d": "2026-10-18", "f": 1, "x": [{"k": "lei", "t": "Lei seca (30 min): LDB arts. 1º a 14 (princípios, deveres, incumbências). Leia direto no texto da lei e grife prazos, idades e números."}, {"k": "livre", "t": "Descanso. Se quiser, só 20 min de leitura leve dos tópicos da semana."}]}, {"d": "2026-10-19", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e03", "th": "esp-3", "t": "3. A construção do conhecimento: Piaget e Vygotsky (parte 1/2)", "lab": "Teoria + questões"}, {"s": "rlm", "k": "teoria", "i": "r01", "th": "rlm-1", "t": "1. Estrutura lógica de relações arbitrárias (associação lógica) (parte 1/2)", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}, {"k": "marco", "t": "Edital: abrem as inscrições (www.idhtec.org.br) e o pedido de isenção da taxa (CadÚnico) até 21/10."}]}, {"d": "2026-10-20", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e03", "th": "esp-3", "t": "3. A construção do conhecimento: Piaget e Vygotsky (parte 2/2)", "lab": "Teoria + questões"}, {"s": "port", "k": "teoria", "i": "p01", "th": "port-1", "t": "1. Compreensão e interpretação de texto (parte 2/2)", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}]}, {"d": "2026-10-21", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e04", "th": "esp-4", "t": "4. A construção do conhecimento: Wallon, Ausubel, Emilia Ferreiro e outros", "lab": "Teoria + questões"}, {"s": "rlm", "k": "teoria", "i": "r01", "th": "rlm-1", "t": "1. Estrutura lógica de relações arbitrárias (associação lógica) (parte 2/2)", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}, {"k": "marco", "t": "Edital: último dia para pedir isenção da taxa (até 23:59)."}]}, {"d": "2026-10-22", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e05", "th": "esp-5", "t": "5. O processo de ensino e aprendizagem: a ação pedagógica", "lab": "Teoria + questões"}, {"s": "port", "k": "teoria", "i": "p02", "th": "port-2", "t": "2. Tipologia, gêneros e funções da linguagem", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}]}, {"d": "2026-10-23", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e06", "th": "esp-6", "t": "6. Papel do professor (Freire, Libâneo, Perrenoud, Schön, Tardif)", "lab": "Teoria + questões"}, {"s": "rlm", "k": "teoria", "i": "r02", "th": "rlm-2", "t": "2. Proposições, conectivos e tabela-verdade (parte 1/2)", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}]}, {"d": "2026-10-24", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e07", "th": "esp-7", "t": "7. Planejamento na prática educativa", "lab": "Teoria + questões"}, {"k": "q", "t": "Revisão da semana: releia os resumos e resolva questões de provas anteriores da banca sobre os assuntos da semana."}]}, {"d": "2026-10-25", "f": 1, "x": [{"k": "lei", "t": "Lei seca (30 min): LDB arts. 21 a 34 (educação básica, infantil e fundamental). Leia direto no texto da lei e grife prazos, idades e números."}, {"k": "livre", "t": "Descanso. Se quiser, só 20 min de leitura leve dos tópicos da semana."}]}, {"d": "2026-10-26", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e08", "th": "esp-8", "t": "8. Metodologia e avaliação do processo ensino-aprendizagem", "lab": "Teoria + questões"}, {"s": "port", "k": "teoria", "i": "p03", "th": "port-3", "t": "3. Equivalência de sentido e reescrita de frases", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}]}, {"d": "2026-10-27", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e09", "th": "esp-9", "t": "9. Currículo escolar: conceito, fundamentos e componentes", "lab": "Teoria + questões"}, {"s": "rlm", "k": "teoria", "i": "r02", "th": "rlm-2", "t": "2. Proposições, conectivos e tabela-verdade (parte 2/2)", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}]}, {"d": "2026-10-28", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e10", "th": "esp-10", "t": "10. Construção coletiva do Projeto Político-Pedagógico (PPP)", "lab": "Teoria + questões"}, {"s": "port", "k": "teoria", "i": "p04", "th": "port-4", "t": "4. Sintaxe da oração: termos da oração", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}]}, {"d": "2026-10-29", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e11", "th": "esp-11", "t": "11. Orientações metodológicas para o Ensino Fundamental (anos iniciais)", "lab": "Teoria + questões"}, {"s": "rlm", "k": "teoria", "i": "r03", "th": "rlm-3", "t": "3. Argumentação: conclusões válidas a partir de hipóteses", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}]}, {"d": "2026-10-30", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e12", "th": "esp-12", "t": "12. Atividades adequadas e utilização de jogos na aprendizagem", "lab": "Teoria + questões"}, {"s": "port", "k": "teoria", "i": "p05", "th": "port-5", "t": "5. Sintaxe do período: coordenação e subordinação", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}]}, {"d": "2026-10-31", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e13", "th": "esp-13", "t": "13. Educação inclusiva: diversidade na sala de aula", "lab": "Teoria + questões"}, {"k": "q", "t": "Revisão da semana: releia os resumos e resolva questões de provas anteriores da banca sobre os assuntos da semana."}]}, {"d": "2026-11-01", "f": 1, "x": [{"k": "lei", "t": "Lei seca (30 min): ECA arts. 1º a 6º e 13 a 19 (prioridade e direitos). Leia direto no texto da lei e grife prazos, idades e números."}, {"k": "livre", "t": "Descanso. Se quiser, só 20 min de leitura leve dos tópicos da semana."}]}, {"d": "2026-11-02", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e14", "th": "esp-14", "t": "14. LDB (Lei 9.394/96) — Parte 1: princípios, direito à educação e organização (parte 1/2)", "lab": "Teoria + questões"}, {"s": "rlm", "k": "teoria", "i": "r04", "th": "rlm-4", "t": "4. Raciocínio verbal, formação de conceitos e discriminação de elementos", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}]}, {"d": "2026-11-03", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e14", "th": "esp-14", "t": "14. LDB (Lei 9.394/96) — Parte 1: princípios, direito à educação e organização (parte 2/2)", "lab": "Teoria + questões"}, {"s": "port", "k": "teoria", "i": "p06", "th": "port-6", "t": "6. Concordância verbal e nominal", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}]}, {"d": "2026-11-04", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e15", "th": "esp-15", "t": "15. LDB (Lei 9.394/96) — Parte 2: educação básica, ensino fundamental, educação especial e profissionais (parte 1/2)", "lab": "Teoria + questões"}, {"s": "rlm", "k": "teoria", "i": "r05", "th": "rlm-5", "t": "5. Raciocínio sequencial (sequências de números, letras e figuras)", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}, {"k": "marco", "t": "Edital: sai o resultado da isenção. Recurso até 06/11."}]}, {"d": "2026-11-05", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e15", "th": "esp-15", "t": "15. LDB (Lei 9.394/96) — Parte 2: educação básica, ensino fundamental, educação especial e profissionais (parte 2/2)", "lab": "Teoria + questões"}, {"s": "port", "k": "teoria", "i": "p07", "th": "port-7", "t": "7. Regência verbal e nominal", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}]}, {"d": "2026-11-06", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e16", "th": "esp-16", "t": "16. ECA (Lei 8.069/90) — Parte 1: disposições gerais e direitos fundamentais (parte 1/2)", "lab": "Teoria + questões"}, {"s": "rlm", "k": "teoria", "i": "r06", "th": "rlm-6", "t": "6. Orientação espacial e temporal", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}]}, {"d": "2026-11-07", "f": 1, "x": [{"s": "port", "k": "teoria", "i": "p08", "th": "port-8", "t": "8. Correlação de tempos e modos verbais", "lab": "Teoria + questões"}, {"k": "q", "t": "Revisão da semana: releia os resumos e resolva questões de provas anteriores da banca sobre os assuntos da semana."}]}, {"d": "2026-11-08", "f": 1, "x": [{"k": "lei", "t": "Lei seca (30 min): ECA arts. 53 a 59 (direito à educação). Leia direto no texto da lei e grife prazos, idades e números."}, {"k": "livre", "t": "Descanso. Se quiser, só 20 min de leitura leve dos tópicos da semana."}]}, {"d": "2026-11-09", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e16", "th": "esp-16", "t": "16. ECA (Lei 8.069/90) — Parte 1: disposições gerais e direitos fundamentais (parte 2/2)", "lab": "Teoria + questões"}, {"s": "port", "k": "teoria", "i": "p09", "th": "port-9", "t": "9. Vozes verbais e sua transposição", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}]}, {"d": "2026-11-10", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e17", "th": "esp-17", "t": "17. ECA — Parte 2: Conselho Tutelar, medidas e infrações", "lab": "Teoria + questões"}, {"s": "rlm", "k": "teoria", "i": "r07", "th": "rlm-7", "t": "7. Noções básicas de aritmética", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}]}, {"d": "2026-11-11", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e18", "th": "esp-18", "t": "18. LBI (Lei 13.146/2015) — Parte 1: conceitos e igualdade", "lab": "Teoria + questões"}, {"s": "port", "k": "teoria", "i": "p10", "th": "port-10", "t": "10. Pronomes: emprego, colocação e formas de tratamento", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}]}, {"d": "2026-11-12", "f": 1, "x": [{"s": "esp", "k": "teoria", "i": "e19", "th": "esp-19", "t": "19. LBI — Parte 2: direito à educação, acessibilidade e crimes", "lab": "Teoria + questões"}, {"s": "rlm", "k": "teoria", "i": "r08", "th": "rlm-8", "t": "8. Razão, proporção e regra de três simples", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}]}, {"d": "2026-11-13", "f": 1, "x": [{"s": "port", "k": "teoria", "i": "p11", "th": "port-11", "t": "11. Linguagem figurada (figuras de linguagem)", "lab": "Teoria + questões"}, {"s": "port", "k": "teoria", "i": "p12", "th": "port-12", "t": "12. Ortografia, acentuação e crase (parte 1/2)", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}]}, {"d": "2026-11-14", "f": 1, "x": [{"s": "port", "k": "teoria", "i": "p12", "th": "port-12", "t": "12. Ortografia, acentuação e crase (parte 2/2)", "lab": "Teoria + questões"}, {"k": "q", "t": "Revisão da semana: releia os resumos e resolva questões de provas anteriores da banca sobre os assuntos da semana."}]}, {"d": "2026-11-15", "f": 1, "x": [{"k": "lei", "t": "Lei seca (30 min): LBI arts. 1º a 8º (conceitos e igualdade). Leia direto no texto da lei e grife prazos, idades e números."}, {"k": "livre", "t": "Descanso. Se quiser, só 20 min de leitura leve dos tópicos da semana."}]}, {"d": "2026-11-16", "f": 1, "x": [{"s": "port", "k": "teoria", "i": "p13", "th": "port-13", "t": "13. Pontuação e redação oficial", "lab": "Teoria + questões"}, {"s": "rlm", "k": "teoria", "i": "r09", "th": "rlm-9", "t": "9. Porcentagem, acréscimos e descontos", "lab": "Teoria + questões"}, {"k": "rev", "t": "15 min: revise as anotações de ontem e os pontos de “Pegadinha”."}]}, {"d": "2026-11-17", "f": 2, "x": [{"s": "esp", "k": "rev1", "i": "e01", "th": "esp-1", "t": "1. Relação educação e sociedade; a educação e a escola", "lab": "Revisão 1 + questões"}, {"s": "port", "k": "rev1", "i": "p01", "th": "port-1", "t": "1. Compreensão e interpretação de texto", "lab": "Revisão 1 + questões"}, {"s": "esp", "k": "rev1", "i": "e02", "th": "esp-2", "t": "2. Tendências pedagógicas na prática escolar (Libâneo)", "lab": "Revisão 1 + questões"}, {"k": "err", "ref": "err", "t": "20 min: refaça as questões que errou (caderno de erros)."}]}, {"d": "2026-11-18", "f": 2, "x": [{"s": "rlm", "k": "rev1", "i": "r01", "th": "rlm-1", "t": "1. Estrutura lógica de relações arbitrárias (associação lógica)", "lab": "Revisão 1 + questões"}, {"s": "esp", "k": "rev1", "i": "e03", "th": "esp-3", "t": "3. A construção do conhecimento: Piaget e Vygotsky", "lab": "Revisão 1 + questões"}, {"s": "port", "k": "rev1", "i": "p02", "th": "port-2", "t": "2. Tipologia, gêneros e funções da linguagem", "lab": "Revisão 1 + questões"}, {"k": "err", "ref": "err", "t": "20 min: refaça as questões que errou (caderno de erros)."}]}, {"d": "2026-11-19", "f": 2, "x": [{"s": "esp", "k": "rev1", "i": "e04", "th": "esp-4", "t": "4. A construção do conhecimento: Wallon, Ausubel, Emilia Ferreiro e outros", "lab": "Revisão 1 + questões"}, {"s": "rlm", "k": "rev1", "i": "r02", "th": "rlm-2", "t": "2. Proposições, conectivos e tabela-verdade", "lab": "Revisão 1 + questões"}, {"s": "esp", "k": "rev1", "i": "e05", "th": "esp-5", "t": "5. O processo de ensino e aprendizagem: a ação pedagógica", "lab": "Revisão 1 + questões"}, {"k": "err", "ref": "err", "t": "20 min: refaça as questões que errou (caderno de erros)."}, {"k": "marco", "t": "Edital: último dia de inscrição (até 23:59). O boleto de R$ 95 pode ser pago até amanhã, 20/11."}]}, {"d": "2026-11-20", "f": 2, "x": [{"s": "port", "k": "rev1", "i": "p03", "th": "port-3", "t": "3. Equivalência de sentido e reescrita de frases", "lab": "Revisão 1 + questões"}, {"s": "esp", "k": "rev1", "i": "e06", "th": "esp-6", "t": "6. Papel do professor (Freire, Libâneo, Perrenoud, Schön, Tardif)", "lab": "Revisão 1 + questões"}, {"s": "rlm", "k": "rev1", "i": "r03", "th": "rlm-3", "t": "3. Argumentação: conclusões válidas a partir de hipóteses", "lab": "Revisão 1 + questões"}, {"k": "err", "ref": "err", "t": "20 min: refaça as questões que errou (caderno de erros)."}, {"k": "marco", "t": "Edital: último dia para pagar o boleto da inscrição."}]}, {"d": "2026-11-21", "f": 2, "x": [{"k": "sim", "ref": "s0", "t": "Simulado 1: prova completa de 40 questões em 3 horas, no horário da prova (9h às 12h)."}]}, {"d": "2026-11-22", "f": 2, "x": [{"k": "corr", "t": "Corrija o simulado de ontem: anote no caderno os assuntos em que errou e revise a teoria deles."}, {"k": "lei", "t": "Lei seca (30 min): LBI arts. 27 e 28 + crimes (arts. 88 a 91). Leia direto no texto da lei e grife prazos, idades e números."}]}, {"d": "2026-11-23", "f": 2, "x": [{"s": "esp", "k": "rev1", "i": "e07", "th": "esp-7", "t": "7. Planejamento na prática educativa", "lab": "Revisão 1 + questões"}, {"s": "port", "k": "rev1", "i": "p04", "th": "port-4", "t": "4. Sintaxe da oração: termos da oração", "lab": "Revisão 1 + questões"}, {"s": "esp", "k": "rev1", "i": "e08", "th": "esp-8", "t": "8. Metodologia e avaliação do processo ensino-aprendizagem", "lab": "Revisão 1 + questões"}, {"k": "err", "ref": "err", "t": "20 min: refaça as questões que errou (caderno de erros)."}]}, {"d": "2026-11-24", "f": 2, "x": [{"s": "rlm", "k": "rev1", "i": "r04", "th": "rlm-4", "t": "4. Raciocínio verbal, formação de conceitos e discriminação de elementos", "lab": "Revisão 1 + questões"}, {"s": "esp", "k": "rev1", "i": "e09", "th": "esp-9", "t": "9. Currículo escolar: conceito, fundamentos e componentes", "lab": "Revisão 1 + questões"}, {"s": "port", "k": "rev1", "i": "p05", "th": "port-5", "t": "5. Sintaxe do período: coordenação e subordinação", "lab": "Revisão 1 + questões"}, {"k": "err", "ref": "err", "t": "20 min: refaça as questões que errou (caderno de erros)."}]}, {"d": "2026-11-25", "f": 2, "x": [{"s": "esp", "k": "rev1", "i": "e10", "th": "esp-10", "t": "10. Construção coletiva do Projeto Político-Pedagógico (PPP)", "lab": "Revisão 1 + questões"}, {"s": "rlm", "k": "rev1", "i": "r05", "th": "rlm-5", "t": "5. Raciocínio sequencial (sequências de números, letras e figuras)", "lab": "Revisão 1 + questões"}, {"s": "esp", "k": "rev1", "i": "e11", "th": "esp-11", "t": "11. Orientações metodológicas para o Ensino Fundamental (anos iniciais)", "lab": "Revisão 1 + questões"}, {"k": "err", "ref": "err", "t": "20 min: refaça as questões que errou (caderno de erros)."}]}, {"d": "2026-11-26", "f": 2, "x": [{"s": "port", "k": "rev1", "i": "p06", "th": "port-6", "t": "6. Concordância verbal e nominal", "lab": "Revisão 1 + questões"}, {"s": "esp", "k": "rev1", "i": "e12", "th": "esp-12", "t": "12. Atividades adequadas e utilização de jogos na aprendizagem", "lab": "Revisão 1 + questões"}, {"s": "rlm", "k": "rev1", "i": "r06", "th": "rlm-6", "t": "6. Orientação espacial e temporal", "lab": "Revisão 1 + questões"}, {"k": "err", "ref": "err", "t": "20 min: refaça as questões que errou (caderno de erros)."}]}, {"d": "2026-11-27", "f": 2, "x": [{"s": "esp", "k": "rev1", "i": "e13", "th": "esp-13", "t": "13. Educação inclusiva: diversidade na sala de aula", "lab": "Revisão 1 + questões"}, {"s": "port", "k": "rev1", "i": "p07", "th": "port-7", "t": "7. Regência verbal e nominal", "lab": "Revisão 1 + questões"}, {"s": "esp", "k": "rev1", "i": "e14", "th": "esp-14", "t": "14. LDB (Lei 9.394/96) — Parte 1: princípios, direito à educação e organização", "lab": "Revisão 1 + questões"}, {"k": "err", "ref": "err", "t": "20 min: refaça as questões que errou (caderno de erros)."}, {"k": "marco", "t": "Edital: confira seu nome na lista de inscritos. Correções até 02/12 pelo e-mail concursoferreiros2026@idhtec.org.br."}]}, {"d": "2026-11-28", "f": 2, "x": [{"k": "q", "t": "Bateria de 30 questões misturadas, cronometrada."}]}, {"d": "2026-11-29", "f": 2, "x": [{"k": "corr", "t": "Corrija a bateria de ontem: anote no caderno os assuntos em que errou e revise a teoria deles."}, {"k": "lei", "t": "Lei seca (30 min): LDB arts. 58 a 67 (educação especial e profissionais). Leia direto no texto da lei e grife prazos, idades e números."}]}, {"d": "2026-11-30", "f": 2, "x": [{"s": "rlm", "k": "rev1", "i": "r07", "th": "rlm-7", "t": "7. Noções básicas de aritmética", "lab": "Revisão 1 + questões"}, {"s": "esp", "k": "rev1", "i": "e15", "th": "esp-15", "t": "15. LDB (Lei 9.394/96) — Parte 2: educação básica, ensino fundamental, educação especial e profissionais", "lab": "Revisão 1 + questões"}, {"s": "port", "k": "rev1", "i": "p08", "th": "port-8", "t": "8. Correlação de tempos e modos verbais", "lab": "Revisão 1 + questões"}, {"k": "err", "ref": "err", "t": "20 min: refaça as questões que errou (caderno de erros)."}]}, {"d": "2026-12-01", "f": 2, "x": [{"s": "esp", "k": "rev1", "i": "e16", "th": "esp-16", "t": "16. ECA (Lei 8.069/90) — Parte 1: disposições gerais e direitos fundamentais", "lab": "Revisão 1 + questões"}, {"s": "rlm", "k": "rev1", "i": "r08", "th": "rlm-8", "t": "8. Razão, proporção e regra de três simples", "lab": "Revisão 1 + questões"}, {"s": "esp", "k": "rev1", "i": "e17", "th": "esp-17", "t": "17. ECA — Parte 2: Conselho Tutelar, medidas e infrações", "lab": "Revisão 1 + questões"}, {"k": "err", "ref": "err", "t": "20 min: refaça as questões que errou (caderno de erros)."}]}, {"d": "2026-12-02", "f": 2, "x": [{"s": "port", "k": "rev1", "i": "p09", "th": "port-9", "t": "9. Vozes verbais e sua transposição", "lab": "Revisão 1 + questões"}, {"s": "esp", "k": "rev1", "i": "e18", "th": "esp-18", "t": "18. LBI (Lei 13.146/2015) — Parte 1: conceitos e igualdade", "lab": "Revisão 1 + questões"}, {"s": "rlm", "k": "rev1", "i": "r09", "th": "rlm-9", "t": "9. Porcentagem, acréscimos e descontos", "lab": "Revisão 1 + questões"}, {"k": "err", "ref": "err", "t": "20 min: refaça as questões que errou (caderno de erros)."}]}, {"d": "2026-12-03", "f": 2, "x": [{"s": "esp", "k": "rev1", "i": "e19", "th": "esp-19", "t": "19. LBI — Parte 2: direito à educação, acessibilidade e crimes", "lab": "Revisão 1 + questões"}, {"s": "port", "k": "rev1", "i": "p10", "th": "port-10", "t": "10. Pronomes: emprego, colocação e formas de tratamento", "lab": "Revisão 1 + questões"}, {"s": "port", "k": "rev1", "i": "p11", "th": "port-11", "t": "11. Linguagem figurada (figuras de linguagem)", "lab": "Revisão 1 + questões"}, {"k": "err", "ref": "err", "t": "20 min: refaça as questões que errou (caderno de erros)."}]}, {"d": "2026-12-04", "f": 2, "x": [{"s": "port", "k": "rev1", "i": "p12", "th": "port-12", "t": "12. Ortografia, acentuação e crase", "lab": "Revisão 1 + questões"}, {"s": "port", "k": "rev1", "i": "p13", "th": "port-13", "t": "13. Pontuação e redação oficial", "lab": "Revisão 1 + questões"}, {"k": "err", "ref": "err", "t": "20 min: refaça as questões que errou (caderno de erros)."}]}, {"d": "2026-12-05", "f": 2, "x": [{"k": "sim", "ref": "s1", "t": "Simulado 2: prova completa de 40 questões em 3 horas, no horário da prova (9h às 12h)."}]}, {"d": "2026-12-06", "f": 3, "x": [{"k": "corr", "t": "Corrija o simulado de ontem: anote no caderno os assuntos em que errou e revise a teoria deles."}, {"k": "lei", "t": "Lei seca (30 min): ECA arts. 98 a 112, 131 a 136 e 245. Leia direto no texto da lei e grife prazos, idades e números."}]}, {"d": "2026-12-07", "f": 3, "x": [{"s": "esp", "k": "rev2", "i": "e01", "th": "esp-1", "t": "1. Relação educação e sociedade; a educação e a escola", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "port", "k": "rev2", "i": "p01", "th": "port-1", "t": "1. Compreensão e interpretação de texto", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "esp", "k": "rev2", "i": "e02", "th": "esp-2", "t": "2. Tendências pedagógicas na prática escolar (Libâneo)", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "rlm", "k": "rev2", "i": "r01", "th": "rlm-1", "t": "1. Estrutura lógica de relações arbitrárias (associação lógica)", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "esp", "k": "rev2", "i": "e03", "th": "esp-3", "t": "3. A construção do conhecimento: Piaget e Vygotsky", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"k": "q", "t": "Resolva 10 questões misturadas das matérias revisadas hoje."}]}, {"d": "2026-12-08", "f": 3, "x": [{"s": "port", "k": "rev2", "i": "p02", "th": "port-2", "t": "2. Tipologia, gêneros e funções da linguagem", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "esp", "k": "rev2", "i": "e04", "th": "esp-4", "t": "4. A construção do conhecimento: Wallon, Ausubel, Emilia Ferreiro e outros", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "rlm", "k": "rev2", "i": "r02", "th": "rlm-2", "t": "2. Proposições, conectivos e tabela-verdade", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "esp", "k": "rev2", "i": "e05", "th": "esp-5", "t": "5. O processo de ensino e aprendizagem: a ação pedagógica", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "port", "k": "rev2", "i": "p03", "th": "port-3", "t": "3. Equivalência de sentido e reescrita de frases", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"k": "q", "t": "Resolva 10 questões misturadas das matérias revisadas hoje."}, {"k": "marco", "t": "Edital: divulgação dos locais de prova. Emita o cartão de inscrição (disponível até 19/12) e veja o trajeto."}]}, {"d": "2026-12-09", "f": 3, "x": [{"s": "esp", "k": "rev2", "i": "e06", "th": "esp-6", "t": "6. Papel do professor (Freire, Libâneo, Perrenoud, Schön, Tardif)", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "rlm", "k": "rev2", "i": "r03", "th": "rlm-3", "t": "3. Argumentação: conclusões válidas a partir de hipóteses", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "esp", "k": "rev2", "i": "e07", "th": "esp-7", "t": "7. Planejamento na prática educativa", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "port", "k": "rev2", "i": "p04", "th": "port-4", "t": "4. Sintaxe da oração: termos da oração", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"k": "q", "t": "Resolva 10 questões misturadas das matérias revisadas hoje."}]}, {"d": "2026-12-10", "f": 3, "x": [{"s": "esp", "k": "rev2", "i": "e08", "th": "esp-8", "t": "8. Metodologia e avaliação do processo ensino-aprendizagem", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "rlm", "k": "rev2", "i": "r04", "th": "rlm-4", "t": "4. Raciocínio verbal, formação de conceitos e discriminação de elementos", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "esp", "k": "rev2", "i": "e09", "th": "esp-9", "t": "9. Currículo escolar: conceito, fundamentos e componentes", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "port", "k": "rev2", "i": "p05", "th": "port-5", "t": "5. Sintaxe do período: coordenação e subordinação", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "esp", "k": "rev2", "i": "e10", "th": "esp-10", "t": "10. Construção coletiva do Projeto Político-Pedagógico (PPP)", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"k": "q", "t": "Resolva 10 questões misturadas das matérias revisadas hoje."}]}, {"d": "2026-12-11", "f": 3, "x": [{"s": "rlm", "k": "rev2", "i": "r05", "th": "rlm-5", "t": "5. Raciocínio sequencial (sequências de números, letras e figuras)", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "esp", "k": "rev2", "i": "e11", "th": "esp-11", "t": "11. Orientações metodológicas para o Ensino Fundamental (anos iniciais)", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "port", "k": "rev2", "i": "p06", "th": "port-6", "t": "6. Concordância verbal e nominal", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "esp", "k": "rev2", "i": "e12", "th": "esp-12", "t": "12. Atividades adequadas e utilização de jogos na aprendizagem", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"k": "q", "t": "Resolva 10 questões misturadas das matérias revisadas hoje."}]}, {"d": "2026-12-12", "f": 3, "x": [{"k": "sim", "ref": "s2", "t": "Simulado 3: prova completa de 40 questões em 3 horas, no horário da prova (9h às 12h)."}]}, {"d": "2026-12-13", "f": 3, "x": [{"k": "corr", "t": "Corrija o simulado de ontem: anote no caderno os assuntos em que errou e revise a teoria deles."}, {"k": "lei", "t": "Lei seca (30 min): LDB arts. 24, 26 e 26-A (avaliação e currículo). Leia direto no texto da lei e grife prazos, idades e números."}]}, {"d": "2026-12-14", "f": 3, "x": [{"s": "rlm", "k": "rev2", "i": "r06", "th": "rlm-6", "t": "6. Orientação espacial e temporal", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "esp", "k": "rev2", "i": "e13", "th": "esp-13", "t": "13. Educação inclusiva: diversidade na sala de aula", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "port", "k": "rev2", "i": "p07", "th": "port-7", "t": "7. Regência verbal e nominal", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "esp", "k": "rev2", "i": "e14", "th": "esp-14", "t": "14. LDB (Lei 9.394/96) — Parte 1: princípios, direito à educação e organização", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "rlm", "k": "rev2", "i": "r07", "th": "rlm-7", "t": "7. Noções básicas de aritmética", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"k": "q", "t": "Resolva 10 questões misturadas das matérias revisadas hoje."}]}, {"d": "2026-12-15", "f": 3, "x": [{"s": "esp", "k": "rev2", "i": "e15", "th": "esp-15", "t": "15. LDB (Lei 9.394/96) — Parte 2: educação básica, ensino fundamental, educação especial e profissionais", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "port", "k": "rev2", "i": "p08", "th": "port-8", "t": "8. Correlação de tempos e modos verbais", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "esp", "k": "rev2", "i": "e16", "th": "esp-16", "t": "16. ECA (Lei 8.069/90) — Parte 1: disposições gerais e direitos fundamentais", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "rlm", "k": "rev2", "i": "r08", "th": "rlm-8", "t": "8. Razão, proporção e regra de três simples", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"k": "q", "t": "Resolva 10 questões misturadas das matérias revisadas hoje."}]}, {"d": "2026-12-16", "f": 3, "x": [{"s": "esp", "k": "rev2", "i": "e17", "th": "esp-17", "t": "17. ECA — Parte 2: Conselho Tutelar, medidas e infrações", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "port", "k": "rev2", "i": "p09", "th": "port-9", "t": "9. Vozes verbais e sua transposição", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "esp", "k": "rev2", "i": "e18", "th": "esp-18", "t": "18. LBI (Lei 13.146/2015) — Parte 1: conceitos e igualdade", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "rlm", "k": "rev2", "i": "r09", "th": "rlm-9", "t": "9. Porcentagem, acréscimos e descontos", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "esp", "k": "rev2", "i": "e19", "th": "esp-19", "t": "19. LBI — Parte 2: direito à educação, acessibilidade e crimes", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"k": "q", "t": "Resolva 10 questões misturadas das matérias revisadas hoje."}]}, {"d": "2026-12-17", "f": 3, "x": [{"s": "port", "k": "rev2", "i": "p10", "th": "port-10", "t": "10. Pronomes: emprego, colocação e formas de tratamento", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "port", "k": "rev2", "i": "p11", "th": "port-11", "t": "11. Linguagem figurada (figuras de linguagem)", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "port", "k": "rev2", "i": "p12", "th": "port-12", "t": "12. Ortografia, acentuação e crase", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"s": "port", "k": "rev2", "i": "p13", "th": "port-13", "t": "13. Pontuação e redação oficial", "lab": "Revisão 2 (resumo + pegadinhas)"}, {"k": "q", "t": "Resolva 10 questões misturadas das matérias revisadas hoje."}]}, {"d": "2026-12-18", "f": 4, "x": [{"k": "final", "t": "Revisão final dos Específicos: releia só as caixas de “Pegadinha” da LDB, do ECA e da LBI (prazos, idades, números)."}, {"k": "final", "t": "Revisão final de Português e RLM: concordância com “haver”, crase, negações lógicas e porcentagem sucessiva."}, {"k": "err", "ref": "err", "t": "Passe os olhos no caderno de erros (sem resolver tudo de novo)."}]}, {"d": "2026-12-19", "f": 4, "x": [{"k": "leve", "t": "Véspera: sem conteúdo novo. Confira o local no cartão de inscrição e o horário do seu nível (manhã 9h ou tarde 14h)."}, {"k": "leve", "t": "Separe: documento original com foto, caneta esferográfica azul ou preta de corpo transparente, lanche em saco transparente, água sem rótulo. Nada de relógio, celular, boné ou óculos escuros."}, {"k": "livre", "t": "Descanse e durma cedo."}]}];
+const EDT={"port": "Edital: Compreensão e interpretação de texto. Redação: equivalência de sentido entre frases. Reorganização de orações e períodos: transformação de estruturas. Sintaxe da oração e do período. Concordância verbal e nominal. Regência verbal e nominal. Correlação de tempos e modos verbais. Transposição de vozes verbais. Pronomes: emprego, localização e formas de tratamento. Linguagem figurada. Ortografia, acentuação e emprego da crase. Pontuação. Redação oficial: modalidades e princípios normativos.", "rlm": "Edital: Estrutura lógica de relações arbitrárias entre pessoas, lugares, objetos ou eventos fictícios; raciocínio verbal, matemático, sequencial; orientação espacial e temporal; formação de conceitos; discriminação de elementos; processo lógico que, a partir de hipóteses, conduz a conclusões válidas. Noções básicas de aritmética, proporcionalidade e porcentagem: regra de três simples, porcentagem, acréscimos e descontos.", "esp": "Edital: Planejamento na prática educativa; metodologia e avaliação do processo ensino/aprendizagem; relação educação e sociedade e a educação e a escola; tendências pedagógicas; currículo escolar; construção coletiva do PPP; educação inclusiva: diversidade na sala de aula; a construção do conhecimento; orientações metodológicas para o Ensino Fundamental; atividades adequadas e jogos na aprendizagem; ação pedagógica; papel do professor; LDB (Lei 9.394/96); ECA; Lei 13.146/2015 (LBI)."};
+
+(function(){
+"use strict";
+const SUBJ = [
+  {k:"port", n:"Língua Portuguesa", sh:"Português", b:1, nq:12},
+  {k:"rlm", n:"Raciocínio Lógico/Matemático", sh:"Raciocínio Lógico", b:2, nq:8},
+  {k:"esp", n:"Conhecimentos Específicos", sh:"Específicos", b:3, nq:20}
+];
+const SN = Object.fromEntries(SUBJ.map(s=>[s.k,s]));
+const L = "ABCDE";
+const PARTE = ["1ª parte","2ª parte","3ª parte"];
+const $ = (s,el=document)=>el.querySelector(s);
+const $$ = (s,el=document)=>Array.from(el.querySelectorAll(s));
+const esc = s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+
+// ---------- storage (best effort) ----------
+const KEY="ferreiros26";
+let store={hist:[],err:{},done:{},run:null};
+try{const raw=localStorage.getItem(KEY); if(raw) store=Object.assign(store,JSON.parse(raw));}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+
+// ---------- question index (banco a ser preenchido) ----------
+const ALL={};
+SUBJ.forEach(s=>(Q[s.k]||(Q[s.k]=[])).forEach((q,i)=>{q.s=s.k;q.i=i;ALL[q.id]=q;}));
+QX.forEach(q=>{ALL[q.id]=q;});
+const NQ=Object.keys(ALL).length;
+store.seen=store.seen||{};
+function hash(str){let h=2166136261;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function perm(id){
+  const q=ALL[id]; if(q&&q.src) return q.o.map((_,i)=>i);
+  const p=[0,1,2,3,4]; let h=hash(id);
+  for(let i=4;i>0;i--){h=Math.imul(h^(h>>>15),2246822507)>>>0; const j=h%(i+1); [p[i],p[j]]=[p[j],p[i]];}
+  return p;
+}
+function correctPos(id){const q=ALL[id];return perm(id).indexOf(q&&q.a!==undefined?q.a:0);}
+
+// ---------- countdown ----------
+(function(){const d=new Date(2026,11,20);const now=new Date();now.setHours(0,0,0,0);const n=Math.round((d-now)/86400000);$("#days").textContent=n>0?n:"0";})();
+
+// ---------- tabs ----------
+const tabs=$$('[role="tab"]');
+const TABS=["painel","cronograma","edital","teoria","simulados","erros"];
+function showTab(id){
+  tabs.forEach(t=>{const on=t.id==="tab-"+id;t.setAttribute("aria-selected",on);$("#"+t.getAttribute("aria-controls")).hidden=!on;});
+  try{localStorage.setItem(KEY+"tab",id);}catch(e){}
+  if(id==="erros") renderErrors();
+  if(id==="simulados") renderSimHome();
+  if(id==="cronograma"){renderPlan();const el=document.getElementById("day-"+isoToday()); if(el) setTimeout(()=>el.scrollIntoView({block:"start"}),0); return;}
+  if(id==="edital") renderVert();
+  if(id==="painel"){renderPerf();renderToday();}
+  window.scrollTo({top:0});
+}
+tabs.forEach(t=>t.addEventListener("click",()=>showTab(t.id.slice(4))));
+
+$$("table.tbl").forEach(t=>{if(!t.parentElement.classList.contains("tblwrap")){const w=document.createElement("div");w.className="tblwrap";t.parentNode.insertBefore(w,t);w.appendChild(t);}});
+
+// ---------- teoria ----------
+let curSubj="esp";
+function buildToc(){
+  const toc=$("#toc"); let h="";
+  SUBJ.forEach(s=>{
+    h+=`<button class="subj" data-s="${s.k}" aria-current="${s.k===curSubj}">${esc(s.n)}</button>`;
+    if(s.k===curSubj){
+      h+="<ol>";
+      $$(`[data-subj="${s.k}"] .topic`).forEach(a=>{h+=`<li class="${store.done[a.id]?"done":""}"><a href="#${a.id}" data-goto="${a.id}">${esc(a.querySelector("h3").textContent)}</a></li>`;});
+      h+="</ol>";
+    }
+  });
+  toc.innerHTML=h;
+  $("#subj-select").innerHTML=SUBJ.map(s=>`<option value="${s.k}" ${s.k===curSubj?"selected":""}>${esc(s.n)}</option>`).join("");
+  $("#topic-select").innerHTML='<option value="">Ir para o assunto…</option>'+$$(`[data-subj="${curSubj}"] .topic`).map(a=>`<option value="${a.id}">${esc(a.querySelector("h3").textContent)}</option>`).join("");
+}
+function showSubj(k,scrollTo){
+  curSubj=k;
+  $$("#theory-body > div").forEach(d=>d.hidden=d.dataset.subj!==k);
+  buildToc();
+  if(scrollTo){const el=document.getElementById(scrollTo); if(el) el.scrollIntoView({block:"start"});}
+}
+$("#toc").addEventListener("click",e=>{
+  const b=e.target.closest(".subj"); if(b){showSubj(b.dataset.s); window.scrollTo({top:0}); return;}
+  const a=e.target.closest("[data-goto]"); if(a){e.preventDefault(); document.getElementById(a.dataset.goto).scrollIntoView({block:"start"});}
+});
+$("#subj-select").addEventListener("change",e=>{showSubj(e.target.value);window.scrollTo({top:0});});
+$("#topic-select").addEventListener("change",e=>{if(e.target.value)document.getElementById(e.target.value).scrollIntoView({block:"start"});});
+$$("#theory-body .topic").forEach(a=>{
+  const qs=Object.values(ALL).filter(q=>q.t===a.id);
+  const f=document.createElement("div"); f.className="tfoot";
+  f.innerHTML=`<label><input type="checkbox" id="done-${a.id}" ${store.done[a.id]?"checked":""}> Estudado</label>`+
+    (qs.length?`<button class="btn ghost" data-train-topic="${a.id}">Treinar este assunto (${qs.length} ${qs.length>1?"questões":"questão"})</button>`:`<span class="muted">As questões deste assunto entram quando o banco for montado.</span>`);
+  a.appendChild(f);
+  f.querySelector("input").addEventListener("change",ev=>{store.done[a.id]=ev.target.checked;save();buildToc();renderPerf();});
+});
+$("#theory-body").addEventListener("click",e=>{
+  const b=e.target.closest("[data-train-topic]"); if(!b) return;
+  const ids=Object.values(ALL).filter(q=>q.t===b.dataset.trainTopic).map(q=>q.id);
+  const title=b.closest(".topic").querySelector("h3").textContent;
+  showTab("simulados"); startRun({mode:"treino",ids,title:"Treino: "+title});
+});
+
+// ---------- painel: desempenho ----------
+function subjStats(){
+  const st={}; SUBJ.forEach(s=>st[s.k]={c:0,t:0});
+  store.hist.forEach(h=>{Object.entries(h.per||{}).forEach(([k,v])=>{if(st[k]){st[k].c+=v[0];st[k].t+=v[1];}});});
+  return st;
+}
+function renderPerf(){
+  const st=subjStats(); let any=false;
+  $("#perf").innerHTML=SUBJ.map(s=>{
+    const v=st[s.k]; if(v.t) any=true;
+    const tops=$$(`[data-subj="${s.k}"] .topic`); const total=tops.length; const done=tops.filter(a=>store.done[a.id]).length;
+    const p=v.t?Math.round(100*v.c/v.t):Math.round(100*done/total);
+    const lab=v.t?`${v.c}/${v.t} acertos (${Math.round(100*v.c/v.t)}%) · teoria ${done}/${total}`:`teoria ${done}/${total}`;
+    return `<div><div class="row" style="justify-content:space-between"><b>${esc(s.n)}</b><span class="mono muted">${lab}</span></div><div class="bar" role="img" aria-label="${p}%"><i class="${v.t&&p<50?"low":""}" style="width:${p}%"></i></div></div>`;
+  }).join("");
+  $("#perfnote").hidden=any;
+}
+
+// ---------- simulados ----------
+function simIds(k){const ids=[];SUBJ.forEach(s=>Q[s.k].slice(s.nq*k,s.nq*k+s.nq).forEach(q=>ids.push(q.id)));return ids;}
+function renderSimHome(){
+  $("#bank-empty").hidden=NQ>0;
+  $("#bank-note").textContent=NQ?`${NQ} questões cadastradas.`:"Nenhuma questão cadastrada ainda.";
+  [0,1,2].forEach(k=>{
+    const last=store.hist.filter(h=>h.sim===k).slice(-1)[0];
+    const ok=simIds(k).length===40;
+    $("#last-"+k).textContent=!ok?"Disponível quando o banco de questões estiver pronto.":last?`Última tentativa: ${last.score}/40 (nota ${(last.score*.2).toFixed(2).replace(".",",")}) em ${last.date}`:"Ainda não realizado.";
+  });
+  const run=store.run;
+  $$("[data-start]").forEach(b=>{const ok=simIds(+b.dataset.start).length===40; b.disabled=!ok; b.textContent=!ok?"Em breve":(run&&run.mode==="prova"&&run.sim===+b.dataset.start&&!run.finished)?"Continuar":"Começar";});
+  updPool();
+  const h=store.hist.slice().reverse().slice(0,15);
+  $("#history").innerHTML=h.length?`<table class="tbl"><tr><th>Data</th><th>Atividade</th><th>Acertos</th><th>Situação</th></tr>${h.map(x=>`<tr><td class="mono">${esc(x.date)}</td><td>${esc(x.title)}</td><td class="mono">${x.score}/${x.total}</td><td>${x.mode==="prova"?(x.pass?'<span class="pill ok">Acima da nota mínima</span>':'<span class="pill bad">Abaixo de 4,00</span>'):'<span class="pill">Treino</span>'}</td></tr>`).join("")}</table>`:'<p class="muted">Nenhuma atividade registrada ainda.</p>';
+}
+$("#train-subj").innerHTML='<option value="">Todas as matérias</option>'+SUBJ.map(s=>`<option value="${s.k}">${esc(s.n)}</option>`).join("");
+function topicName(t){const el=document.getElementById(t);return el?el.querySelector("h3").textContent:t;}
+function fillTopics(){
+  const k=$("#train-subj").value; const ts=[...new Set(Object.values(ALL).filter(q=>!k||q.s===k).map(q=>q.t))];
+  ts.sort((a,b)=>{const [sa,na]=a.split("-"),[sb,nb]=b.split("-");return SUBJ.findIndex(x=>x.k===sa)-SUBJ.findIndex(x=>x.k===sb)||(+na)-(+nb);});
+  $("#train-topic").innerHTML='<option value="">Todos os assuntos</option>'+ts.map(t=>`<option value="${t}">${esc((k?"":SN[t.split("-")[0]].sh+" · ")+topicName(t))}</option>`).join("");
+}
+function trainPool(){
+  const k=$("#train-subj").value,t=$("#train-topic").value,st=$("#train-status").value;
+  return Object.values(ALL).filter(q=>(!k||q.s===k)&&(!t||q.t===t)&&(st==="all"||(st==="new"?store.seen[q.id]===undefined:st==="wrong"?(store.seen[q.id]===0||store.err[q.id]):store.seen[q.id]===1)));
+}
+function updPool(){const n=trainPool().length; $("#train-count").textContent=n+(n===1?" questão encontrada":" questões encontradas"); $("#train-go").disabled=!n;}
+$("#train-subj").addEventListener("change",()=>{fillTopics();updPool();});
+["#train-topic","#train-status"].forEach(sel=>$(sel).addEventListener("change",updPool));
+fillTopics(); updPool();
+$("#train-go").addEventListener("click",()=>{
+  const n=+$("#train-n").value; const pool=trainPool(); if(!pool.length) return;
+  const ids=shuffle(pool.map(q=>q.id)).slice(0,n||pool.length);
+  const k=$("#train-subj").value,t=$("#train-topic").value;
+  startRun({mode:"treino",ids,title:"Treino: "+(t?topicName(t):k?SN[k].n:"todas as matérias")});
+});
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+$$("[data-start]").forEach(b=>b.addEventListener("click",()=>{
+  const k=+b.dataset.start; const run=store.run; if(simIds(k).length!==40) return;
+  if(run&&run.mode==="prova"&&run.sim===k&&!run.finished){openRun();return;}
+  const dur=Math.max(30,Math.min(300,+$("#dur").value||180));
+  startRun({mode:"prova",sim:k,ids:simIds(k),title:"Simulado "+(k+1),dur});
+}));
+
+let R=null, tick=null;
+function startRun(o){
+  if(!o.ids||!o.ids.length) return;
+  R={mode:o.mode,sim:o.sim,ids:o.ids,title:o.title,ans:{},cur:0,finished:false,start:Date.now(),dur:(o.dur||0)*60};
+  store.run=R; save(); openRun();
+}
+function openRun(){
+  R=store.run; if(!R||!R.ids.every(id=>ALL[id])){store.run=null;save();return;}
+  $("#sim-home").hidden=true; $("#sim-run").hidden=false;
+  if(R.finished) renderResult(); else renderQ();
+  clearInterval(tick); if(R.mode==="prova"&&!R.finished) tick=setInterval(updTimer,1000);
+}
+function leaveRun(){clearInterval(tick);$("#sim-run").hidden=true;$("#sim-home").hidden=false;renderSimHome();window.scrollTo({top:0});}
+function remaining(){return Math.max(0,R.dur-Math.floor((Date.now()-R.start)/1000));}
+function fmt(s){const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return `${h}:${String(m).padStart(2,"0")}:${String(x).padStart(2,"0")}`;}
+function updTimer(){const el=$("#timer"); if(!el) return; const r=remaining(); el.textContent=fmt(r); if(r<=0){finish();}}
+function ctxHtml(q){
+  if(!q.ctx||!TEXTS[q.ctx]) return "";
+  const t=TEXTS[q.ctx];
+  return `<details class="ctx" ${R.openCtx!==false?"open":""}><summary>Texto: ${esc(t.titulo)}</summary>${t.corpo.map((p,i)=>`<p><span class="mono muted">§${i+1}</span> ${esc(p)}</p>`).join("")}<p class="muted" style="text-indent:0">${esc(t.fonte||"")}</p></details>`;
+}
+function renderQ(){
+  const id=R.ids[R.cur], q=ALL[id], p=perm(id), sel=R.ans[id];
+  const instant=R.mode!=="prova"; const answered=sel!==undefined; const cp=correctPos(id);
+  let opts=p.map((orig,pos)=>{
+    let cls="opt"; if(instant&&answered){if(pos===cp)cls+=" right"; else if(pos===sel)cls+=" wrong";}
+    return `<li><button class="${cls}" data-pos="${pos}" aria-pressed="${sel===pos}" ${instant&&answered?"disabled":""}><span class="l">${L[pos]}</span><span>${esc(q.o[orig])}</span></button></li>`;
+  }).join("");
+  const exp=(instant&&answered)?`<div class="exp"><b>${sel===cp?"Você acertou.":"Resposta correta: "+L[cp]+"."}</b><br>${q.e||""}<div style="margin-top:8px"><a href="#${q.t}" data-theory="${q.t}">Revisar a teoria deste assunto</a></div></div>`:"";
+  const s=SN[q.s];
+  $("#sim-run").innerHTML=`<div class="exam"><div class="card" style="min-width:0">
+    <div class="qhead"><span class="qnum">Questão ${R.cur+1} <span class="muted" style="font-size:1rem">de ${R.ids.length}</span></span><span class="row" style="gap:6px"><span class="pill">${esc(s.n)} · ${PARTE[s.b-1]}</span>${q.src?`<span class="pill src">${esc(q.src)}</span>`:""}</span></div>
+    ${ctxHtml(q)}<div class="qtext">${q.q}</div><ul class="opts">${opts}</ul>${exp}
+    <div class="nav"><button class="btn ghost" id="prev" ${R.cur===0?"disabled":""}>Anterior</button><button class="btn" id="next">${R.cur===R.ids.length-1?(R.mode==="prova"?"Revisar e finalizar":"Ver resultado"):"Próxima"}</button></div>
+  </div><aside class="side">${sideHtml()}</aside></div>`;
+  updTimer();
+}
+function sideHtml(){
+  const n=Object.keys(R.ans).length; let map=""; let last="";
+  R.ids.forEach((id,i)=>{
+    const s=ALL[id].s; if(R.mode==="prova"&&s!==last){map+=`<span class="sep">${esc(SN[s].sh)}</span>`;last=s;}
+    let c=""; const a=R.ans[id];
+    if(a!==undefined){c=R.mode==="prova"?"ans":(a===correctPos(id)?"r":"w");}
+    if(i===R.cur)c+=" cur";
+    map+=`<button class="${c}" data-go="${i}" aria-label="Questão ${i+1}">${i+1}</button>`;
+  });
+  return `<div class="card" style="display:grid;gap:10px">
+    <div><span class="eyebrow">${esc(R.title)}</span>${R.mode==="prova"?`<div class="timer" id="timer" aria-live="off">${fmt(remaining())}</div>`:""}</div>
+    <div class="muted">${n} de ${R.ids.length} respondidas</div>
+    <div class="map">${map}</div>
+    <div class="row"><button class="btn star" id="finish">${R.mode==="prova"?"Finalizar prova":"Encerrar treino"}</button><button class="btn ghost" id="pause">Sair</button></div>
+    <div id="confirm"></div>
+    ${R.mode==="prova"?'<p class="muted" style="margin:0;font-size:.85rem">“Sair” guarda a prova; o cronômetro continua correndo, como no dia da prova.</p>':""}
+  </div>`;
+}
+$("#sim-run").addEventListener("click",e=>{
+  const o=e.target.closest(".opt");
+  if(o&&!o.disabled&&o.tagName==="BUTTON"){const qid=R.ids[R.cur]; R.ans[qid]=+o.dataset.pos; if(R.mode!=="prova"){const ok=R.ans[qid]===correctPos(qid); store.seen[qid]=ok?1:0; if(ok) delete store.err[qid]; else store.err[qid]=(store.err[qid]||0)+1;} save(); renderQ(); if(R.mode!=="prova"){const ex=$(".exp"); if(ex) ex.scrollIntoView({block:"nearest"});} return;}
+  const g=e.target.closest("[data-go]"); if(g){R.cur=+g.dataset.go; save(); renderQ(); window.scrollTo({top:0}); return;}
+  if(e.target.closest("#prev")){R.cur--; save(); renderQ(); window.scrollTo({top:0}); return;}
+  if(e.target.closest("#next")){ if(R.cur<R.ids.length-1){R.cur++;save();renderQ();window.scrollTo({top:0});} else askFinish(); return;}
+  if(e.target.closest("#finish")){askFinish();return;}
+  if(e.target.closest("#pause")){leaveRun();return;}
+  if(e.target.closest("#conf-yes")){finish();return;}
+  if(e.target.closest("#conf-no")){$("#confirm").innerHTML="";return;}
+  if(e.target.closest("#back-home")){store.run=null;save();leaveRun();return;}
+  if(e.target.closest("#redo-wrong")){const ids=R.ids.filter(id=>R.ans[id]!==correctPos(id));store.run=null;startRun({mode:"treino",ids,title:"Refazendo erros: "+R.title});return;}
+  const th=e.target.closest("[data-theory]"); if(th){e.preventDefault(); const t=th.dataset.theory; showTab("teoria"); showSubj(t.split("-")[0],t); return;}
+});
+function askFinish(){
+  const blank=R.ids.length-Object.keys(R.ans).length;
+  $("#confirm").innerHTML=`<div class="confirm"><span>${blank?`Você deixou ${blank} ${blank>1?"questões":"questão"} em branco.`:"Todas respondidas."} Finalizar agora?</span><div class="row"><button class="btn" id="conf-yes">Finalizar</button><button class="btn ghost" id="conf-no">Continuar</button></div></div>`;
+  $("#confirm").scrollIntoView({block:"nearest"});
+}
+function finish(){
+  clearInterval(tick); if(R.finished) return;
+  R.finished=true; R.end=Date.now();
+  const per={}; SUBJ.forEach(s=>per[s.k]=[0,0]); let score=0;
+  R.ids.forEach(id=>{const q=ALL[id]; per[q.s][1]++; const ok=R.ans[id]===correctPos(id); if(ok){per[q.s][0]++;score++;} if(R.mode==="prova"){ if(ok) delete store.err[id]; else store.err[id]=(store.err[id]||0)+1; store.seen[id]=ok?1:0; }});
+  Object.keys(per).forEach(k=>{if(!per[k][1]) delete per[k];});
+  const pass=R.mode==="prova"&&score*0.2>=4;
+  R.result={score,per,pass};
+  const d=new Date(); const date=`${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+  store.hist.push({date,title:R.title,mode:R.mode,sim:R.sim,score,total:R.ids.length,per,pass});
+  save(); renderResult();
+}
+function renderResult(){
+  const {score,per,pass}=R.result; const tot=R.ids.length;
+  let verdict="";
+  if(R.mode==="prova"){
+    const nota=(score*.2).toFixed(2).replace(".",",");
+    const used=Math.round(((R.end||Date.now())-R.start)/60000);
+    verdict=`<div class="verdict ${pass?"ok":"bad"}"><span class="eyebrow">${esc(R.title)} · ${used} min</span><b>${score}/40 acertos · nota ${nota}</b><span>${pass?"Acima da nota mínima de 4,00. Com 5 vagas, a meta é chegar a 30 acertos (6,00) ou mais.":"Abaixo da nota mínima de 4,00 (20 acertos). Revise os assuntos marcados abaixo."}</span></div>
+    <div class="grid g3" style="margin-top:12px">${SUBJ.filter(s=>per[s.k]).map(s=>`<div class="card stat"><span class="eyebrow">${PARTE[s.b-1]} · ${esc(s.sh)}</span><b>${per[s.k][0]}/${per[s.k][1]}</b><span>${(per[s.k][0]*.2).toFixed(2).replace(".",",")} pontos</span></div>`).join("")}</div>`;
+  } else {
+    verdict=`<div class="verdict ${score/tot>=.7?"ok":"bad"}"><span class="eyebrow">${esc(R.title)}</span><b>${score}/${tot} acertos · ${Math.round(100*score/tot)}%</b></div>`;
+  }
+  const bars=Object.entries(per).map(([k,v])=>{const p=Math.round(100*v[0]/v[1]);return `<div class="res-row"><div><div class="row" style="justify-content:space-between"><span>${esc(SN[k].n)}</span><span class="mono muted">${v[0]}/${v[1]}</span></div><div class="bar"><i class="${p<50?"low":""}" style="width:${p}%"></i></div></div><span class="mono">${p}%</span></div>`;}).join("");
+  const wrong=R.ids.filter(id=>R.ans[id]!==correctPos(id)).length;
+  R.openCtx=false;
+  const rev=R.ids.map((id,i)=>{
+    const q=ALL[id], cp=correctPos(id), a=R.ans[id], ok=a===cp, p=perm(id);
+    return `<details><summary><span class="pill ${ok?"ok":"bad"}">${i+1} · ${ok?"certa":a===undefined?"em branco":"errada"}</span><span>${esc(SN[q.s].n)}</span></summary>
+      ${ctxHtml(q)}<div class="qtext">${q.q}</div>
+      <ul class="opts">${p.map((orig,pos)=>`<li><div class="opt ${pos===cp?"right":(pos===a?"wrong":"")}"><span class="l">${L[pos]}</span><span>${esc(q.o[orig])}</span></div></li>`).join("")}</ul>
+      <div class="exp">${q.e||""}<div style="margin-top:8px"><a href="#${q.t}" data-theory="${q.t}">Revisar a teoria deste assunto</a></div></div></details>`;
+  }).join("");
+  $("#sim-run").innerHTML=`<div class="grid">${verdict}<div class="card"><span class="eyebrow">Por matéria</span><div class="grid" style="margin-top:10px">${bars}</div></div>
+    <div class="row"><button class="btn" id="back-home">Voltar aos simulados</button>${wrong?`<button class="btn star" id="redo-wrong">Refazer as ${wrong} que errei</button>`:""}</div>
+    <div class="card"><span class="eyebrow">Correção comentada</span><p class="muted">Abra cada questão para ver o gabarito e a explicação.</p><div class="review">${rev}</div></div></div>`;
+  R.openCtx=true;
+  window.scrollTo({top:0});
+}
+
+// ---------- caderno de erros ----------
+function renderErrors(){
+  const ids=Object.keys(store.err).filter(id=>ALL[id]);
+  $("#err-redo").disabled=!ids.length;
+  $("#err-list").innerHTML=ids.length?ids.map(id=>{const q=ALL[id],cp=correctPos(id),p=perm(id);return `<details><summary><span class="pill bad">${store.err[id]}× errada</span><span>${esc(SN[q.s].n)}</span><span class="muted">${esc(q.q.replace(/<[^>]+>/g,"").slice(0,90))}…</span></summary><div class="qtext">${q.q}</div><ul class="opts">${p.map((orig,pos)=>`<li><div class="opt ${pos===cp?"right":""}"><span class="l">${L[pos]}</span><span>${esc(q.o[orig])}</span></div></li>`).join("")}</ul><div class="exp">${q.e||""}</div></details>`;}).join(""):'<div class="card muted">Nenhuma questão no caderno. Quando o banco de questões estiver pronto, tudo o que você errar nos treinos e simulados aparece aqui.</div>';
+}
+$("#err-redo").addEventListener("click",()=>{const ids=shuffle(Object.keys(store.err).filter(id=>ALL[id]));if(!ids.length)return;showTab("simulados");startRun({mode:"treino",ids,title:"Caderno de erros"});});
+$("#err-clear").addEventListener("click",()=>{$("#err-confirm").innerHTML=`<div class="confirm" style="margin-top:10px"><span>Apagar todas as questões do caderno?</span><div class="row"><button class="btn" id="err-yes">Apagar</button><button class="btn ghost" id="err-no">Cancelar</button></div></div>`;});
+$("#err-confirm").addEventListener("click",e=>{if(e.target.closest("#err-yes")){store.err={};save();renderErrors();}if(e.target.closest("button"))$("#err-confirm").innerHTML="";});
+
+// ---------- cronograma e edital verticalizado ----------
+store.plan=store.plan||{}; store.vert=store.vert||{};
+const WD=["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
+const FASES={1:["Fase 1 · Base","Primeira passagem por todo o edital: teoria + questões de cada assunto"],2:["Fase 2 · Revisão 1","Revisão de cada assunto com questões, caderno de erros e simulados"],3:["Fase 3 · Revisão 2","Revisão rápida (resumo, pegadinhas e lei seca) e último simulado"],4:["Reta final","Só revisão leve e descanso"]};
+const KLAB={teoria:"Teoria",rev1:"Revisão 1",rev2:"Revisão 2",rev:"Revisão",err:"Erros",lei:"Lei seca",sim:"Simulado",corr:"Correção",q:"Questões",marco:"Edital",final:"Reta final",leve:"Véspera",livre:"Descanso",setup:"Início"};
+function isoToday(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;}
+function dLabel(iso,long){const [y,m,d]=iso.split("-").map(Number);const dt=new Date(y,m-1,d);return (long?["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"][dt.getDay()]:WD[dt.getDay()])+", "+String(d).padStart(2,"0")+"/"+String(m).padStart(2,"0");}
+const FIRSTDATE={}; PLAN.forEach(p=>p.x.forEach(t=>{if(t.k==="teoria"&&!FIRSTDATE[t.i])FIRSTDATE[t.i]=p.d;}));
+const REVDATE={}; PLAN.forEach(p=>p.x.forEach(t=>{if(t.i&&t.k!=="teoria"){REVDATE[t.i]=REVDATE[t.i]||{};REVDATE[t.i][t.k]=p.d;}}));
+function vstate(id){return store.vert[id]||(store.vert[id]={});}
+
+function taskHtml(p,t,j){
+  const key=p.d+":"+j, done=!!store.plan[key];
+  const subj=t.s?`<span class="pill">${esc(SN[t.s].sh)}</span>`:"";
+  const kl=`<span class="pill kind k-${t.k}">${esc(t.lab||KLAB[t.k]||"")}</span>`;
+  let acts="";
+  if(t.th){acts+=`<a href="#${t.th}" data-theory="${t.th}">Teoria</a>`; if(Object.values(ALL).some(q=>q.t===t.th)) acts+=` · <a href="#" data-train-th="${t.th}">Questões</a>`;}
+  if(t.ref&&t.ref[0]==="s") acts+=`<a href="#" data-sim="${t.ref.slice(1)}">Abrir simulado</a>`;
+  if(t.ref==="err") acts+=`<a href="#" data-errs="1">Abrir caderno de erros</a>`;
+  return `<li class="task ${done?"done":""}"><input type="checkbox" id="pt-${key}" data-key="${key}" ${done?"checked":""}><label for="pt-${key}"><span class="row" style="gap:6px">${kl}${subj}</span><span class="tt">${esc(t.t)}</span></label>${acts?`<span class="acts">${acts}</span>`:""}</li>`;
+}
+function dayHtml(p,today){
+  const cls=p.d===today?"day today":(p.d<today?"day past":"day");
+  const n=p.x.length, c=p.x.filter((t,j)=>store.plan[p.d+":"+j]).length;
+  const late=p.d<today&&c<n;
+  return `<div class="${cls}" id="day-${p.d}"><div class="dhead"><b>${dLabel(p.d)}</b>${p.d===today?'<span class="pill star">Hoje</span>':""}${late?'<span class="pill bad">pendente</span>':(c===n?'<span class="pill ok">feito</span>':"")}</div><ul class="tasks">${p.x.map((t,j)=>taskHtml(p,t,j)).join("")}</ul></div>`;
+}
+let planFilter="semana";
+function renderPlan(){
+  const today=isoToday(); let total=0,done=0,late=0;
+  PLAN.forEach(p=>p.x.forEach((t,j)=>{total++; if(store.plan[p.d+":"+j])done++; else if(p.d<today)late++;}));
+  $("#plan-stats").innerHTML=`<div class="stat"><b>${done}/${total}</b><span>tarefas concluídas</span></div><div class="stat"><b>${late}</b><span>tarefas atrasadas</span></div><div class="stat"><b>${Math.max(0,PLAN.filter(p=>p.d>=today).length)}</b><span>dias de estudo restantes</span></div>`;
+  $("#plan-bar").style.width=Math.round(100*done/total)+"%";
+  let h="", curWeek="", curFase=0, open=false;
+  PLAN.forEach(p=>{
+    const [y,m,d]=p.d.split("-").map(Number); const dt=new Date(y,m-1,d); const mon=new Date(dt); mon.setDate(dt.getDate()-((dt.getDay()+6)%7));
+    const wk=mon.toDateString();
+    if(planFilter==="semana"){
+      const ref=today<PLAN[0].d?PLAN[0].d:(today>PLAN[PLAN.length-1].d?PLAN[PLAN.length-1].d:today);
+      const [ry,rm,rd]=ref.split("-").map(Number); const r=new Date(ry,rm-1,rd); const rmon=new Date(r); rmon.setDate(r.getDate()-((r.getDay()+6)%7));
+      if(mon.toDateString()!==rmon.toDateString()) return;
+    }
+    if(planFilter==="pendentes"){const n=p.x.length,c=p.x.filter((t,j)=>store.plan[p.d+":"+j]).length; if(c===n) return;}
+    if(p.f!==curFase){if(open){h+="</div></div>";open=false;} h+=`<h3 class="fase">${esc(FASES[p.f][0])}<span class="muted"> · ${esc(FASES[p.f][1])}</span></h3>`; curFase=p.f; curWeek="";}
+    if(wk!==curWeek){if(open)h+="</div></div>"; const sun=new Date(mon);sun.setDate(mon.getDate()+6); h+=`<div class="week"><div class="eyebrow">Semana de ${String(mon.getDate()).padStart(2,"0")}/${String(mon.getMonth()+1).padStart(2,"0")} a ${String(sun.getDate()).padStart(2,"0")}/${String(sun.getMonth()+1).padStart(2,"0")}</div><div class="days">`; open=true; curWeek=wk;}
+    h+=dayHtml(p,today);
+  });
+  if(open)h+="</div></div>";
+  $("#plan-list").innerHTML=h||'<div class="card muted">Nenhuma tarefa pendente. Muito bem!</div>';
+  $$("#plan-filter button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.f===planFilter));
+}
+function renderToday(){
+  const today=isoToday(); let p=PLAN.find(x=>x.d===today); let note="";
+  if(!p){p=PLAN.find(x=>x.d>today); note=p?"O cronograma começa em "+dLabel(p.d,true).toLowerCase()+". Já dá para adiantar as tarefas.":"";}
+  const box=$("#today-box"); if(!box) return;
+  if(!p){box.innerHTML='<span class="eyebrow">Hoje</span><h2>Dia da prova ou depois</h2><p>Boa prova, Laís! Acompanhe o gabarito preliminar em idhtec.org.br (21/12).</p>';return;}
+  box.innerHTML=`<div class="row" style="justify-content:space-between"><div><span class="eyebrow">${esc(FASES[p.f][0])}</span><h2>${p.d===today?"Hoje":"Próximo dia"} · ${dLabel(p.d,true)}</h2></div><button class="btn ghost" data-goplan="1">Ver cronograma completo</button></div>${note?`<p class="muted">${esc(note)}</p>`:""}<ul class="tasks">${p.x.map((t,j)=>taskHtml(p,t,j)).join("")}</ul>`;
+}
+function renderVert(){
+  const today=isoToday();
+  $("#vert-list").innerHTML=SUBJ.map(S=>{
+    const s=S.k; const its=VERT.filter(v=>v.s===s); const pct=k=>Math.round(100*its.filter(v=>vstate(v.id)[k]).length/its.length);
+    const rows=its.map(v=>{const st=vstate(v.id); const fd=FIRSTDATE[v.id]; const rd=REVDATE[v.id]||{};
+      const cb=(k,lab)=>`<td class="c"><input type="checkbox" aria-label="${lab}: ${esc(v.t)}" data-v="${v.id}" data-k="${k}" ${st[k]?"checked":""}></td>`;
+      const dd=x=>x?`<span class="mono">${x.slice(8,10)}/${x.slice(5,7)}</span>`:"—";
+      return `<tr class="${st.t&&st.q&&st.r1&&st.r2?"vdone":""}"><td><a href="#${v.th}" data-theory="${v.th}">${esc(v.t)}</a></td>${cb("t","Teoria")}${cb("q","Questões")}${cb("r1","Revisão 1")}${cb("r2","Revisão 2")}<td class="mono dates">${dd(fd)} · ${dd(rd.rev1)} · ${dd(rd.rev2)}</td></tr>`;}).join("");
+    return `<div class="card"><div class="row" style="justify-content:space-between"><h2>${esc(S.n)}</h2><span class="mono muted">${S.nq} questões · teoria ${pct("t")}% · rev. 2 ${pct("r2")}%</span></div><div class="bar" style="margin:8px 0 4px"><i style="width:${pct("t")}%"></i></div><p class="muted" style="margin:6px 0 0;font-size:.92rem">${esc(EDT[s])}</p><div class="tblwrap"><table class="tbl vert"><tr><th>Assunto do edital</th><th class="c">Teoria</th><th class="c">Questões</th><th class="c">Rev. 1</th><th class="c">Rev. 2</th><th>Datas planejadas<br><span class="muted" style="font-weight:400">teoria · rev. 1 · rev. 2</span></th></tr>${rows}</table></div></div>`;
+  }).join("");
+}
+function onPlanCheck(e){
+  const cb=e.target.closest("input[data-key]"); if(!cb) return;
+  store.plan[cb.dataset.key]=cb.checked;
+  const [d,j]=cb.dataset.key.split(":"); const p=PLAN.find(x=>x.d===d); const t=p&&p.x[+j];
+  if(t&&t.i&&cb.checked){const st=vstate(t.i); if(t.k==="teoria"){const left=PLAN.some(pp=>pp.x.some((tt,jj)=>tt.k==="teoria"&&tt.i===t.i&&!store.plan[pp.d+":"+jj])); if(!left){st.t=true; store.done[t.th]=true; buildToc();}} if(t.k==="rev1")st.r1=true; if(t.k==="rev2")st.r2=true;}
+  save(); renderToday(); if(!$("#p-cronograma").hidden) renderPlan();
+}
+function onPlanClick(e){
+  const a=e.target.closest("a,button"); if(!a) return;
+  if(a.dataset.theory){e.preventDefault(); const t=a.dataset.theory; showTab("teoria"); showSubj(t.split("-")[0],t); return;}
+  if(a.dataset.trainTh){e.preventDefault(); const ids=Object.values(ALL).filter(q=>q.t===a.dataset.trainTh).map(q=>q.id); showTab("simulados"); startRun({mode:"treino",ids,title:"Treino do dia"}); return;}
+  if(a.dataset.sim){e.preventDefault(); showTab("simulados"); const b=$(`[data-start="${a.dataset.sim}"]`); if(b&&!b.disabled) b.click(); return;}
+  if(a.dataset.errs){e.preventDefault(); showTab("erros"); return;}
+  if(a.dataset.goplan){showTab("cronograma"); return;}
+}
+["#p-cronograma","#p-painel"].forEach(sel=>{$(sel).addEventListener("change",onPlanCheck);$(sel).addEventListener("click",onPlanClick);});
+$("#p-edital").addEventListener("change",e=>{const cb=e.target.closest("input[data-v]"); if(!cb)return; vstate(cb.dataset.v)[cb.dataset.k]=cb.checked; save(); renderVert();});
+$("#p-edital").addEventListener("click",onPlanClick);
+$("#plan-filter").addEventListener("click",e=>{const b=e.target.closest("button[data-f]"); if(!b)return; planFilter=b.dataset.f; renderPlan(); if(planFilter!=="pendentes"){const el=document.getElementById("day-"+isoToday()); if(el) el.scrollIntoView({block:"start"});}});
+$("#plan-today").addEventListener("click",()=>{if(planFilter==="pendentes"){planFilter="tudo";renderPlan();} const el=document.getElementById("day-"+isoToday())||$(".day:not(.past)"); if(el) el.scrollIntoView({block:"start"});});
+
+// ---------- init ----------
+showSubj("esp");
+renderPerf(); renderSimHome(); renderToday();
+let startTab="painel"; try{startTab=localStorage.getItem(KEY+"tab")||"painel";}catch(e){}
+const hashTab=(location.hash||"").slice(1); if(TABS.includes(hashTab)) startTab=hashTab;
+if(!TABS.includes(startTab)) startTab="painel";
+showTab(startTab);
+if(startTab==="simulados"&&store.run&&!store.run.finished){openRun();}
+})();
+
+</script>
+</body>
+</html>
